@@ -1,0 +1,32 @@
+[
+  {
+    "id": "s00001",
+    "application": "dialogflow-webhook",
+    "host": "localhost",
+    "port": "8383"
+  },
+  {
+    "id": "s00002",
+    "application": "dialogflow-webhook",
+    "host": "localhost",
+    "port": "8384"
+  },
+  {
+    "id": "s00003",
+    "application": "dialogflow-webhook",
+    "host": "localhost",
+    "port": "8385"
+  },
+  {
+    "id": "s00004",
+    "application": "msbot-webhook",
+    "host": "msbot-1.0.perosa.com",
+    "port": "8080"
+  },
+  {
+    "id": "s00005",
+    "application": "msbot-webhook",
+    "host": "msbot-1.1.perosa.com",
+    "port": "8080"
+  }
+]

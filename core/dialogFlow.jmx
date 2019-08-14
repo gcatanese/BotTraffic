@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.0 r1840935">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp id="TestPlan.comments"></stringProp>
+      <boolProp id="TestPlan.functional_mode">false</boolProp>
+      <boolProp id="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp id="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp id="Arguments.arguments"/>
+      </elementProp>
+      <stringProp id="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="REST WS Test" enabled="true">
+        <stringProp id="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp id="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp id="LoopController.continue_forever">false</boolProp>
+          <stringProp id="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp id="ThreadGroup.num_threads">5</stringProp>
+        <stringProp id="ThreadGroup.ramp_time">1</stringProp>
+        <longProp id="ThreadGroup.start_time">1316721961000</longProp>
+        <longProp id="ThreadGroup.end_time">1316721961000</longProp>
+        <boolProp id="ThreadGroup.scheduler">false</boolProp>
+        <stringProp id="ThreadGroup.duration"></stringProp>
+        <stringProp id="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+          <elementProp id="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp id="Arguments.arguments"/>
+          </elementProp>
+          <stringProp id="HTTPSampler.domain">${server}</stringProp>
+          <stringProp id="HTTPSampler.port">${port}</stringProp>
+          <stringProp id="HTTPSampler.protocol">${protocol}</stringProp>
+          <stringProp id="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp id="HTTPSampler.path"></stringProp>
+          <stringProp id="HTTPSampler.concurrentPool">4</stringProp>
+          <stringProp id="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp id="HTTPSampler.response_timeout"></stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="true">
+          <collectionProp id="CookieManager.cookies"/>
+          <boolProp id="CookieManager.clearEachIteration">false</boolProp>
+        </CookieManager>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp id="HeaderManager.headers">
+            <elementProp id="" elementType="Header">
+              <stringProp id="Header.id">User-Agent</stringProp>
+              <stringProp id="Header.value"> Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/14.0.835.186 Safari/535.1</stringProp>
+            </elementProp>
+            <elementProp id="" elementType="Header">
+              <stringProp id="Header.id">Referer</stringProp>
+              <stringProp id="Header.value">${protocol}://${server}</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+          <boolProp id="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <id>saveConfig</id>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+            </value>
+          </objProp>
+          <stringProp id="filename"></stringProp>
+          <boolProp id="useGroupName">true</boolProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="StatGraphVisualizer" testclass="ResultCollector" testname="Aggregate Graph" enabled="true">
+          <boolProp id="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <id>saveConfig</id>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+            </value>
+          </objProp>
+          <stringProp id="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="GraphVisualizer" testclass="ResultCollector" testname="Graph Results" enabled="true">
+          <boolProp id="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <id>saveConfig</id>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+            </value>
+          </objProp>
+          <stringProp id="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="View Results in Table" enabled="true">
+          <boolProp id="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <id>saveConfig</id>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+            </value>
+          </objProp>
+          <stringProp id="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp id="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <id>saveConfig</id>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>true</xml>
+              <fieldNames>false</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+            </value>
+          </objProp>
+          <stringProp id="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+        <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Extract iTotalRecords" enabled="true">
+          <stringProp id="RegexExtractor.useHeaders">false</stringProp>
+          <stringProp id="RegexExtractor.refname">I_TOTAL_RECORDS</stringProp>
+          <stringProp id="RegexExtractor.regex">&quot;iTotalRecords&quot;:(.+?),</stringProp>
+          <stringProp id="RegexExtractor.template">$1$</stringProp>
+          <stringProp id="RegexExtractor.default">NA</stringProp>
+          <stringProp id="RegexExtractor.match_number"></stringProp>
+          <stringProp id="TestPlan.comments">Extract number of records stored on the HTML DIV totalRecordsSize (if available)</stringProp>
+        </RegexExtractor>
+        <hashTree/>
+        <BeanShellAssertion guiclass="BeanShellAssertionGui" testclass="BeanShellAssertion" testname="BeanShell - Log Request" enabled="true">
+          <stringProp id="TestPlan.comments">Log info BEFORE the request is executed</stringProp>
+          <stringProp id="BeanShellAssertion.query">  // LOG request
+  log.info(&quot;****&quot;);
+  log.info(&quot;Label-&gt; &quot; + SampleLabel);
+  log.info(&quot;URL-&gt; &quot; + SampleResult.getURL());
+</stringProp>
+          <stringProp id="BeanShellAssertion.filename"></stringProp>
+          <stringProp id="BeanShellAssertion.parameters"></stringProp>
+          <boolProp id="BeanShellAssertion.resetInterpreter">false</boolProp>
+        </BeanShellAssertion>
+        <hashTree/>
+        <BeanShellListener guiclass="TestBeanGUI" testclass="BeanShellListener" testname="BeanShell Listener -  Log Failures" enabled="true">
+          <stringProp id="TestPlan.comments">Log assertions AFTER the request is processed</stringProp>
+          <stringProp id="filename"></stringProp>
+          <stringProp id="parameters"></stringProp>
+          <boolProp id="resetInterpreter">false</boolProp>
+          <stringProp id="script">// LOG assertions which fail
+import org.apache.jmeter.assertions.AssertionResult;
+
+AssertionResult[] results = sampleResult.getAssertionResults();
+
+for(int i =0; i&lt;results.length; i++) { 
+
+	AssertionResult result = results[i];
+	
+	if (result.isError() || result.isFailure()) {
+        log.warn(&quot;ERROR-&gt; &quot; + result.getName() + &quot; ResponseCode: &quot; + ResponseCode + &quot; Error: &quot; + result.getFailureMessage());
+	}
+    
+}
+
+</stringProp>
+        </BeanShellListener>
+        <hashTree/>
+        <GenericController guiclass="LogicControllerGui" testclass="GenericController" testname="DialogFlow" enabled="true"/>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="queryText:WELCOME" enabled="true">
+            <boolProp id="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp id="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp id="Arguments.arguments">
+                <elementProp id="" elementType="HTTPArgument">
+                  <boolProp id="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp id="Argument.value">{&#xd;
+  &quot;responseId&quot;:&quot;960bddd7-bd15-450f-bb99-dbff6013f7a0&quot;,&#xd;
+  &quot;queryResult&quot;:{&#xd;
+    &quot;queryText&quot;:&quot;WELCOME&quot;,&#xd;
+    &quot;action&quot;:&quot;startConversation&quot;,&#xd;
+    &quot;parameters&quot;:{&#xd;
+      &#xd;
+    },&#xd;
+    &quot;allRequiredParamsPresent&quot;:true,&#xd;
+    &quot;fulfillmentText&quot;:&quot;Hello, welcome to our job board.&quot;,&#xd;
+    &quot;fulfillmentMessages&quot;:[&#xd;
+      {&#xd;
+        &quot;text&quot;:{&#xd;
+          &quot;text&quot;:[&#xd;
+            &quot;Hello, welcome to our job board.&quot;&#xd;
+          ]&#xd;
+        },&#xd;
+        &quot;platform&quot;:&quot;SKYPE&quot;&#xd;
+      },&#xd;
+      {&#xd;
+        &quot;text&quot;:{&#xd;
+          &quot;text&quot;:[&#xd;
+            &quot;Can I try to help with your job search?&quot;&#xd;
+          ]&#xd;
+        },&#xd;
+        &quot;platform&quot;:&quot;SKYPE&quot;&#xd;
+      },&#xd;
+      {&#xd;
+        &quot;quickReplies&quot;:{&#xd;
+          &quot;title&quot;:&quot;...&quot;,&#xd;
+          &quot;quickReplies&quot;:[&#xd;
+            &quot;Yes, why not&quot;&#xd;
+          ]&#xd;
+        },&#xd;
+        &quot;platform&quot;:&quot;SKYPE&quot;&#xd;
+      },&#xd;
+      {&#xd;
+        &quot;text&quot;:{&#xd;
+          &quot;text&quot;:[&#xd;
+            &quot;Hello, welcome to our job board.&quot;&#xd;
+          ]&#xd;
+        },&#xd;
+        &quot;platform&quot;:&quot;FACEBOOK&quot;&#xd;
+      },&#xd;
+      {&#xd;
+        &quot;text&quot;:{&#xd;
+          &quot;text&quot;:[&#xd;
+            &quot;Hello, welcome to our job board.&quot;&#xd;
+          ]&#xd;
+        }&#xd;
+      },&#xd;
+      {&#xd;
+        &quot;payload&quot;:{&#xd;
+          &quot;message&quot;:&quot;I can try to help with your job search.&quot;,&#xd;
+          &quot;platform&quot;:&quot;kommunicate&quot;,&#xd;
+          &quot;metadata&quot;:{&#xd;
+            &quot;contentType&quot;:&quot;300&quot;,&#xd;
+            &quot;templateId&quot;:&quot;6&quot;,&#xd;
+            &quot;payload&quot;:[&#xd;
+              {&#xd;
+                &quot;title&quot;:&quot;Ok&quot;,&#xd;
+                &quot;message&quot;:&quot;Ok&quot;&#xd;
+              }&#xd;
+            ]&#xd;
+          }&#xd;
+        }&#xd;
+      }&#xd;
+    ],&#xd;
+    &quot;outputContexts&quot;:[&#xd;
+      {&#xd;
+        &quot;id&quot;:&quot;projects/recruiterdev-5e3b4/agent/sessions/12349752/contexts/welcome&quot;,&#xd;
+        &quot;lifespanCount&quot;:1&#xd;
+      }&#xd;
+    ],&#xd;
+    &quot;intent&quot;:{&#xd;
+      &quot;id&quot;:&quot;projects/recruiterdev-5e3b4/agent/intents/9c4c33cf-1b5e-474f-937e-7a5dcfc910f0&quot;,&#xd;
+      &quot;displayName&quot;:&quot;Default Welcome Intent&quot;&#xd;
+    },&#xd;
+    &quot;intentDetectionConfidence&quot;:1.0,&#xd;
+    &quot;languageCode&quot;:&quot;en-us&quot;&#xd;
+  },&#xd;
+  &quot;originalDetectIntentRequest&quot;:{&#xd;
+    &quot;payload&quot;:{&#xd;
+      &#xd;
+    }&#xd;
+  },&#xd;
+  &quot;session&quot;:&quot;projects/recruiterdev-5e3b4/agent/sessions/12349752&quot;&#xd;
+} </stringProp>
+                  <stringProp id="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp id="HTTPSampler.domain"></stringProp>
+            <stringProp id="HTTPSampler.port"></stringProp>
+            <stringProp id="HTTPSampler.protocol"></stringProp>
+            <stringProp id="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp id="HTTPSampler.path">/botproxy</stringProp>
+            <stringProp id="HTTPSampler.method">POST</stringProp>
+            <boolProp id="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp id="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp id="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp id="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp id="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp id="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp id="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check Response Code" enabled="true">
+              <collectionProp id="Asserion.test_strings">
+                <stringProp id="49586">200</stringProp>
+              </collectionProp>
+              <stringProp id="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp id="Assertion.assume_success">false</boolProp>
+              <intProp id="Assertion.test_type">1</intProp>
+              <stringProp id="Assertion.custom_message"></stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="queryText:CIAO" enabled="false">
+            <boolProp id="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp id="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp id="Arguments.arguments">
+                <elementProp id="" elementType="HTTPArgument">
+                  <boolProp id="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp id="Argument.value">{&#xd;
+  &quot;responseId&quot;:&quot;960bddd7-bd15-450f-bb99-dbff6013f7a0&quot;,&#xd;
+  &quot;queryResult&quot;:{&#xd;
+    &quot;queryText&quot;:&quot;CIAO&quot;,&#xd;
+    &quot;action&quot;:&quot;startConversation&quot;,&#xd;
+    &quot;parameters&quot;:{&#xd;
+      &#xd;
+    },&#xd;
+    &quot;allRequiredParamsPresent&quot;:true,&#xd;
+    &quot;fulfillmentText&quot;:&quot;Hello, welcome to our job board.&quot;,&#xd;
+    &quot;fulfillmentMessages&quot;:[&#xd;
+      {&#xd;
+        &quot;text&quot;:{&#xd;
+          &quot;text&quot;:[&#xd;
+            &quot;Hello, welcome to our job board.&quot;&#xd;
+          ]&#xd;
+        },&#xd;
+        &quot;platform&quot;:&quot;SKYPE&quot;&#xd;
+      },&#xd;
+      {&#xd;
+        &quot;text&quot;:{&#xd;
+          &quot;text&quot;:[&#xd;
+            &quot;Can I try to help with your job search?&quot;&#xd;
+          ]&#xd;
+        },&#xd;
+        &quot;platform&quot;:&quot;SKYPE&quot;&#xd;
+      },&#xd;
+      {&#xd;
+        &quot;quickReplies&quot;:{&#xd;
+          &quot;title&quot;:&quot;...&quot;,&#xd;
+          &quot;quickReplies&quot;:[&#xd;
+            &quot;Yes, why not&quot;&#xd;
+          ]&#xd;
+        },&#xd;
+        &quot;platform&quot;:&quot;SKYPE&quot;&#xd;
+      },&#xd;
+      {&#xd;
+        &quot;text&quot;:{&#xd;
+          &quot;text&quot;:[&#xd;
+            &quot;Hello, welcome to our job board.&quot;&#xd;
+          ]&#xd;
+        },&#xd;
+        &quot;platform&quot;:&quot;FACEBOOK&quot;&#xd;
+      },&#xd;
+      {&#xd;
+        &quot;text&quot;:{&#xd;
+          &quot;text&quot;:[&#xd;
+            &quot;Hello, welcome to our job board.&quot;&#xd;
+          ]&#xd;
+        }&#xd;
+      },&#xd;
+      {&#xd;
+        &quot;payload&quot;:{&#xd;
+          &quot;message&quot;:&quot;I can try to help with your job search.&quot;,&#xd;
+          &quot;platform&quot;:&quot;kommunicate&quot;,&#xd;
+          &quot;metadata&quot;:{&#xd;
+            &quot;contentType&quot;:&quot;300&quot;,&#xd;
+            &quot;templateId&quot;:&quot;6&quot;,&#xd;
+            &quot;payload&quot;:[&#xd;
+              {&#xd;
+                &quot;title&quot;:&quot;Ok&quot;,&#xd;
+                &quot;message&quot;:&quot;Ok&quot;&#xd;
+              }&#xd;
+            ]&#xd;
+          }&#xd;
+        }&#xd;
+      }&#xd;
+    ],&#xd;
+    &quot;outputContexts&quot;:[&#xd;
+      {&#xd;
+        &quot;id&quot;:&quot;projects/recruiterdev-5e3b4/agent/sessions/12349752/contexts/welcome&quot;,&#xd;
+        &quot;lifespanCount&quot;:1&#xd;
+      }&#xd;
+    ],&#xd;
+    &quot;intent&quot;:{&#xd;
+      &quot;id&quot;:&quot;projects/recruiterdev-5e3b4/agent/intents/9c4c33cf-1b5e-474f-937e-7a5dcfc910f0&quot;,&#xd;
+      &quot;displayName&quot;:&quot;Default Welcome Intent&quot;&#xd;
+    },&#xd;
+    &quot;intentDetectionConfidence&quot;:1.0,&#xd;
+    &quot;languageCode&quot;:&quot;en-us&quot;&#xd;
+  },&#xd;
+  &quot;originalDetectIntentRequest&quot;:{&#xd;
+    &quot;payload&quot;:{&#xd;
+      &#xd;
+    }&#xd;
+  },&#xd;
+  &quot;session&quot;:&quot;projects/recruiterdev-5e3b4/agent/sessions/12349752&quot;&#xd;
+} </stringProp>
+                  <stringProp id="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp id="HTTPSampler.domain"></stringProp>
+            <stringProp id="HTTPSampler.port"></stringProp>
+            <stringProp id="HTTPSampler.protocol"></stringProp>
+            <stringProp id="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp id="HTTPSampler.path">/botproxy</stringProp>
+            <stringProp id="HTTPSampler.method">POST</stringProp>
+            <boolProp id="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp id="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp id="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp id="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp id="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp id="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp id="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="check Response Code" enabled="true">
+              <collectionProp id="Asserion.test_strings">
+                <stringProp id="49586">200</stringProp>
+              </collectionProp>
+              <stringProp id="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp id="Assertion.assume_success">false</boolProp>
+              <intProp id="Assertion.test_type">1</intProp>
+              <stringProp id="Assertion.custom_message"></stringProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
+        </hashTree>
+      </hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Server-User Details @ ECLNLINT" enabled="true">
+        <collectionProp id="Arguments.arguments">
+          <elementProp id="protocol" elementType="Argument">
+            <stringProp id="Argument.id">protocol</stringProp>
+            <stringProp id="Argument.value">${__P(protocol,http)}</stringProp>
+            <stringProp id="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp id="server" elementType="Argument">
+            <stringProp id="Argument.id">server</stringProp>
+            <stringProp id="Argument.value">${__P(server,localhost)}</stringProp>
+            <stringProp id="Argument.metadata">=</stringProp>
+          </elementProp>
+          <elementProp id="port" elementType="Argument">
+            <stringProp id="Argument.id">port</stringProp>
+            <stringProp id="Argument.value">${__P(port,8080)}</stringProp>
+            <stringProp id="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Parameters @ ECLNLINT" enabled="true">
+        <collectionProp id="Arguments.arguments">
+          <elementProp id="project.id" elementType="Argument">
+            <stringProp id="Argument.id">project.id</stringProp>
+            <stringProp id="Argument.value">${__P(project.id,100)}</stringProp>
+            <stringProp id="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
