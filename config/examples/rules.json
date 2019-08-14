@@ -1,0 +1,65 @@
+[
+  {
+    "id": "R0001",
+    "path": "/webhook1",
+    "expression": "/from/name",
+    "operator": "EQUAL_IGNORE_CASE",
+    "value": "Mr X",
+    "type": "BODY",
+    "status": "ACTIVE",
+    "targets": [
+      {
+        "id": "s00001"
+      },
+      {
+        "id": "s00002"
+      }
+    ]
+  },
+  {
+    "id": "R0002",
+    "path": "/webhook1",
+    "expression": "/from/name",
+    "operator": "EQUAL_IGNORE_CASE",
+    "value": "Mr Y",
+    "type": "BODY",
+    "status": "ACTIVE",
+    "targets": [
+      {
+        "id": "s00003"
+      }
+    ]
+  },
+  {
+    "id": "R0003",
+    "path": "/svc1",
+    "expression": "user",
+    "operator": "EQUAL_IGNORE_CASE",
+    "value": "you",
+    "type": "PARAMETER",
+    "status": "ACTIVE",
+    "targets": [
+      {
+        "id": "s00001"
+      },
+      {
+        "id": "s00002"
+      }
+    ]
+  },
+  {
+    "id": "R0004",
+    "path": "/svcx",
+    "expression": "sessionId",
+    "operator": "EQUAL_IGNORE_CASE",
+    "value": "1001",
+    "type": "PARAMETER",
+    "status": "INACTIVE",
+    "targets": [
+      {
+        "id": "s00005"
+      }
+    ]
+  }
+]
+
