@@ -1,5 +1,6 @@
 package com.perosa.bot.traffic.http.server;
 
+import com.perosa.bot.traffic.core.common.CoreConfiguration;
 import com.perosa.bot.traffic.http.server.request.GetRequest;
 import com.perosa.bot.traffic.http.server.request.PostRequest;
 import io.undertow.Undertow;
@@ -16,10 +17,13 @@ public class ReverseProxy {
     private static Undertow builder = null;
 
     public void setUp() {
+
+        final int port = new CoreConfiguration().getPort();
+
         if (builder == null) {
-            LOGGER.info("starting builder");
+            LOGGER.info("listening on port " + port);
             builder = Undertow.builder()
-                    .addHttpListener(8081, "localhost")
+                    .addHttpListener(port, "localhost")
                     .setHandler(new HttpHandler() {
                         @Override
                         public void handleRequest(HttpServerExchange exchange) throws Exception {
@@ -45,7 +49,5 @@ public class ReverseProxy {
             LOGGER.error("Cannot handle " + exchange.getRequestMethod());
         }
     }
-
-
 
 }
