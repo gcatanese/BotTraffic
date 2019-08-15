@@ -14,6 +14,10 @@ public class Counters {
 
     static Map<String, Counter> counters = new HashMap<>();
 
+    static Counter requests = Counter.build()
+                     .name("requests_total").help("Total requests.")
+          .labelNames("method").register();
+
     public void increaseSuccess(String url) {
         increase(getName(url) + "_success");
     }
@@ -33,15 +37,16 @@ public class Counters {
 
         LOGGER.info("increaseCounter " + name);
 
-        Counter counter = counters.get(name);
+//        Counter counter = counters.get(name);
+//
+//        if(counter == null) {
+//            counter = Counter.build()
+//                    .name(name)
+//                    .help(name).register();
+//        }
 
-        if(counter == null) {
-            counter = Counter.build()
-                    .name(name)
-                    .help(name).register();
-            counters.put(name, counter);
-        }
+        //counter.inc();
 
-        counter.inc();
+        requests.inc();
     }
 }
