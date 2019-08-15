@@ -21,7 +21,7 @@ public class ReverseProxyTest {
 
     }
 
-    @Test
+    //@Test
     public void test() throws Exception {
 
         String url = "http://localhost:8081";
@@ -51,7 +51,7 @@ public class ReverseProxyTest {
             headerMap.put("Content-Type", "application/json");
             headerMap.put("Transfer-Encoding", "chunked");
 
-            clientResponse = lightRestClient.get(url, "svc1",
+            clientResponse = lightRestClient.get(url, "/svc1?a=1",
                     ClientResponse.class, headerMap);
 
 
