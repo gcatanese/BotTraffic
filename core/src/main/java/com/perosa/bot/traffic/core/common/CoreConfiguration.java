@@ -21,4 +21,15 @@ public class CoreConfiguration {
         return home;
     }
 
+    public int getPort() {
+        String port = System.getProperty("bt.port");
+
+        if(port == null || port.isEmpty()) {
+            port = "8081";
+        }
+
+        return Integer.valueOf(port);
+    }
+
+
 }
