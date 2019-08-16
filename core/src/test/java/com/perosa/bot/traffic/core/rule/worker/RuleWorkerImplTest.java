@@ -20,7 +20,14 @@ public class RuleWorkerImplTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RuleWorkerImplTest.class);
 
+    @Test
+    public void validate() {
 
+        Assertions.assertThrows(RuntimeException.class, () -> {
+            BotProxyRequest botProxyRequest = new BotProxyRequest();
+            new RuleWorkerImpl(botProxyRequest).validate();
+        });
+    }
 
     @Test
     public void findEligigleTargets() {
