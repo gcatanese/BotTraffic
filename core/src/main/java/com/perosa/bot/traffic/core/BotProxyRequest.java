@@ -38,10 +38,6 @@ public class BotProxyRequest {
         this.headers = headers;
     }
 
-    public void addHeader(String key, String val) {
-        this.headers.put(key, val);
-    }
-
     public Map<String, String[]> getParameters() {
         return parameters;
     }

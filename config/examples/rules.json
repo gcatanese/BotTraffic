@@ -1,10 +1,10 @@
 [
   {
     "id": "R0001",
-    "path": "/webhook1",
+    "path": "/svc1",
     "expression": "/from/name",
     "operator": "EQUAL_IGNORE_CASE",
-    "value": "Mr X",
+    "value": "User",
     "type": "BODY",
     "status": "ACTIVE",
     "targets": [
@@ -18,15 +18,15 @@
   },
   {
     "id": "R0002",
-    "path": "/webhook1",
-    "expression": "/from/name",
+    "path": "/svc2",
+    "expression": "User-Agent",
     "operator": "EQUAL_IGNORE_CASE",
-    "value": "Mr Y",
-    "type": "BODY",
+    "value": "PROXY",
+    "type": "HEADER",
     "status": "ACTIVE",
     "targets": [
       {
-        "id": "s00003"
+        "id": "s00001"
       }
     ]
   },
