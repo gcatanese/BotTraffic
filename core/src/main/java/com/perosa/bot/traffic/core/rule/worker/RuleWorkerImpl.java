@@ -41,7 +41,7 @@ public class RuleWorkerImpl implements RuleWorker {
 
         Consumable consumable = null;
 
-        validate(request);
+        validate();
 
         List<Rule> rules = getPool(getRequestedPath());
 
@@ -94,9 +94,9 @@ public class RuleWorkerImpl implements RuleWorker {
         return consumableService;
     }
 
-    void validate(BotProxyRequest request) {
+    void validate() {
 
-        if (request.getUrl() == null) {
+        if (this.request.getUrl() == null) {
             throw new RuntimeException("Url is undefined");
         }
 
