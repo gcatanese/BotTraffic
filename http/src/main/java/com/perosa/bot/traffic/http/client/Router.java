@@ -1,16 +1,14 @@
 package com.perosa.bot.traffic.http.client;
 
+import com.networknt.client.rest.LightRestClient;
+import com.perosa.bot.traffic.core.common.UrlHelper;
 import com.perosa.bot.traffic.http.client.wrap.Get;
 import com.perosa.bot.traffic.http.client.wrap.Post;
 import com.perosa.bot.traffic.http.event.EventManager;
 import com.perosa.bot.traffic.http.event.type.prometheus.PrometheusEvent;
-import com.networknt.client.rest.LightRestClient;
 import io.undertow.client.ClientResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Router {
 
@@ -20,6 +18,8 @@ public class Router {
 
         ClientResponse clientResponse = null;
 
+        long start = System.currentTimeMillis();
+
         try {
 
             LightRestClient lightRestClient = new LightRestClient();
@@ -27,7 +27,9 @@ public class Router {
             clientResponse = lightRestClient.get(input.getUrl(), input.getPath(),
                     ClientResponse.class, input.getHeaders());
 
-            sendEvent(clientResponse, input.getUrl(), input.getPath());
+            long end = System.currentTimeMillis();
+
+            sendEvent(clientResponse, input.getUrl(), end - start);
 
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
@@ -42,6 +44,8 @@ public class Router {
 
         ClientResponse clientResponse = null;
 
+        long start = System.currentTimeMillis();
+
         try {
 
             LightRestClient lightRestClient = new LightRestClient();
@@ -49,7 +53,9 @@ public class Router {
             clientResponse = lightRestClient.post(input.getUrl(), input.getPath(),
                     ClientResponse.class, input.getHeaders(), input.getBody());
 
-            sendEvent(clientResponse, input.getUrl(), input.getPath());
+            long end = System.currentTimeMillis();
+
+            sendEvent(clientResponse, input.getUrl(), end - start);
 
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
@@ -60,16 +66,28 @@ public class Router {
 
     }
 
-    void sendEvent(ClientResponse clientResponse, String url, String path) {
-
-        url = url + path;
+    void sendEvent(ClientResponse clientResponse, String url, long duration) {
 
         PrometheusEvent event = new PrometheusEvent();
-        event.setUrl(url);
+        event.setUrl(sanitize(url));
         event.setResponseCode(clientResponse.getResponseCode());
+        event.setDuration(duration);
+
+        String length = clientResponse.getResponseHeaders().getFirst("Content-Length");
+        if (length != null) {
+            event.setResponseSize(Double.valueOf(length));
+        }
 
         EventManager.sendEvent(event);
 
+    }
+
+    String sanitize(String url) {
+
+        UrlHelper urlHelper = new UrlHelper();
+        url = url.replace(urlHelper.getScheme(url) + "://", "");
+
+        return url;
     }
 
 }

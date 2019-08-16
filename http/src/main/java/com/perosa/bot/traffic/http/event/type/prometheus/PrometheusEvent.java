@@ -6,6 +6,8 @@ public class PrometheusEvent extends Event {
 
     private String url;
     private int responseCode;
+    private double responseSize;
+    private long duration;
 
     public PrometheusEvent() {
         super("prometheus");
@@ -25,5 +27,21 @@ public class PrometheusEvent extends Event {
 
     public void setResponseCode(int responseCode) {
         this.responseCode = responseCode;
+    }
+
+    public double getResponseSize() {
+        return responseSize;
+    }
+
+    public void setResponseSize(double responseSize) {
+        this.responseSize = responseSize;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 }
