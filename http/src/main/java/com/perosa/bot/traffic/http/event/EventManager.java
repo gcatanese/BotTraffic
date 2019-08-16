@@ -32,8 +32,8 @@ public class EventManager {
     }
 
     public static void sendEvent(Event event) {
-        LOGGER.debug("sendEvent " + event);
-        bus.post(event).asynchronously();
+        //LOGGER.debug("sendEvent " + event);
+        //bus.post(event).asynchronously();
     }
 }
 
