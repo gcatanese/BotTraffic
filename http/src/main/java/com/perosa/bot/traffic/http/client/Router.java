@@ -24,12 +24,8 @@ public class Router {
 
             LightRestClient lightRestClient = new LightRestClient();
 
-            Map<String, String> headerMap = new HashMap<>();
-            headerMap.put("Content-Type", "application/json");
-            headerMap.put("Transfer-Encoding", "chunked");
-
             clientResponse = lightRestClient.get(input.getUrl(), input.getPath(),
-                    ClientResponse.class, headerMap);
+                    ClientResponse.class, input.getHeaders());
 
             sendEvent(clientResponse, input.getUrl(), input.getPath());
 
