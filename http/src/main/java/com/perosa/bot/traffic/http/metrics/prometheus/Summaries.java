@@ -1,6 +1,5 @@
 package com.perosa.bot.traffic.http.metrics.prometheus;
 
-import io.prometheus.client.Counter;
 import io.prometheus.client.Summary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
