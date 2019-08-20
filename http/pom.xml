@@ -9,7 +9,7 @@
         <artifactId>botTraffic</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-	
+
     <artifactId>bot-traffic-http</artifactId>
 
     <name>http</name>
@@ -110,6 +110,37 @@
                         <bt.home>src/test/resources/</bt.home>
                     </systemPropertyVariables>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.0</version>
+
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>
+                                        com.perosa.App
+                                    </mainClass>
+                                </transformer>
+                            </transformers>
+                            <createDependencyReducedPom>
+                                false
+                            </createDependencyReducedPom>
+                        </configuration>
+
+                    </execution>
+
+                </executions>
+
             </plugin>
 
         </plugins>
