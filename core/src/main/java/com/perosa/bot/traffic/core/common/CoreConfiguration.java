@@ -11,12 +11,13 @@ public class CoreConfiguration {
         String home = System.getProperty("bt.home");
 
         if (home == null || home.isEmpty()) {
-            home = "";
-        } else {
-            if (!home.endsWith("/")) {
-                home = home + "/";
-            }
+            home = "./";
         }
+
+        if (!home.endsWith("/")) {
+            home = home + "/";
+        }
+
 
         return home;
     }
