@@ -1,6 +1,7 @@
 package com.perosa.bot.traffic.http.metrics.prometheus;
 
 import com.networknt.metrics.prometheus.PrometheusGetHandler;
+import com.perosa.bot.traffic.core.common.CoreConfiguration;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
@@ -15,11 +16,14 @@ public class MetricsHandler {
     private static Undertow builder = null;
 
     public void setUp() {
+
+        final int port = new CoreConfiguration().getMetricsHandlerPort();
+
         if (builder == null) {
-            LOGGER.info("starting MetricsHandler");
+            LOGGER.info("starting MetricsHandler on port " + port);
 
             builder = Undertow.builder()
-                    .addHttpListener(8082, "localhost")
+                    .addHttpListener(port, "localhost")
                     .setHandler(getHttpHandler())
                     .build();
 
