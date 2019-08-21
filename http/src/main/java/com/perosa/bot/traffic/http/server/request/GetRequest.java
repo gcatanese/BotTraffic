@@ -18,13 +18,15 @@ public class GetRequest extends ParentRequest implements Request {
 
     public void handle(HttpServerExchange exchange) {
 
+        Get get = null;
+
         try {
 
             BotProxyRequest request = initBotProxyRequest(exchange);
 
             Consumable consumable = new RuleWorkerImpl(request).process();
 
-            Get get = initGet(consumable, request);
+            get = initGet(consumable, request);
 
             ClientResponse clientResponse = new Router().get(get);
 
@@ -34,7 +36,11 @@ public class GetRequest extends ParentRequest implements Request {
             exchange.getResponseSender().send(clientResponseAsString);
 
         } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
+            if (e instanceof com.networknt.client.rest.RestClientException) {
+                LOGGER.error("Error invoking " + get.toString() + " ->" + e.getMessage());
+            } else {
+                LOGGER.error(e.getMessage(), e);
+            }
         }
 
     }
@@ -60,8 +66,6 @@ public class GetRequest extends ParentRequest implements Request {
         if (!request.getParameters().isEmpty()) {
             get.setParameters(request.getParameters());
         }
-
-        LOGGER.debug(get.toString());
 
         return get;
     }

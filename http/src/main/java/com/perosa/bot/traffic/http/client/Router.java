@@ -20,20 +20,14 @@ public class Router {
 
         long start = System.currentTimeMillis();
 
-        try {
+        LightRestClient lightRestClient = new LightRestClient();
 
-            LightRestClient lightRestClient = new LightRestClient();
+        clientResponse = lightRestClient.get(input.getUrl(), input.getPath(),
+                ClientResponse.class, input.getHeaders());
 
-            clientResponse = lightRestClient.get(input.getUrl(), input.getPath(),
-                    ClientResponse.class, input.getHeaders());
+        long end = System.currentTimeMillis();
 
-            long end = System.currentTimeMillis();
-
-            sendEvent(clientResponse, input.getUrl(), end - start);
-
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-        }
+        sendEvent(clientResponse, input.getUrl(), end - start);
 
         LOGGER.info("clientResponse: " + clientResponse);
         return clientResponse;
@@ -46,20 +40,14 @@ public class Router {
 
         long start = System.currentTimeMillis();
 
-        try {
+        LightRestClient lightRestClient = new LightRestClient();
 
-            LightRestClient lightRestClient = new LightRestClient();
+        clientResponse = lightRestClient.post(input.getUrl(), input.getPath(),
+                ClientResponse.class, input.getHeaders(), input.getBody());
 
-            clientResponse = lightRestClient.post(input.getUrl(), input.getPath(),
-                    ClientResponse.class, input.getHeaders(), input.getBody());
+        long end = System.currentTimeMillis();
 
-            long end = System.currentTimeMillis();
-
-            sendEvent(clientResponse, input.getUrl(), end - start);
-
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-        }
+        sendEvent(clientResponse, input.getUrl(), end - start);
 
         LOGGER.info("clientResponse: " + clientResponse);
         return clientResponse;
