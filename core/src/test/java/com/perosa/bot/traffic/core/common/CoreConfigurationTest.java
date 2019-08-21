@@ -11,6 +11,11 @@ public class CoreConfigurationTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(CoreConfigurationTest.class);
 
     @Test
+    void getPort() {
+        assertEquals(8886, new CoreConfiguration().getPort());
+    }
+
+    @Test
     void getHome() {
         assertEquals("src/test/resources/", new CoreConfiguration().getHome());
     }

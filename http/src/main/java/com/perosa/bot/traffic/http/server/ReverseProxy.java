@@ -22,7 +22,7 @@ public class ReverseProxy {
         final String home = new CoreConfiguration().getHome();
 
         if (builder == null) {
-            LOGGER.info("listening on port " + port + "(bt.home: " + home + ")");
+            LOGGER.info("listening on port " + port + " (bt.home: " + home + ")");
             builder = Undertow.builder()
                     .addHttpListener(port, "localhost")
                     .setHandler(new HttpHandler() {
