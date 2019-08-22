@@ -11,7 +11,7 @@ public class CoreConfiguration {
         String home = System.getProperty("bt.home");
 
         if (home == null || home.isEmpty()) {
-            home = "./";
+            home = "config/";
         }
 
         if (!home.endsWith("/")) {
