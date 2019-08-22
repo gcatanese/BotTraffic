@@ -18,24 +18,32 @@ public class ReverseProxy {
 
     public void setUp() {
 
+        final String host = "0.0.0.0";
         final int port = new CoreConfiguration().getPort();
         final String home = new CoreConfiguration().getHome();
 
-        if (builder == null) {
-            LOGGER.info("listening on port " + port + " (bt.home: " + home + ")");
-            builder = Undertow.builder()
-                    .addHttpListener(port, "localhost")
-                    .setHandler(new HttpHandler() {
-                        @Override
-                        public void handleRequest(HttpServerExchange exchange) throws Exception {
-                            LOGGER.debug("Incoming " + exchange.getRequestURL());
-                            doHandleRequest(exchange);
-                        }
-                    })
-                    .build();
+        try {
 
-            builder.start();
+            if (builder == null) {
+                LOGGER.info("listening on port " + port + " (bt.home: " + home + ")");
 
+                builder = Undertow.builder()
+                        .addHttpListener(port, host)
+                        .setHandler(new HttpHandler() {
+                            @Override
+                            public void handleRequest(HttpServerExchange exchange) throws Exception {
+                                LOGGER.debug("Incoming " + exchange.getRequestURL());
+                                doHandleRequest(exchange);
+                            }
+                        })
+                        .build();
+
+                builder.start();
+
+            }
+
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

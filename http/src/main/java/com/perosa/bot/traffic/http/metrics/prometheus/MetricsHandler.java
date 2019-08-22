@@ -17,13 +17,14 @@ public class MetricsHandler {
 
     public void setUp() {
 
+        final String host = "0.0.0.0";
         final int port = new CoreConfiguration().getMetricsHandlerPort();
 
         if (builder == null) {
             LOGGER.info("starting MetricsHandler on port " + port);
 
             builder = Undertow.builder()
-                    .addHttpListener(port, "localhost")
+                    .addHttpListener(port, host)
                     .setHandler(getHttpHandler())
                     .build();
 
