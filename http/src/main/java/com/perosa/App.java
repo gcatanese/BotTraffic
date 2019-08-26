@@ -1,9 +1,10 @@
 package com.perosa;
 
 
-import com.perosa.bot.traffic.core.rule.registry.watch.RuleRegistryFileWatcher;
 import com.perosa.bot.traffic.core.rule.registry.watch.RuleRegistryWatcher;
-import com.perosa.bot.traffic.core.service.registry.ServiceRegistryWatcher;
+import com.perosa.bot.traffic.core.service.registry.ServiceRegistry;
+import com.perosa.bot.traffic.core.service.registry.watch.ServiceRegistryFileWatcher;
+import com.perosa.bot.traffic.core.service.registry.watch.ServiceRegistryWatcher;
 import com.perosa.bot.traffic.http.metrics.prometheus.MetricsHandler;
 import com.perosa.bot.traffic.http.server.ReverseProxy;
 import io.prometheus.client.hotspot.DefaultExports;
@@ -25,7 +26,7 @@ public class App {
         new MetricsHandler().setUp();
 
         RuleRegistryWatcher.init();
-        new ServiceRegistryWatcher().init();
+        ServiceRegistryWatcher.init();
 
         LOGGER.info("App is up!");
 
