@@ -1,23 +1,20 @@
-package com.perosa.bot.traffic.core.service.registry;
+package com.perosa.bot.traffic.core.service.registry.watch;
 
+import com.perosa.bot.traffic.core.service.registry.ServiceRegistry;
+import com.perosa.bot.traffic.core.service.registry.ServiceRegistryLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.*;
 
-public class ServiceRegistryWatcher {
+public class ServiceRegistryFileWatcher implements ServiceRegistryWatcher {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceRegistryWatcher.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ServiceRegistryFileWatcher.class);
 
-    {
-        init();
-    }
+    @Override
+    public void startWatch() {
 
-    public void init() {
-        startWatch(ServiceRegistry.getLocation());
-    }
-
-    public void startWatch(String filename) {
+        String filename = ServiceRegistry.getLocation();
 
         try {
             watch(filename);
@@ -27,8 +24,6 @@ public class ServiceRegistryWatcher {
     }
 
     void watch(String filename) throws Exception {
-
-        LOGGER.info("Watching " + filename);
 
         Path file = Paths.get(filename);
         Path folder = file.getParent();
