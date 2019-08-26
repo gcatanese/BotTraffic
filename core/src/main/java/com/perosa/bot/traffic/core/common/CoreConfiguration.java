@@ -42,4 +42,21 @@ public class CoreConfiguration {
         return Integer.valueOf(port);
     }
 
+    public boolean isThreadWatch() {
+        String watch = System.getProperty("bt.watch");
+
+        return (watch !=null && watch.equalsIgnoreCase("thread"));
+    }
+
+    public int getThreadWatchInterval() {
+        String interval = System.getProperty("bt.watchinterval");
+
+        if (interval == null || interval.isEmpty()) {
+            interval = "5000";
+        }
+
+        return Integer.valueOf(interval);
+    }
+
+
 }
