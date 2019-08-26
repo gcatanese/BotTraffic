@@ -16,9 +16,11 @@ In a nutshell:
 
 ## Deploy 
 
+```
 docker login
-docker pull perosa/bottraffic:latest
+docker pull perosa/bottraffic
 docker run -p 8080:8886 -v /config:/software/config perosa/bottraffic:latest
+```
 
 ## How to use it
 
