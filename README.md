@@ -24,9 +24,8 @@ docker run -p 8080:8886 -v /config:/software/config perosa/bottraffic
 
 ## How to use it
 
-Customize config/service.json to define Webhooks endpoints
-Customize config/rules.json to define routing rules
-
+* Customize config/service.json to define Webhooks endpoints
+* Customize config/rules.json to define routing rules
 
 
 ## Coming soon
