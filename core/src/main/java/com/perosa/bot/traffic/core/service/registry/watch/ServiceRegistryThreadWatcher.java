@@ -16,8 +16,6 @@ public class ServiceRegistryThreadWatcher implements ServiceRegistryWatcher {
     @Override
     public void startWatch() {
 
-        String filename = ServiceRegistry.getLocation();
-
         TimerTask task = new TimerTask() {
             public void run() {
                 doAction();

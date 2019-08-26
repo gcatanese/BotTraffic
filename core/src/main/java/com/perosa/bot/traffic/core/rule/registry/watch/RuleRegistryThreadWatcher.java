@@ -6,7 +6,6 @@ import com.perosa.bot.traffic.core.rule.registry.RuleRegistryLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.nio.file.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,8 +15,6 @@ public class RuleRegistryThreadWatcher implements RuleRegistryWatcher {
 
     @Override
     public void startWatch() {
-
-        String filename = RuleRegistry.getLocation();
 
         TimerTask task = new TimerTask() {
             public void run() {
