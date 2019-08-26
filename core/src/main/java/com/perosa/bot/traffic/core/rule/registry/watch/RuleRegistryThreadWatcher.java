@@ -17,6 +17,8 @@ public class RuleRegistryThreadWatcher implements RuleRegistryWatcher {
     @Override
     public void startWatch() {
 
+        String filename = RuleRegistry.getLocation();
+
         TimerTask task = new TimerTask() {
             public void run() {
                 doAction();

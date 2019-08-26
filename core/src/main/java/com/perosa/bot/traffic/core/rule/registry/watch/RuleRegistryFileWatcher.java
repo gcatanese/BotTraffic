@@ -2,29 +2,38 @@ package com.perosa.bot.traffic.core.rule.registry.watch;
 
 import com.perosa.bot.traffic.core.rule.registry.RuleRegistry;
 import com.perosa.bot.traffic.core.rule.registry.RuleRegistryLoader;
+import com.perosa.bot.traffic.core.service.registry.ServiceRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.nio.file.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class RuleRegistryFileWatcher implements RuleRegistryWatcher {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RuleRegistryFileWatcher.class);
 
-
     @Override
     public void startWatch() {
 
-        String filename = RuleRegistry.getLocation();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        executor.submit(() -> {
 
-        try {
-            watch(filename);
-        } catch (Exception e) {
-            LOGGER.info(e.getMessage(), e);
-        }
+            String filename = RuleRegistry.getLocation();
+
+            try {
+                watch(filename);
+            } catch (Exception e) {
+                LOGGER.info(e.getMessage(), e);
+            }
+
+        });
     }
 
     void watch(String filename) throws Exception {
+
+        LOGGER.debug("Watching " + filename);
 
         Path file = Paths.get(filename);
         Path folder = file.getParent();
