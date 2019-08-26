@@ -6,21 +6,21 @@ public enum Operator {
     public boolean apply(String input, String expected) {
         boolean ret = false;
 
-        if(this.equals(Operator.EQUAL)) {
+        if (this.equals(Operator.EQUAL)) {
             ret = input.equals(expected);
-        } else if(this.equals(Operator.NOT_EQUAL)) {
+        } else if (this.equals(Operator.NOT_EQUAL)) {
             ret = !input.equals(expected);
-        } else if(this.equals(Operator.EQUAL_IGNORE_CASE)) {
+        } else if (this.equals(Operator.EQUAL_IGNORE_CASE)) {
             ret = input.equalsIgnoreCase(expected);
-        }else if(this.equals(Operator.CONTAIN)) {
+        } else if (this.equals(Operator.CONTAIN)) {
             ret = input.contains(expected);
-        }else if(this.equals(Operator.START_WITH)) {
+        } else if (this.equals(Operator.START_WITH)) {
             ret = input.startsWith(expected);
-        } else if(this.equals(Operator.END_WITH)) {
+        } else if (this.equals(Operator.END_WITH)) {
             ret = input.endsWith(expected);
         }
 
-        return  ret;
+        return ret;
     }
 
 }
