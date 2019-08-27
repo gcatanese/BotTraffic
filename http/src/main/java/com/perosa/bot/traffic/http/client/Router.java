@@ -47,9 +47,7 @@ public class Router {
 
         long end = System.currentTimeMillis();
 
-        if (clientResponse != null) {
             sendEvent(clientResponse, input.getUrl(), end - start);
-        }
 
         LOGGER.info("clientResponse: " + clientResponse);
         return clientResponse;
@@ -57,6 +55,10 @@ public class Router {
     }
 
     void sendEvent(ClientResponse clientResponse, String url, long duration) {
+
+        if (clientResponse == null) {
+            throw new  RuntimeException("Empty ClientResponse");
+        }
 
         PrometheusEvent event = new PrometheusEvent();
         event.setUrl(sanitize(url));
