@@ -27,7 +27,7 @@ public class Router {
 
         long end = System.currentTimeMillis();
 
-        sendEvent(clientResponse, input.getUrl(), end - start);
+        //sendEvent(clientResponse, input.getUrl(), end - start);
 
         LOGGER.info("clientResponse: " + clientResponse);
         return clientResponse;
@@ -47,7 +47,7 @@ public class Router {
 
         long end = System.currentTimeMillis();
 
-            sendEvent(clientResponse, input.getUrl(), end - start);
+        //sendEvent(clientResponse, input.getUrl(), end - start);
 
         LOGGER.info("clientResponse: " + clientResponse);
         return clientResponse;
