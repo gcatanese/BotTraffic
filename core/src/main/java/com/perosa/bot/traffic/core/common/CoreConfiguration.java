@@ -26,8 +26,13 @@ public class CoreConfiguration {
         String port = System.getProperty("bt.port");
 
         if (port == null || port.isEmpty()) {
+            port = System.getenv("PORT");
+        }
+
+        if (port == null || port.isEmpty()) {
             port = "8886";
         }
+
 
         return Integer.valueOf(port);
     }
