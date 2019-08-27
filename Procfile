@@ -1,0 +1,1 @@
+web: java $JAVA_OPTS -jar  http/target/bot-traffic-http.jar
