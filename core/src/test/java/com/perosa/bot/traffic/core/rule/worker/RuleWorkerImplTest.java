@@ -116,7 +116,7 @@ public class RuleWorkerImplTest {
 
         assertEquals("ds.perosa.com", consumable.getHost());
         assertEquals(8383, consumable.getPort());
-        assertEquals("https://ds.perosa.com:8383/webhook/a/b?user=me", consumable.getUrl());
+        assertEquals("http://ds.perosa.com:8383/webhook/a/b?user=me", consumable.getUrl());
     }
 
     @Test
@@ -130,7 +130,7 @@ public class RuleWorkerImplTest {
 
         assertEquals("ds.perosa.com", consumable.getHost());
         assertEquals(80, consumable.getPort());
-        assertEquals("https://ds.perosa.com/webhook/a/b?user=me", consumable.getUrl());
+        assertEquals("http://ds.perosa.com/webhook/a/b?user=me", consumable.getUrl());
     }
 
 

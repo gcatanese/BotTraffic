@@ -1,6 +1,7 @@
 package com.perosa.bot.traffic.core.rule.worker;
 
 import com.perosa.bot.traffic.core.BotProxyRequest;
+import com.perosa.bot.traffic.core.common.CoreConfiguration;
 import com.perosa.bot.traffic.core.common.UrlHelper;
 import com.perosa.bot.traffic.core.rule.Rule;
 import com.perosa.bot.traffic.core.rule.RuleStatus;
@@ -29,11 +30,14 @@ public class RuleWorkerImpl implements RuleWorker {
 
     private Strategy strategy;
 
+    private String scheme;
+
     public RuleWorkerImpl(BotProxyRequest request) {
         this.strategy = new ServicePerRuleStrategy();
         this.urlHelper = new UrlHelper();
         this.request = request;
         this.ruleAnalyzer = new RuleAnalyzer(request);
+        this.scheme = new CoreConfiguration().getScheme();
     }
 
     @Override
@@ -80,7 +84,7 @@ public class RuleWorkerImpl implements RuleWorker {
     Consumable prepareConsumable(Consumable consumable, BotProxyRequest request) {
 
         ConsumableService consumableService = (ConsumableService) consumable;
-        consumableService.setUrl(getRequestedScheme() + "://" + consumable.getHost()
+        consumableService.setUrl(getScheme() + "://" + consumable.getHost()
                 + (consumable.getPort() == 80 ? "" : ":" + consumable.getPort())
                 + getRequestedPath() + getRequestedQueryString());
 
@@ -140,10 +144,6 @@ public class RuleWorkerImpl implements RuleWorker {
         return getUrlHelper().getQueryString(getRequest().getUrl());
     }
 
-    private String getRequestedScheme() {
-        return getUrlHelper().getScheme(getRequest().getUrl());
-    }
-
     public BotProxyRequest getRequest() {
         return request;
     }
@@ -174,5 +174,13 @@ public class RuleWorkerImpl implements RuleWorker {
 
     public void setStrategy(Strategy strategy) {
         this.strategy = strategy;
+    }
+
+    public String getScheme() {
+        return scheme;
+    }
+
+    public void setScheme(String scheme) {
+        this.scheme = scheme;
     }
 }

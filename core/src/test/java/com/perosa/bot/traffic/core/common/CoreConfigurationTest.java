@@ -20,5 +20,10 @@ public class CoreConfigurationTest {
         assertEquals("src/test/resources/", new CoreConfiguration().getHome());
     }
 
+    @Test
+    void getScheme() {
+        assertEquals("http", new CoreConfiguration().getScheme());
+    }
+
 
 }
