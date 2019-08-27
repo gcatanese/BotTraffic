@@ -1,9 +1,9 @@
 [
   {
     "id": "s00001",
-    "application": "dialogflow-webhook",
-    "host": "localhost",
-    "port": "8383"
+    "application": "downstreamservice",
+    "host": "downstreamservice.herokuapp.com",
+    "port": "80"
   },
   {
     "id": "s00002",
