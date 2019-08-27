@@ -60,7 +60,7 @@ public class RuleWorkerImpl implements RuleWorker {
             }
         }
 
-        if(consumable == null) {
+        if (consumable == null) {
             LOGGER.warn("No matching rule for path " + getRequestedPath());
             consumable = prepareConsumableWithRequestedUrl(getRequest());
         }
@@ -78,9 +78,11 @@ public class RuleWorkerImpl implements RuleWorker {
     }
 
     Consumable prepareConsumable(Consumable consumable, BotProxyRequest request) {
+
         ConsumableService consumableService = (ConsumableService) consumable;
-        consumableService.setUrl(getRequestedScheme() + "://" + consumable.getHost() + ":"
-                + consumable.getPort() + getRequestedPath() + getRequestedQueryString());
+        consumableService.setUrl(getRequestedScheme() + "://" + consumable.getHost()
+                + (consumable.getPort() == 80 ? "" : ":" + consumable.getPort())
+                + getRequestedPath() + getRequestedQueryString());
 
         return consumableService;
     }

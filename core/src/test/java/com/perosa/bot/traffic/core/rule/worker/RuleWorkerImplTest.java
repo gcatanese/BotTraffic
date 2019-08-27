@@ -100,7 +100,7 @@ public class RuleWorkerImplTest {
         Consumable consumable = new RuleWorkerImpl(botProxyRequest).fetchFromRegistry("s00001");
 
         assertNotNull(consumable);
-        assertEquals("localhost", consumable.getHost());
+        assertEquals("ds.perosa.com", consumable.getHost());
         assertEquals(8383, consumable.getPort());
     }
 
@@ -114,9 +114,25 @@ public class RuleWorkerImplTest {
 
         consumable = new RuleWorkerImpl(botProxyRequest).prepareConsumable(consumable, botProxyRequest);
 
-        assertEquals("localhost", consumable.getHost());
-        assertEquals("https://localhost:8383/webhook/a/b?user=me", consumable.getUrl());
+        assertEquals("ds.perosa.com", consumable.getHost());
+        assertEquals(8383, consumable.getPort());
+        assertEquals("https://ds.perosa.com:8383/webhook/a/b?user=me", consumable.getUrl());
     }
+
+    @Test
+    public void prepareOutputPort80() {
+
+        BotProxyRequest botProxyRequest = new BotProxyRequest();
+        botProxyRequest.setUrl("https://127.0.0.1/webhook/a/b?user=me");
+        Consumable consumable = new RuleWorkerImpl(botProxyRequest).fetchFromRegistry("s00002");
+
+        consumable = new RuleWorkerImpl(botProxyRequest).prepareConsumable(consumable, botProxyRequest);
+
+        assertEquals("ds.perosa.com", consumable.getHost());
+        assertEquals(80, consumable.getPort());
+        assertEquals("https://ds.perosa.com/webhook/a/b?user=me", consumable.getUrl());
+    }
+
 
     private String getJsonBody() {
         return "{\n" +
