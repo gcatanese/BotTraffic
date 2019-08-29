@@ -133,6 +133,20 @@ public class RuleWorkerImplTest {
         assertEquals("http://ds.perosa.com/webhook/a/b?user=me", consumable.getUrl());
     }
 
+    @Test
+    public void prepareOutputPort443() {
+
+        BotProxyRequest botProxyRequest = new BotProxyRequest();
+        botProxyRequest.setUrl("https://127.0.0.1/webhook/a/b?user=me");
+        Consumable consumable = new RuleWorkerImpl(botProxyRequest).fetchFromRegistry("s00003");
+
+        consumable = new RuleWorkerImpl(botProxyRequest).prepareConsumable(consumable, botProxyRequest);
+
+        assertEquals("ds.perosa.com", consumable.getHost());
+        assertEquals(443, consumable.getPort());
+        assertEquals("https://ds.perosa.com/webhook/a/b?user=me", consumable.getUrl());
+    }
+
 
     private String getJsonBody() {
         return "{\n" +

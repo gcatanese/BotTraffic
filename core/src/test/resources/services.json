@@ -13,9 +13,9 @@
   },
   {
     "id": "s00003",
-    "application": "dialogflow-webhook",
-    "host": "localhost",
-    "port": "8385"
+    "application": "dialogflow-webhook-v2",
+    "host": "ds.perosa.com",
+    "port": "443"
   },
   {
     "id": "s00004",
