@@ -3,7 +3,7 @@
     "id": "s00001",
     "application": "downstreamservice",
     "host": "downstreamservice.herokuapp.com",
-    "port": "80"
+    "port": "443"
   },
   {
     "id": "s00002",
