@@ -1,6 +1,5 @@
 package com.perosa.bot.traffic.http.client;
 
-import com.networknt.client.rest.LightRestClient;
 import com.perosa.bot.traffic.core.common.UrlHelper;
 import com.perosa.bot.traffic.http.client.wrap.Get;
 import com.perosa.bot.traffic.http.client.wrap.Post;
@@ -14,63 +13,56 @@ public class Router {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Router.class);
 
-    public ClientResponse get(Get input) throws Exception {
+    private RoutingClient routingClient = new JavaClientImpl();
+
+    public RoutingClientResponse get(Get input) throws Exception {
+
+        long start = System.currentTimeMillis();
+
+        RoutingClientResponse routingClientResponse = routingClient.get(input);
+
+        long end = System.currentTimeMillis();
+
+        sendEvent(routingClientResponse, input.getUrl(), end - start);
+
+        LOGGER.info(routingClientResponse.toString());
+        return routingClientResponse;
+    }
+
+
+    public RoutingClientResponse post(Post input) throws Exception {
 
         ClientResponse clientResponse = null;
 
         long start = System.currentTimeMillis();
 
-        LightRestClient lightRestClient = new LightRestClient();
-
-        clientResponse = lightRestClient.get(input.getUrl(), input.getPath(),
-                ClientResponse.class, input.getHeaders());
+        RoutingClientResponse routingClientResponse = routingClient.post(input);
 
         long end = System.currentTimeMillis();
 
-        //sendEvent(clientResponse, input.getUrl(), end - start);
+        sendEvent(routingClientResponse, input.getUrl(), end - start);
 
-        LOGGER.info("clientResponse: " + clientResponse);
-        return clientResponse;
-    }
-
-
-    public ClientResponse post(Post input) throws Exception {
-
-        ClientResponse clientResponse = null;
-
-        long start = System.currentTimeMillis();
-
-        LightRestClient lightRestClient = new LightRestClient();
-
-        clientResponse = lightRestClient.post(input.getUrl(), input.getPath(),
-                ClientResponse.class, input.getHeaders(), input.getBody());
-
-        long end = System.currentTimeMillis();
-
-        //sendEvent(clientResponse, input.getUrl(), end - start);
-
-        LOGGER.info("clientResponse: " + clientResponse);
-        return clientResponse;
+        LOGGER.info(routingClientResponse.toString());
+        return routingClientResponse;
 
     }
 
-    void sendEvent(ClientResponse clientResponse, String url, long duration) {
+    void sendEvent(RoutingClientResponse routingClientResponse, String url, long duration) {
 
-        if (clientResponse == null) {
-            throw new  RuntimeException("Empty ClientResponse");
+        if (routingClientResponse != null && routingClientResponse.getResponseCode() > 0) {
+
+            PrometheusEvent event = new PrometheusEvent();
+            event.setUrl(sanitize(url));
+            event.setResponseCode(routingClientResponse.getResponseCode());
+            event.setDuration(duration);
+
+            String length = routingClientResponse.getContentLength();
+            if (length != null) {
+                event.setResponseSize(Double.valueOf(length));
+            }
+
+            EventManager.sendEvent(event);
         }
-
-        PrometheusEvent event = new PrometheusEvent();
-        event.setUrl(sanitize(url));
-        event.setResponseCode(clientResponse.getResponseCode());
-        event.setDuration(duration);
-
-        String length = clientResponse.getResponseHeaders().getFirst("Content-Length");
-        if (length != null) {
-            event.setResponseSize(Double.valueOf(length));
-        }
-
-        EventManager.sendEvent(event);
 
     }
 
@@ -78,8 +70,10 @@ public class Router {
 
         UrlHelper urlHelper = new UrlHelper();
         url = url.replace(urlHelper.getScheme(url) + "://", "");
+        url = url.replace(".", "_");
 
         return url;
     }
+
 
 }
