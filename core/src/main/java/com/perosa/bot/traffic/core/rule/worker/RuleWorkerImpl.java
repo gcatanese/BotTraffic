@@ -30,14 +30,11 @@ public class RuleWorkerImpl implements RuleWorker {
 
     private Strategy strategy;
 
-    private String scheme;
-
     public RuleWorkerImpl(BotProxyRequest request) {
         this.strategy = new ServicePerRuleStrategy();
         this.urlHelper = new UrlHelper();
         this.request = request;
         this.ruleAnalyzer = new RuleAnalyzer(request);
-        this.scheme = new CoreConfiguration().getScheme();
     }
 
     @Override
@@ -84,9 +81,17 @@ public class RuleWorkerImpl implements RuleWorker {
     Consumable prepareConsumable(Consumable consumable, BotProxyRequest request) {
 
         ConsumableService consumableService = (ConsumableService) consumable;
-        consumableService.setUrl(getScheme() + "://" + consumable.getHost()
-                + (consumable.getPort() == 80 ? "" : ":" + consumable.getPort())
-                + getRequestedPath() + getRequestedQueryString());
+
+        if(consumable.getPort() == 80) {
+            consumableService.setUrl("http://" + consumable.getHost()
+                    + getRequestedPath() + getRequestedQueryString());
+        } else if (consumable.getPort() == 443) {
+            consumableService.setUrl("https://" + consumable.getHost()
+                    + getRequestedPath() + getRequestedQueryString());
+        } else {
+            consumableService.setUrl("http://" + consumable.getHost() + ":" + consumable.getPort()
+                    + getRequestedPath() + getRequestedQueryString());
+        }
 
         return consumableService;
     }
@@ -176,11 +181,4 @@ public class RuleWorkerImpl implements RuleWorker {
         this.strategy = strategy;
     }
 
-    public String getScheme() {
-        return scheme;
-    }
-
-    public void setScheme(String scheme) {
-        this.scheme = scheme;
-    }
 }

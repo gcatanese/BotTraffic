@@ -37,17 +37,6 @@ public class CoreConfiguration {
         return Integer.valueOf(port);
     }
 
-    public String getScheme() {
-        String scheme = System.getProperty("bt.scheme");
-
-        if (scheme == null || scheme.isEmpty()) {
-            scheme = "http";
-        }
-
-        return scheme;
-    }
-
-
     public int getMetricsHandlerPort() {
         String port = System.getProperty("bt.metricsport");
 
