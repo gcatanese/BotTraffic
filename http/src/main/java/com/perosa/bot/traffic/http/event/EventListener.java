@@ -16,7 +16,7 @@ public class EventListener{
 
     @Handler(delivery = Invoke.Asynchronously)
     public void handle(Event event){
-        LOGGER.debug("handle " + event.getName());
+        LOGGER.debug("handling " + event.getName());
 
         if(event instanceof PrometheusEvent) {
             new PrometheusEventHandler().process((PrometheusEvent)event);
