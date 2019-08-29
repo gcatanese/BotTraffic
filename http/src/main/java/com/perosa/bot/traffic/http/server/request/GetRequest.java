@@ -4,6 +4,7 @@ import com.perosa.bot.traffic.core.BotProxyRequest;
 import com.perosa.bot.traffic.core.rule.worker.RuleWorkerImpl;
 import com.perosa.bot.traffic.core.service.Consumable;
 import com.perosa.bot.traffic.http.client.Router;
+import com.perosa.bot.traffic.http.client.RoutingClientResponse;
 import com.perosa.bot.traffic.http.client.wrap.Get;
 import com.networknt.client.Http2Client;
 import io.undertow.client.ClientResponse;
@@ -28,11 +29,11 @@ public class GetRequest extends ParentRequest implements Request {
 
             get = initGet(consumable, request);
 
-            ClientResponse clientResponse = new Router().get(get);
+            RoutingClientResponse routingClientResponse = new Router().get(get);
 
-            String clientResponseAsString = clientResponse.getAttachment(Http2Client.RESPONSE_BODY);
+            String clientResponseAsString = routingClientResponse.getBody();
 
-            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, getContentType(clientResponse.getResponseHeaders()));
+            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, routingClientResponse.getContentType());
             exchange.getResponseSender().send(clientResponseAsString);
 
         } catch (Exception e) {
