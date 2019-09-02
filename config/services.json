@@ -7,14 +7,14 @@
   },
   {
     "id": "s00002",
-    "application": "dialogflow-webhook",
-    "host": "localhost",
-    "port": "8384"
+    "application": "downstreamservice V2",
+    "host": "downstreamservicev2.herokuapp.com",
+    "port": "443"
   },
   {
     "id": "s00003",
-    "application": "dialogflow-webhook",
-    "host": "localhost",
+    "application": "msbot-webhook",
+    "host": "msbot.perosa.com",
     "port": "8385"
   },
   {
