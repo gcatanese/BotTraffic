@@ -40,9 +40,6 @@
     "status": "ACTIVE",
     "targets": [
       {
-        "id": "s00001"
-      },
-      {
         "id": "s00002"
       }
     ]
