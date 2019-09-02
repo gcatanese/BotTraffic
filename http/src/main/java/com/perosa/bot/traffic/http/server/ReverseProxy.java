@@ -53,7 +53,7 @@ public class ReverseProxy {
         if (exchange.getRequestMethod().equals(new HttpString("POST"))) {
             new PostRequest().handle(exchange);
         } else if (exchange.getRequestMethod().equals(new HttpString("GET"))) {
-            new GetRequest().handle(exchange);
+            //new GetRequest().handle(exchange);
         } else {
             LOGGER.error("Cannot handle " + exchange.getRequestMethod());
         }
