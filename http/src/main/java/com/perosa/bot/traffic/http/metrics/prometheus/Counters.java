@@ -28,6 +28,7 @@ public class Counters {
         if(counter == null) {
             counter = Counter.build()
                     .name(name)
+
                     .help(name).register();
 
             counters.put(name, counter);

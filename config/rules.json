@@ -46,15 +46,15 @@
   },
   {
     "id": "R0004",
-    "path": "/svcx",
-    "expression": "sessionId",
+    "path": "/svc1",
+    "expression": "user",
     "operator": "EQUAL_IGNORE_CASE",
-    "value": "1001",
+    "value": "me",
     "type": "PARAMETER",
-    "status": "INACTIVE",
+    "status": "ACTIVE",
     "targets": [
       {
-        "id": "s00005"
+        "id": "s00001"
       }
     ]
   }
