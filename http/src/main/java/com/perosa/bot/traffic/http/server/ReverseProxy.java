@@ -32,7 +32,6 @@ public class ReverseProxy {
                         .setHandler(new HttpHandler() {
                             @Override
                             public void handleRequest(HttpServerExchange exchange) throws Exception {
-                                LOGGER.debug("Incoming " + exchange.getRequestURL());
                                 doHandleRequest(exchange);
                             }
                         })
