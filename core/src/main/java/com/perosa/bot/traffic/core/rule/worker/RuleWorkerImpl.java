@@ -1,7 +1,6 @@
 package com.perosa.bot.traffic.core.rule.worker;
 
 import com.perosa.bot.traffic.core.BotProxyRequest;
-import com.perosa.bot.traffic.core.common.CoreConfiguration;
 import com.perosa.bot.traffic.core.common.UrlHelper;
 import com.perosa.bot.traffic.core.rule.Rule;
 import com.perosa.bot.traffic.core.rule.RuleStatus;
@@ -11,7 +10,7 @@ import com.perosa.bot.traffic.core.service.ConsumableService;
 import com.perosa.bot.traffic.core.service.registry.ServiceInstance;
 import com.perosa.bot.traffic.core.service.registry.ServiceRegistry;
 import com.perosa.bot.traffic.core.service.registry.ServiceRegistryLoader;
-import com.perosa.bot.traffic.core.strategy.ServicePerRuleStrategy;
+import com.perosa.bot.traffic.core.strategy.SingleServiceStrategy;
 import com.perosa.bot.traffic.core.strategy.Strategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +30,7 @@ public class RuleWorkerImpl implements RuleWorker {
     private Strategy strategy;
 
     public RuleWorkerImpl(BotProxyRequest request) {
-        this.strategy = new ServicePerRuleStrategy();
+        this.strategy = new SingleServiceStrategy();
         this.urlHelper = new UrlHelper();
         this.request = request;
         this.ruleAnalyzer = new RuleAnalyzer(request);

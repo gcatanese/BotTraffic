@@ -5,7 +5,7 @@ import com.perosa.bot.traffic.core.service.ConsumableService;
 
 import java.util.List;
 
-public class ServicePerRuleStrategy implements Strategy {
+public class SingleServiceStrategy implements Strategy {
 
     public Consumable getTarget(List<ConsumableService> targets) {
 
