@@ -2,8 +2,6 @@ package com.perosa;
 
 
 import com.perosa.bot.traffic.core.rule.registry.watch.RuleRegistryWatcher;
-import com.perosa.bot.traffic.core.service.registry.ServiceRegistry;
-import com.perosa.bot.traffic.core.service.registry.watch.ServiceRegistryFileWatcher;
 import com.perosa.bot.traffic.core.service.registry.watch.ServiceRegistryWatcher;
 import com.perosa.bot.traffic.http.metrics.prometheus.MetricsHandler;
 import com.perosa.bot.traffic.http.server.ReverseProxy;
@@ -14,9 +12,9 @@ import org.slf4j.LoggerFactory;
 /**
  *
  */
-public class App {
+public class BotTrafficApp {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BotTrafficApp.class);
 
     public static void main(String[] args) {
 
