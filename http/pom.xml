@@ -65,7 +65,7 @@
         <dependency>
             <groupId>io.prometheus</groupId>
             <artifactId>simpleclient_hotspot</artifactId>
-            <version>0.6.0</version>
+            <version>0.8.0</version>
         </dependency>
         <!-- Exposition HTTPServer-->
         <dependency>
