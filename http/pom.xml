@@ -21,18 +21,6 @@
             <artifactId>bot-traffic-core</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <!-- Logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.28</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.28</version>
-        </dependency>
-
 
         <dependency>
             <groupId>com.networknt</groupId>
@@ -85,13 +73,6 @@
             <version>0.8.0</version>
         </dependency>
 
-        <!-- Testing -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit.jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
 
     </dependencies>
 
@@ -106,9 +87,9 @@
                 <version>2.22.2</version>
                 <configuration>
                     <trimStackTrace>false</trimStackTrace>
-                    <systemPropertyVariables>
+                    <environmentVariables>
                         <bt.home>src/test/resources/</bt.home>
-                    </systemPropertyVariables>
+                    </environmentVariables>
                 </configuration>
             </plugin>
 
