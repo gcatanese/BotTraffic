@@ -28,7 +28,7 @@ public class BotTrafficApp {
 
         Runtime.getRuntime().addShutdownHook(new TerminationManager());
 
-        LOGGER.info("App is up!");
+        LOGGER.info("BotTraffic is up!");
 
     }
 
