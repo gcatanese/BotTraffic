@@ -28,8 +28,20 @@ public class App {
         RuleRegistryWatcher.init();
         ServiceRegistryWatcher.init();
 
+        Runtime.getRuntime().addShutdownHook(new TerminationManager());
+
         LOGGER.info("App is up!");
 
     }
 
 }
+
+class TerminationManager extends Thread {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(TerminationManager.class);
+
+    public void run() {
+        LOGGER.info("Come back soon!");
+    }
+}
+
