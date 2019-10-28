@@ -50,7 +50,7 @@ public class EnvConfiguration {
     public boolean isThreadWatch() {
         String watch = System.getenv("bt.watch");
 
-        return (watch !=null && watch.equalsIgnoreCase("thread"));
+        return (watch != null && watch.equalsIgnoreCase("thread"));
     }
 
     public int getThreadWatchInterval() {
