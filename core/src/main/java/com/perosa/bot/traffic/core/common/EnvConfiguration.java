@@ -3,12 +3,12 @@ package com.perosa.bot.traffic.core.common;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class CoreConfiguration {
+public class EnvConfiguration {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CoreConfiguration.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EnvConfiguration.class);
 
     public String getHome() {
-        String home = System.getProperty("bt.home");
+        String home = System.getenv("bt.home");
 
         if (home == null || home.isEmpty()) {
             home = "config/";
@@ -23,7 +23,7 @@ public class CoreConfiguration {
     }
 
     public int getPort() {
-        String port = System.getProperty("bt.port");
+        String port = System.getenv("bt.port");
 
         if (port == null || port.isEmpty()) {
             port = System.getenv("PORT");
@@ -38,7 +38,7 @@ public class CoreConfiguration {
     }
 
     public int getMetricsHandlerPort() {
-        String port = System.getProperty("bt.metricsport");
+        String port = System.getenv("bt.metricsport");
 
         if (port == null || port.isEmpty()) {
             port = "8887";
@@ -48,13 +48,13 @@ public class CoreConfiguration {
     }
 
     public boolean isThreadWatch() {
-        String watch = System.getProperty("bt.watch");
+        String watch = System.getenv("bt.watch");
 
         return (watch !=null && watch.equalsIgnoreCase("thread"));
     }
 
     public int getThreadWatchInterval() {
-        String interval = System.getProperty("bt.watchinterval");
+        String interval = System.getenv("bt.watchinterval");
 
         if (interval == null || interval.isEmpty()) {
             interval = "5000";

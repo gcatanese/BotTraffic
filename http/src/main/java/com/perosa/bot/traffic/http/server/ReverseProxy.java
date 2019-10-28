@@ -1,6 +1,6 @@
 package com.perosa.bot.traffic.http.server;
 
-import com.perosa.bot.traffic.core.common.CoreConfiguration;
+import com.perosa.bot.traffic.core.common.EnvConfiguration;
 import com.perosa.bot.traffic.http.server.request.GetRequest;
 import com.perosa.bot.traffic.http.server.request.PostRequest;
 import io.undertow.Undertow;
@@ -19,8 +19,8 @@ public class ReverseProxy {
     public void setUp() {
 
         final String host = "0.0.0.0";
-        final int port = new CoreConfiguration().getPort();
-        final String home = new CoreConfiguration().getHome();
+        final int port = new EnvConfiguration().getPort();
+        final String home = new EnvConfiguration().getHome();
 
         try {
 

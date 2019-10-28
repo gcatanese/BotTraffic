@@ -1,7 +1,7 @@
 package com.perosa.bot.traffic.http.metrics.prometheus;
 
 import com.networknt.metrics.prometheus.PrometheusGetHandler;
-import com.perosa.bot.traffic.core.common.CoreConfiguration;
+import com.perosa.bot.traffic.core.common.EnvConfiguration;
 import io.undertow.Handlers;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
@@ -18,7 +18,7 @@ public class MetricsHandler {
     public void setUp() {
 
         final String host = "0.0.0.0";
-        final int port = new CoreConfiguration().getMetricsHandlerPort();
+        final int port = new EnvConfiguration().getMetricsHandlerPort();
 
         if (builder == null) {
             LOGGER.info("starting MetricsHandler on port " + port);

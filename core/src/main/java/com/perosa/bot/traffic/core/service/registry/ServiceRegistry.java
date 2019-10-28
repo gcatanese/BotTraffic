@@ -1,6 +1,6 @@
 package com.perosa.bot.traffic.core.service.registry;
 
-import com.perosa.bot.traffic.core.common.CoreConfiguration;
+import com.perosa.bot.traffic.core.common.EnvConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +24,7 @@ public class ServiceRegistry {
     }
 
     public static String getLocation() {
-        return new CoreConfiguration().getHome() + "services.json";
+        return new EnvConfiguration().getHome() + "services.json";
     }
 
     public void setServiceInstances(List<ServiceInstance> serviceInstances) {

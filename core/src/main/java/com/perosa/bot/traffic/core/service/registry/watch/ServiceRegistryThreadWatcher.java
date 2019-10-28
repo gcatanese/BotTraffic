@@ -1,6 +1,6 @@
 package com.perosa.bot.traffic.core.service.registry.watch;
 
-import com.perosa.bot.traffic.core.common.CoreConfiguration;
+import com.perosa.bot.traffic.core.common.EnvConfiguration;
 import com.perosa.bot.traffic.core.service.registry.ServiceRegistry;
 import com.perosa.bot.traffic.core.service.registry.ServiceRegistryLoader;
 import org.slf4j.Logger;
@@ -23,7 +23,7 @@ public class ServiceRegistryThreadWatcher implements ServiceRegistryWatcher {
         };
         Timer timer = new Timer("ServiceRegistryWatch");
         long delay = 1000L;
-        long period = new CoreConfiguration().getThreadWatchInterval();
+        long period = new EnvConfiguration().getThreadWatchInterval();
 
         timer.schedule(task, delay, period);
 
