@@ -21,8 +21,6 @@ public class RandomStrategy implements Strategy {
 
         }
 
-        //LOGGER.info("target " + consumable.toString());
-
         return consumable;
     }
 
