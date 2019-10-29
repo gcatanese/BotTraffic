@@ -15,11 +15,16 @@ public class ReverseProxy {
     private static final Logger LOGGER = LoggerFactory.getLogger(ReverseProxy.class);
 
     private static Undertow builder = null;
+    private Dispatcher dispatcher;
+
+    public ReverseProxy(Dispatcher dispatcher) {
+        this.dispatcher = dispatcher;
+    }
 
     public void setUp() {
 
         final String host = "0.0.0.0";
-        final int port = new EnvConfiguration().getPort();
+        final int port = getPort();
         final String home = new EnvConfiguration().getHome();
 
         try {
@@ -32,7 +37,7 @@ public class ReverseProxy {
                         .setHandler(new HttpHandler() {
                             @Override
                             public void handleRequest(HttpServerExchange exchange) throws Exception {
-                                doHandleRequest(exchange);
+                                dispatcher.dispatch(exchange);
                             }
                         })
                         .build();
@@ -46,16 +51,9 @@ public class ReverseProxy {
         }
     }
 
-    private void doHandleRequest(HttpServerExchange exchange) {
-        LOGGER.debug(exchange.toString());
-
-        if (exchange.getRequestMethod().equals(new HttpString("POST"))) {
-            new PostRequest().handle(exchange);
-        } else if (exchange.getRequestMethod().equals(new HttpString("GET"))) {
-            new GetRequest().handle(exchange);
-        } else {
-            LOGGER.error("Cannot handle " + exchange.getRequestMethod());
-        }
+    int getPort() {
+        return new EnvConfiguration().getPort();
     }
+
 
 }
