@@ -2,13 +2,13 @@
   {
     "id": "s00001",
     "application": "downstreamservice",
-    "host": "downstreamservice.herokuapp.com",
+    "host": "downstreamservice.perosa.com",
     "port": "443"
   },
   {
     "id": "s00002",
     "application": "downstreamservice V2",
-    "host": "downstreamservicev2.herokuapp.com",
+    "host": "downstreamservicev2.perosa.com",
     "port": "443"
   },
   {
