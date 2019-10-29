@@ -60,6 +60,20 @@
         "id": "s00005"
       }
     ]
+  },
+  {
+    "id": "R0005",
+    "path": "/svcy",
+    "expression": "User-Agent",
+    "operator": "EQUAL_IGNORE_CASE",
+    "value": "Facebook",
+    "type": "HEADER",
+    "status": "ACTIVE",
+    "targets": [
+      {
+        "id": "s00006"
+      }
+    ]
   }
 ]
 
