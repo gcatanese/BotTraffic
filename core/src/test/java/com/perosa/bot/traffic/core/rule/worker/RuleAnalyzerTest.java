@@ -36,6 +36,18 @@ public class RuleAnalyzerTest {
     }
 
     @Test
+    public void findValueWhenNoHeaders() {
+
+        String elementPath = "username1";
+
+        BotProxyRequest request = new BotProxyRequest();
+
+        RuleAnalyzer ruleAnalyzer = new RuleAnalyzer(request);
+        assertEquals("", ruleAnalyzer.findValueInHeaders(elementPath));
+
+    }
+
+    @Test
     public void findValueInParameters() {
 
         String elementPath = "list";

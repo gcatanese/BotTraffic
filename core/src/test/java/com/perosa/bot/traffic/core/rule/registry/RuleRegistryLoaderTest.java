@@ -83,7 +83,7 @@ public class RuleRegistryLoaderTest {
         List<Rule> rules = new RuleRegistryLoader().load();
 
         assertNotNull(rules);
-        assertEquals(4, rules.size());
+        assertEquals(5, rules.size());
 
     }
 

@@ -21,6 +21,13 @@ public class ConsumableService implements Consumable {
         this.port = port;
     }
 
+    public ConsumableService(String id, String host, int port, int weight) {
+        this.id = id;
+        this.host = host;
+        this.port = port;
+        this.weight = weight;
+    }
+
     public String getId() {
         return id;
     }

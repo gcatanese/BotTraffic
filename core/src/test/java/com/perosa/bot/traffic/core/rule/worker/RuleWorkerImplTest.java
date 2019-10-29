@@ -147,6 +147,18 @@ public class RuleWorkerImplTest {
         assertEquals("https://ds.perosa.com/webhook/a/b?user=me", consumable.getUrl());
     }
 
+    @Test
+    public void prepareConsumableWithRequestedUrl() {
+
+        BotProxyRequest botProxyRequest = new BotProxyRequest();
+        botProxyRequest.setUrl("http://127.0.0.1/webhook/a/b?user=me");
+
+        Consumable consumable = new RuleWorkerImpl(botProxyRequest).prepareConsumableWithRequestedUrl(botProxyRequest);
+
+
+        assertNotNull(consumable);
+        assertEquals("http://127.0.0.1/webhook/a/b?user=me", consumable.getUrl());
+    }
 
     private String getJsonBody() {
         return "{\n" +
