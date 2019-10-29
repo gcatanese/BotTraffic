@@ -6,6 +6,7 @@ public class ConsumableService implements Consumable {
     private String host;
     private int port;
     private String url;
+    private int weight = 100;
 
     public ConsumableService() {
     }
@@ -52,6 +53,15 @@ public class ConsumableService implements Consumable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @Override
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 
     @Override

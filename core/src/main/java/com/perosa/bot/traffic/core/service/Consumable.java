@@ -9,4 +9,6 @@ public interface Consumable {
     String getId();
 
     String getUrl();
+
+    int getWeight();
 }
