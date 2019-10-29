@@ -4,7 +4,7 @@
     "path": "/svc1",
     "expression": "/from/name",
     "operator": "EQUAL_IGNORE_CASE",
-    "value": "User",
+    "value": "perosa",
     "type": "BODY",
     "status": "ACTIVE",
     "targets": [
@@ -21,36 +21,8 @@
     "path": "/svc2",
     "expression": "User-Agent",
     "operator": "EQUAL_IGNORE_CASE",
-    "value": "PROXY",
+    "value": "facebook",
     "type": "HEADER",
-    "status": "ACTIVE",
-    "targets": [
-      {
-        "id": "s00001"
-      }
-    ]
-  },
-  {
-    "id": "R0003",
-    "path": "/svc1",
-    "expression": "user",
-    "operator": "EQUAL_IGNORE_CASE",
-    "value": "you",
-    "type": "PARAMETER",
-    "status": "ACTIVE",
-    "targets": [
-      {
-        "id": "s00002"
-      }
-    ]
-  },
-  {
-    "id": "R0004",
-    "path": "/svc1",
-    "expression": "user",
-    "operator": "EQUAL_IGNORE_CASE",
-    "value": "me",
-    "type": "PARAMETER",
     "status": "ACTIVE",
     "targets": [
       {
