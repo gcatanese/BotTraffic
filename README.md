@@ -10,7 +10,7 @@ also introducing a mechanism to **filter and preprocess** requests.
 In a nutshell:
 - lightweight framework 
 - multi channel (Facebook, DialogFlow, Microsoft BOT, Chatfuel, Telegram, Slack, etc..)
-- routing based on rules: applicable to request parameters, headers and payload. Various operators are supported (ie EQUALS, EQUALS_IGNORE_CASE, etc..)
+- routing based on rules: applicable to request parameters, headers and payload. Various operators are supported (ie EQUAL, EQUAL_IGNORE_CASE, START_WITH, etc..)
 - extendable event management (with built-in Prometheus events)
 - GET and POST support
 
