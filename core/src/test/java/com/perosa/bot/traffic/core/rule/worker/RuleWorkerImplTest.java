@@ -117,13 +117,14 @@ public class RuleWorkerImplTest {
         Consumable consumable = new RuleWorkerImpl(botProxyRequest).fetchFromRegistry("s00001");
 
         Rule rule = new Rule("01");
-        rule.setWorkflow(RuleWorkflow.SHADOW);
+        rule.setWorkflow(RuleWorkflow.FILTER);
 
         consumable = new RuleWorkerImpl(botProxyRequest).prepareConsumable(consumable, rule);
 
         assertEquals("ds.perosa.com", consumable.getHost());
         assertEquals(8383, consumable.getPort());
         assertEquals("http://ds.perosa.com:8383/webhook/a/b?user=me", consumable.getUrl());
+        assertTrue(consumable.isFiltering());
     }
 
     @Test
@@ -141,7 +142,7 @@ public class RuleWorkerImplTest {
         assertEquals("ds.perosa.com", consumable.getHost());
         assertEquals(80, consumable.getPort());
         assertEquals("http://ds.perosa.com/webhook/a/b?user=me", consumable.getUrl());
-        assertEquals("SHADOW", consumable.getWorkflow().toString());
+        assertTrue(consumable.isShadowing());
     }
 
     @Test
@@ -152,13 +153,14 @@ public class RuleWorkerImplTest {
         Consumable consumable = new RuleWorkerImpl(botProxyRequest).fetchFromRegistry("s00003");
 
         Rule rule = new Rule("01");
-        rule.setWorkflow(RuleWorkflow.SHADOW);
+        rule.setWorkflow(RuleWorkflow.ROUTE);
 
         consumable = new RuleWorkerImpl(botProxyRequest).prepareConsumable(consumable, rule);
 
         assertEquals("ds.perosa.com", consumable.getHost());
         assertEquals(443, consumable.getPort());
         assertEquals("https://ds.perosa.com/webhook/a/b?user=me", consumable.getUrl());
+        assertTrue(consumable.isRouting());
     }
 
     @Test
@@ -168,7 +170,6 @@ public class RuleWorkerImplTest {
         botProxyRequest.setUrl("http://127.0.0.1/webhook/a/b?user=me");
 
         Consumable consumable = new RuleWorkerImpl(botProxyRequest).prepareConsumableWithRequestedUrl(botProxyRequest);
-
 
         assertNotNull(consumable);
         assertEquals("http://127.0.0.1/webhook/a/b?user=me", consumable.getUrl());

@@ -70,11 +70,25 @@ public class ConsumableService implements Consumable {
         return weight;
     }
 
+    @Override
+    public boolean isRouting() {
+        return RuleWorkflow.ROUTE.equals(getWorkflow());
+    }
+
+    @Override
+    public boolean isFiltering() {
+        return RuleWorkflow.FILTER.equals(getWorkflow());
+    }
+
+    @Override
+    public boolean isShadowing() {
+        return RuleWorkflow.SHADOW.equals(getWorkflow());
+    }
+
     public void setWeight(int weight) {
         this.weight = weight;
     }
 
-    @Override
     public RuleWorkflow getWorkflow() {
         return workflow;
     }

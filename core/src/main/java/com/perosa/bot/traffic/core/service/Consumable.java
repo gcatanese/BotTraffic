@@ -14,5 +14,9 @@ public interface Consumable {
 
     int getWeight();
 
-    RuleWorkflow getWorkflow();
+    boolean isRouting();
+
+    boolean isFiltering();
+
+    boolean isShadowing();
 }
