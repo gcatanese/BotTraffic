@@ -2,6 +2,7 @@ package com.perosa.bot.traffic.http.client;
 
 import com.perosa.bot.traffic.http.client.wrap.Get;
 import com.perosa.bot.traffic.http.client.wrap.Post;
+import com.perosa.bot.traffic.http.server.workflow.Router;
 
 public class SingleInstanceTest {
 

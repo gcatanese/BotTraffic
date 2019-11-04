@@ -3,9 +3,10 @@ package com.perosa.bot.traffic.http.server.request;
 import com.perosa.bot.traffic.core.BotProxyRequest;
 import com.perosa.bot.traffic.core.rule.worker.RuleWorkerImpl;
 import com.perosa.bot.traffic.core.service.Consumable;
-import com.perosa.bot.traffic.http.client.Router;
+import com.perosa.bot.traffic.http.server.workflow.Router;
 import com.perosa.bot.traffic.http.client.ForwarderResponse;
 import com.perosa.bot.traffic.http.client.wrap.Post;
+import com.perosa.bot.traffic.http.server.workflow.Shadower;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
 import org.slf4j.Logger;
@@ -26,6 +27,10 @@ public class PostRequest extends ParentRequest implements Request {
             Consumable consumable = new RuleWorkerImpl(request).process();
 
             post = initPost(consumable, request);
+
+            if(consumable.isShadowing()) {
+                new Shadower().post(post);
+            }
 
             ForwarderResponse forwarderResponse = new Router().post(post);
 

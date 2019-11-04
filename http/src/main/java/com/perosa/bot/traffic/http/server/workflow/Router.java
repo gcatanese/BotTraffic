@@ -1,6 +1,9 @@
-package com.perosa.bot.traffic.http.client;
+package com.perosa.bot.traffic.http.server.workflow;
 
 import com.perosa.bot.traffic.core.common.UrlHelper;
+import com.perosa.bot.traffic.http.client.Forwarder;
+import com.perosa.bot.traffic.http.client.ForwarderResponse;
+import com.perosa.bot.traffic.http.client.JavaClientImpl;
 import com.perosa.bot.traffic.http.client.wrap.Get;
 import com.perosa.bot.traffic.http.client.wrap.Post;
 import com.perosa.bot.traffic.http.event.EventManager;
