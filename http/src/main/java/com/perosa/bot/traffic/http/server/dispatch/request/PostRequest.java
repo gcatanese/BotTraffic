@@ -1,24 +1,24 @@
-package com.perosa.bot.traffic.http.server.request;
+package com.perosa.bot.traffic.http.server.dispatch.request;
 
 import com.perosa.bot.traffic.core.BotProxyRequest;
 import com.perosa.bot.traffic.core.rule.worker.RuleWorkerImpl;
 import com.perosa.bot.traffic.core.service.Consumable;
-import com.perosa.bot.traffic.http.server.workflow.Router;
+import com.perosa.bot.traffic.http.server.dispatch.workflow.Router;
 import com.perosa.bot.traffic.http.client.ForwarderResponse;
-import com.perosa.bot.traffic.http.client.wrap.Get;
-import com.perosa.bot.traffic.http.server.workflow.Shadower;
+import com.perosa.bot.traffic.http.client.wrap.Post;
+import com.perosa.bot.traffic.http.server.dispatch.workflow.Shadower;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GetRequest extends ParentRequest implements Request {
+public class PostRequest extends ParentRequest implements Request {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ParentRequest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PostRequest.class);
 
     public void handle(HttpServerExchange exchange) {
 
-        Get get = null;
+        Post post = null;
 
         try {
 
@@ -26,11 +26,11 @@ public class GetRequest extends ParentRequest implements Request {
 
             Consumable consumable = new RuleWorkerImpl(request).process();
 
-            get = initGet(consumable, request);
+            post = initPost(consumable, request);
 
             if (consumable.isRouting()) {
 
-                ForwarderResponse forwarderResponse = new Router().get(get);
+                ForwarderResponse forwarderResponse = new Router().post(post);
 
                 String clientResponseAsString = forwarderResponse.getBody();
 
@@ -38,13 +38,13 @@ public class GetRequest extends ParentRequest implements Request {
                 exchange.getResponseSender().send(clientResponseAsString);
 
             } else if (consumable.isShadowing()) {
-                new Shadower().get(get);
+                new Shadower().post(post);
                 exchange.getResponseSender().send("Got it");
             }
 
         } catch (Exception e) {
             if (e instanceof com.networknt.client.rest.RestClientException) {
-                LOGGER.error("Error invoking " + get.toString() + " ->" + e.getMessage());
+                LOGGER.error("Error invoking " + post.toString() + " ->" + e.getMessage());
             } else {
                 LOGGER.error(e.getMessage(), e);
             }
@@ -53,29 +53,28 @@ public class GetRequest extends ParentRequest implements Request {
     }
 
     private BotProxyRequest initBotProxyRequest(HttpServerExchange exchange) {
+
         BotProxyRequest request = new BotProxyRequest();
 
-        request.setUrl(exchange.getRequestURL() + "?" + exchange.getQueryString());
+        request.setUrl(exchange.getRequestURL());
         request.setHeaders(extractHeaders(exchange));
-        request.setParameters(extractParameters(exchange));
+        request.setBody(extractBody(exchange));
 
         return request;
+
     }
 
-    private Get initGet(Consumable consumable, BotProxyRequest request) {
+    private Post initPost(Consumable consumable, BotProxyRequest request) {
+        Post post = new Post(getUrl(consumable.getUrl()), getPath(consumable.getUrl()));
 
-        Get get = new Get(getUrl(consumable.getUrl()), getPath(consumable.getUrl())
-                + getQueryString(consumable.getUrl()));
-
+        if (!request.getBody().isEmpty()) {
+            post.setBody(request.getBody());
+        }
         if (!request.getHeaders().isEmpty()) {
-            get.setHeaders(request.getHeaders());
-        }
-        if (!request.getParameters().isEmpty()) {
-            get.setParameters(request.getParameters());
+            post.setHeaders(request.getHeaders());
         }
 
-        return get;
+        return post;
     }
-
 
 }

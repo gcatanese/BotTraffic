@@ -1,4 +1,4 @@
-package com.perosa.bot.traffic.http.server.workflow;
+package com.perosa.bot.traffic.http.server.dispatch.workflow;
 
 import com.perosa.bot.traffic.http.client.Forwarder;
 import com.perosa.bot.traffic.http.client.ForwarderResponse;

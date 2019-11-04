@@ -1,7 +1,7 @@
 package com.perosa.bot.traffic.http.server.dispatch;
 
-import com.perosa.bot.traffic.http.server.request.GetRequest;
-import com.perosa.bot.traffic.http.server.request.PostRequest;
+import com.perosa.bot.traffic.http.server.dispatch.request.GetRequest;
+import com.perosa.bot.traffic.http.server.dispatch.request.PostRequest;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.HttpString;
 import org.slf4j.Logger;
