@@ -46,6 +46,7 @@ public class RuleWorkerImpl implements RuleWorker {
         List<Rule> rules = getPool(getRequestedPath());
 
         if (rules != null && !rules.isEmpty()) {
+
             Rule rule = findWinningRule(rules);
 
             if (rule != null && rule.getTargets() != null) {
