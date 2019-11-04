@@ -65,6 +65,7 @@ public class RuleRegistryTest {
         Rule rule = ruleRegistry.getRule("R0005");
 
         assertTrue(rule.getType().isHeaderRule());
+        assertTrue(rule.getWorkflow().isShadow());
 
     }
 
