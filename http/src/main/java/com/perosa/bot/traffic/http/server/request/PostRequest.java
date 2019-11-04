@@ -28,16 +28,19 @@ public class PostRequest extends ParentRequest implements Request {
 
             post = initPost(consumable, request);
 
-            if(consumable.isShadowing()) {
+            if (consumable.isRouting()) {
+
+                ForwarderResponse forwarderResponse = new Router().post(post);
+
+                String clientResponseAsString = forwarderResponse.getBody();
+
+                exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, forwarderResponse.getContentType());
+                exchange.getResponseSender().send(clientResponseAsString);
+
+            } else if (consumable.isShadowing()) {
                 new Shadower().post(post);
+                exchange.getResponseSender().send("Got it");
             }
-
-            ForwarderResponse forwarderResponse = new Router().post(post);
-
-            String clientResponseAsString = forwarderResponse.getBody();
-
-            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, forwarderResponse.getContentType());
-            exchange.getResponseSender().send(clientResponseAsString);
 
         } catch (Exception e) {
             if (e instanceof com.networknt.client.rest.RestClientException) {
