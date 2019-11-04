@@ -17,8 +17,6 @@ public class Summaries {
 
         name = name + "_response_bytes";
 
-        LOGGER.info("observe " + name);
-
         Summary receivedBytes = summaries.get(name);
 
         if(receivedBytes == null) {
@@ -36,8 +34,6 @@ public class Summaries {
     public void observeResponseDuration(String name, long duration) {
 
         name = name + "_response_duration_milliseconds";
-
-        LOGGER.info("observe " + name);
 
         Summary durationMilliseconds = summaries.get(name);
 

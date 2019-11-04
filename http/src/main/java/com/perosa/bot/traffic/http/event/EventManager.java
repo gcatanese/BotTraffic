@@ -10,7 +10,6 @@ public class EventManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(EventManager.class);
 
     public static void sendEvent(Event event) {
-        LOGGER.debug("sendEvent " + event);
         new PrometheusEventHandler().process((PrometheusEvent)event);
     }
 }
