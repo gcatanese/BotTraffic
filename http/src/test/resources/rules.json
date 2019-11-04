@@ -7,6 +7,7 @@
     "value": "Mr X",
     "type": "BODY",
     "status": "ACTIVE",
+    "workflow": "ROUTE",
     "targets": [
       {
         "id": "s00001"
@@ -24,6 +25,7 @@
     "value": "Mr Y",
     "type": "BODY",
     "status": "ACTIVE",
+    "workflow": "ROUTE",
     "targets": [
       {
         "id": "s00003"
@@ -33,11 +35,12 @@
   {
     "id": "R0003",
     "path": "/svc1",
-    "expression": "user",
+    "expression": "source",
     "operator": "EQUAL_IGNORE_CASE",
-    "value": "you",
-    "type": "PARAMETER",
+    "value": "facebook",
+    "type": "BODY",
     "status": "ACTIVE",
+    "workflow": "SHADOW",
     "targets": [
       {
         "id": "s00001"
@@ -55,6 +58,7 @@
     "value": "1001",
     "type": "PARAMETER",
     "status": "INACTIVE",
+    "workflow": "ROUTE",
     "targets": [
       {
         "id": "s00005"
