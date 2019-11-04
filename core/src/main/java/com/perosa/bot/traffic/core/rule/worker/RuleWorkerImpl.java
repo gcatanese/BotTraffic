@@ -57,7 +57,7 @@ public class RuleWorkerImpl implements RuleWorker {
 
                 consumable = prepareConsumable(consumable, rule);
 
-                LOGGER.info("fwdTo " + consumable.getUrl());
+                LOGGER.info("target->" + consumable.getUrl());
             }
         }
 
