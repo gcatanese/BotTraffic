@@ -14,13 +14,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LightRestClientImpl implements RoutingClient {
+public class LightRestClientImpl implements Forwarder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LightRestClientImpl.class);
 
-    public RoutingClientResponse get(Get input) throws Exception {
+    public ForwarderResponse get(Get input) throws Exception {
 
-        RoutingClientResponse routingClientResponse = new RoutingClientResponse();
+        ForwarderResponse forwarderResponse = new ForwarderResponse();
 
         LightRestClient lightRestClient = new LightRestClient();
 
@@ -28,22 +28,22 @@ public class LightRestClientImpl implements RoutingClient {
                 ClientResponse.class, input.getHeaders());
 
         if (clientResponse != null) {
-            routingClientResponse.setResponseCode(clientResponse.getResponseCode());
-            routingClientResponse.setBody(clientResponse.getAttachment(Http2Client.RESPONSE_BODY));
-            routingClientResponse.setHeaders(getHeaders(clientResponse.getResponseHeaders()));
+            forwarderResponse.setResponseCode(clientResponse.getResponseCode());
+            forwarderResponse.setBody(clientResponse.getAttachment(Http2Client.RESPONSE_BODY));
+            forwarderResponse.setHeaders(getHeaders(clientResponse.getResponseHeaders()));
 
-            LOGGER.info("routingClientResponse: " + routingClientResponse);
+            LOGGER.info("routingClientResponse: " + forwarderResponse);
         } else {
             LOGGER.warn("clientResponse null");
         }
 
 
-        return routingClientResponse;
+        return forwarderResponse;
     }
 
-    public RoutingClientResponse post(Post input) throws Exception {
+    public ForwarderResponse post(Post input) throws Exception {
 
-        RoutingClientResponse routingClientResponse = new RoutingClientResponse();
+        ForwarderResponse forwarderResponse = new ForwarderResponse();
 
         LightRestClient lightRestClient = new LightRestClient();
 
@@ -51,16 +51,16 @@ public class LightRestClientImpl implements RoutingClient {
                 ClientResponse.class, input.getHeaders(), input.getBody());
 
         if (clientResponse != null) {
-            routingClientResponse.setResponseCode(clientResponse.getResponseCode());
-            routingClientResponse.setBody(clientResponse.getAttachment(Http2Client.RESPONSE_BODY));
-            routingClientResponse.setHeaders(getHeaders(clientResponse.getResponseHeaders()));
+            forwarderResponse.setResponseCode(clientResponse.getResponseCode());
+            forwarderResponse.setBody(clientResponse.getAttachment(Http2Client.RESPONSE_BODY));
+            forwarderResponse.setHeaders(getHeaders(clientResponse.getResponseHeaders()));
 
-            LOGGER.info("routingClientResponse: " + routingClientResponse);
+            LOGGER.info("routingClientResponse: " + forwarderResponse);
         } else {
             LOGGER.warn("clientResponse null");
         }
 
-        return routingClientResponse;
+        return forwarderResponse;
 
     }
 

@@ -3,10 +3,10 @@ package com.perosa.bot.traffic.http.client;
 import com.perosa.bot.traffic.http.client.wrap.Get;
 import com.perosa.bot.traffic.http.client.wrap.Post;
 
-public interface RoutingClient {
+public interface Forwarder {
 
-    RoutingClientResponse get(Get input) throws Exception;
+    ForwarderResponse get(Get input) throws Exception;
 
-    RoutingClientResponse post(Post input) throws Exception;
+    ForwarderResponse post(Post input) throws Exception;
 
 }

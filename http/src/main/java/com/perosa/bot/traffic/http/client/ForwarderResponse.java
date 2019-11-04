@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class RoutingClientResponse {
+public class ForwarderResponse {
 
     private int responseCode;
     private String body;

@@ -13,50 +13,50 @@ public class Router {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Router.class);
 
-    private RoutingClient routingClient = new JavaClientImpl();
+    private Forwarder forwarder = new JavaClientImpl();
 
-    public RoutingClientResponse get(Get input) throws Exception {
+    public ForwarderResponse get(Get input) throws Exception {
 
         long start = System.currentTimeMillis();
 
-        RoutingClientResponse routingClientResponse = routingClient.get(input);
+        ForwarderResponse forwarderResponse = forwarder.get(input);
 
         long end = System.currentTimeMillis();
 
-        sendEvent(routingClientResponse, input.getUrl(), end - start);
+        sendEvent(forwarderResponse, input.getUrl(), end - start);
 
-        LOGGER.info(routingClientResponse.toString());
-        return routingClientResponse;
+        LOGGER.info(forwarderResponse.toString());
+        return forwarderResponse;
     }
 
 
-    public RoutingClientResponse post(Post input) throws Exception {
+    public ForwarderResponse post(Post input) throws Exception {
 
         ClientResponse clientResponse = null;
 
         long start = System.currentTimeMillis();
 
-        RoutingClientResponse routingClientResponse = routingClient.post(input);
+        ForwarderResponse forwarderResponse = forwarder.post(input);
 
         long end = System.currentTimeMillis();
 
-        sendEvent(routingClientResponse, input.getUrl(), end - start);
+        sendEvent(forwarderResponse, input.getUrl(), end - start);
 
-        LOGGER.info(routingClientResponse.toString());
-        return routingClientResponse;
+        LOGGER.info(forwarderResponse.toString());
+        return forwarderResponse;
 
     }
 
-    void sendEvent(RoutingClientResponse routingClientResponse, String url, long duration) {
+    void sendEvent(ForwarderResponse forwarderResponse, String url, long duration) {
 
-        if (routingClientResponse != null && routingClientResponse.getResponseCode() > 0) {
+        if (forwarderResponse != null && forwarderResponse.getResponseCode() > 0) {
 
             PrometheusEvent event = new PrometheusEvent();
             event.setUrl(sanitize(url));
-            event.setResponseCode(routingClientResponse.getResponseCode());
+            event.setResponseCode(forwarderResponse.getResponseCode());
             event.setDuration(duration);
 
-            String length = routingClientResponse.getContentLength();
+            String length = forwarderResponse.getContentLength();
             if (length != null) {
                 event.setResponseSize(Double.valueOf(length));
             }

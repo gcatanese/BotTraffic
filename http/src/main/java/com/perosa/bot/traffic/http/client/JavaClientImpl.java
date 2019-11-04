@@ -15,27 +15,27 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-public class JavaClientImpl implements RoutingClient {
+public class JavaClientImpl implements Forwarder {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JavaClientImpl.class);
 
     private static final String JSON_CONTENT_TYPE = "application/json";
 
-    public RoutingClientResponse get(Get input) throws Exception {
+    public ForwarderResponse get(Get input) throws Exception {
         return call(input.getUrl() + input.getPath(), "GET", input.getHeaders());
     }
 
-    public RoutingClientResponse post(Post input) throws Exception {
+    public ForwarderResponse post(Post input) throws Exception {
         return call(input.getUrl() + input.getPath(), "POST", input.getHeaders(), input.getBody());
     }
 
-    RoutingClientResponse call(String endpoint, String method, Map<String, String> headers) throws Exception {
+    ForwarderResponse call(String endpoint, String method, Map<String, String> headers) throws Exception {
         return call(endpoint, method, headers, null);
     }
 
-    RoutingClientResponse call(String endpoint, String method, Map<String, String> headers, String payload) throws Exception {
+    ForwarderResponse call(String endpoint, String method, Map<String, String> headers, String payload) throws Exception {
 
-        RoutingClientResponse routingClientResponse = new RoutingClientResponse();
+        ForwarderResponse forwarderResponse = new ForwarderResponse();
 
         HttpURLConnection connection = null;
         BufferedReader reader = null;
@@ -77,9 +77,9 @@ public class JavaClientImpl implements RoutingClient {
                     stringBuilder.append(inputLine);
                 }
 
-                routingClientResponse.setResponseCode(connection.getResponseCode());
-                routingClientResponse.setBody(stringBuilder.toString());
-                routingClientResponse.setHeaders(connection.getHeaderFields());
+                forwarderResponse.setResponseCode(connection.getResponseCode());
+                forwarderResponse.setBody(stringBuilder.toString());
+                forwarderResponse.setHeaders(connection.getHeaderFields());
 
             } else {
                 LOGGER.error("responseCode:" + responseCode + " responseMessage:" + connection.getResponseMessage());
@@ -101,7 +101,7 @@ public class JavaClientImpl implements RoutingClient {
             }
         }
 
-        return routingClientResponse;
+        return forwarderResponse;
     }
 
     void setHeaders(HttpURLConnection connection, Map<String, String> headers) {
