@@ -17,6 +17,7 @@ public class Rule {
     private List<ConsumableService> targets;
     private RuleType type;
     private RuleStatus status = RuleStatus.ACTIVE;
+    private RuleWorkflow workflow = RuleWorkflow.ROUTE;
 
     public Rule() {
         UUID uuid = UUID.randomUUID();
@@ -110,6 +111,14 @@ public class Rule {
 
     public void setStatus(RuleStatus status) {
         this.status = status;
+    }
+
+    public RuleWorkflow getWorkflow() {
+        return workflow;
+    }
+
+    public void setWorkflow(RuleWorkflow workflow) {
+        this.workflow = workflow;
     }
 
     public String asJson() {

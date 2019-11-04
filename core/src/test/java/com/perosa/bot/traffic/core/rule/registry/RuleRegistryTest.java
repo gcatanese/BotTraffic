@@ -23,6 +23,7 @@ public class RuleRegistryTest {
         assertNotNull(rule);
         assertEquals("/webhook1", rule.getPath());
         assertTrue(rule.getStatus().isActive());
+        assertTrue(rule.getWorkflow().isRoute());
 
     }
 
