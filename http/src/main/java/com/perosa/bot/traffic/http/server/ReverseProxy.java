@@ -1,12 +1,10 @@
 package com.perosa.bot.traffic.http.server;
 
 import com.perosa.bot.traffic.core.common.EnvConfiguration;
-import com.perosa.bot.traffic.http.server.request.GetRequest;
-import com.perosa.bot.traffic.http.server.request.PostRequest;
+import com.perosa.bot.traffic.http.server.dispatch.Dispatcher;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
-import io.undertow.util.HttpString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

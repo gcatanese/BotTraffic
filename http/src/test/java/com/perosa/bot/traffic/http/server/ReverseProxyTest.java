@@ -1,6 +1,7 @@
 package com.perosa.bot.traffic.http.server;
 
 import com.networknt.client.rest.LightRestClient;
+import com.perosa.bot.traffic.http.server.dispatch.Dispatcher;
 import io.undertow.client.ClientResponse;
 import io.undertow.server.HttpServerExchange;
 import org.junit.jupiter.api.BeforeEach;

@@ -4,7 +4,7 @@ import com.perosa.bot.traffic.core.BotProxyRequest;
 import com.perosa.bot.traffic.core.rule.worker.RuleWorkerImpl;
 import com.perosa.bot.traffic.core.service.Consumable;
 import com.perosa.bot.traffic.http.client.Router;
-import com.perosa.bot.traffic.http.client.RoutingClientResponse;
+import com.perosa.bot.traffic.http.client.ForwarderResponse;
 import com.perosa.bot.traffic.http.client.wrap.Post;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
@@ -27,11 +27,11 @@ public class PostRequest extends ParentRequest implements Request {
 
             post = initPost(consumable, request);
 
-            RoutingClientResponse routingClientResponse = new Router().post(post);
+            ForwarderResponse forwarderResponse = new Router().post(post);
 
-            String clientResponseAsString = routingClientResponse.getBody();
+            String clientResponseAsString = forwarderResponse.getBody();
 
-            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, routingClientResponse.getContentType());
+            exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, forwarderResponse.getContentType());
             exchange.getResponseSender().send(clientResponseAsString);
 
         } catch (Exception e) {

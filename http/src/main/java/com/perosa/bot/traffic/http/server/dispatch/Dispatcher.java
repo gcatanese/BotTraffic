@@ -1,4 +1,4 @@
-package com.perosa.bot.traffic.http.server;
+package com.perosa.bot.traffic.http.server.dispatch;
 
 import com.perosa.bot.traffic.http.server.request.GetRequest;
 import com.perosa.bot.traffic.http.server.request.PostRequest;
@@ -11,8 +11,7 @@ public class Dispatcher {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Dispatcher.class);
 
-
-    void dispatch(HttpServerExchange exchange) {
+    public void dispatch(HttpServerExchange exchange) {
         LOGGER.debug(exchange.toString());
 
         if (exchange.getRequestMethod().equals(new HttpString("POST"))) {
