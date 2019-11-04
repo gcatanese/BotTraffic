@@ -1,5 +1,7 @@
 package com.perosa.bot.traffic.core.service;
 
+import com.perosa.bot.traffic.core.rule.RuleWorkflow;
+
 public class ConsumableService implements Consumable {
 
     private String id;
@@ -7,6 +9,7 @@ public class ConsumableService implements Consumable {
     private int port;
     private String url;
     private int weight = 100;
+    private RuleWorkflow workflow = RuleWorkflow.ROUTE;
 
     public ConsumableService() {
     }
@@ -69,6 +72,15 @@ public class ConsumableService implements Consumable {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public RuleWorkflow getWorkflow() {
+        return workflow;
+    }
+
+    public void setWorkflow(RuleWorkflow workflow) {
+        this.workflow = workflow;
     }
 
     @Override

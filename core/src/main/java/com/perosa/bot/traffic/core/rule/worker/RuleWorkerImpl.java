@@ -46,15 +46,15 @@ public class RuleWorkerImpl implements RuleWorker {
         List<Rule> rules = getPool(getRequestedPath());
 
         if (rules != null && !rules.isEmpty()) {
-            List<ConsumableService> targets = findEligigleTargets(rules);
+            Rule rule = findWinningRule(rules);
 
-            if (targets != null) {
+            if (rule != null && rule.getTargets() != null) {
 
-                consumable = getStrategy().getTarget(targets);
+                consumable = getStrategy().getTarget(rule.getTargets());
 
                 consumable = fetchFromRegistry(consumable.getId());
 
-                consumable = prepareConsumable(consumable, getRequest());
+                consumable = prepareConsumable(consumable, rule);
 
                 LOGGER.info("fwdTo " + consumable.getUrl());
             }
@@ -77,7 +77,7 @@ public class RuleWorkerImpl implements RuleWorker {
         return rules;
     }
 
-    Consumable prepareConsumable(Consumable consumable, BotProxyRequest request) {
+    Consumable prepareConsumable(Consumable consumable, Rule rule) {
 
         ConsumableService consumableService = (ConsumableService) consumable;
 
@@ -91,6 +91,8 @@ public class RuleWorkerImpl implements RuleWorker {
             consumableService.setUrl("http://" + consumable.getHost() + ":" + consumable.getPort()
                     + getRequestedPath() + getRequestedQueryString());
         }
+
+        consumableService.setWorkflow(rule.getWorkflow());
 
         return consumableService;
     }
@@ -125,8 +127,8 @@ public class RuleWorkerImpl implements RuleWorker {
         }
     }
 
-    List<ConsumableService> findEligigleTargets(List<Rule> rules) {
-        List<ConsumableService> targets = null;
+    Rule findWinningRule(List<Rule> rules) {
+        Rule ret = null;
 
         Optional<Rule> rule = rules.stream()
                 .filter(r -> r.getStatus().equals(RuleStatus.ACTIVE))
@@ -134,10 +136,10 @@ public class RuleWorkerImpl implements RuleWorker {
                 .findFirst();
 
         if (rule.isPresent()) {
-            targets = rule.get().getTargets();
+            ret = rule.get();
         }
 
-        return targets;
+        return ret;
     }
 
     private String getRequestedPath() {

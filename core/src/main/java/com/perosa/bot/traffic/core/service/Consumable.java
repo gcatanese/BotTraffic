@@ -1,5 +1,7 @@
 package com.perosa.bot.traffic.core.service;
 
+import com.perosa.bot.traffic.core.rule.RuleWorkflow;
+
 public interface Consumable {
 
     String getHost();
@@ -11,4 +13,6 @@ public interface Consumable {
     String getUrl();
 
     int getWeight();
+
+    RuleWorkflow getWorkflow();
 }
