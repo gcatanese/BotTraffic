@@ -35,6 +35,8 @@ public class JavaClientImpl implements Forwarder {
 
     ForwarderResponse call(String endpoint, String method, Map<String, String> headers, String payload) throws Exception {
 
+        LOGGER.debug("endpoint");
+
         ForwarderResponse forwarderResponse = new ForwarderResponse();
 
         HttpURLConnection connection = null;
