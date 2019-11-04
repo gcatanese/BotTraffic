@@ -14,7 +14,7 @@ public class Shadower {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Shadower.class);
 
-    ExecutorService executor = Executors.newSingleThreadExecutor();
+    ExecutorService executor = Executors.newFixedThreadPool(5);
 
     private Forwarder forwarder = new JavaClientImpl();
 
