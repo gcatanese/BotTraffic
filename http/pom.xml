@@ -83,7 +83,7 @@
                 <configuration>
                     <trimStackTrace>false</trimStackTrace>
                     <environmentVariables>
-                        <bt.home>src/test/resources/</bt.home>
+                        <BT_HOME>src/test/resources/</BT_HOME>
                     </environmentVariables>
                 </configuration>
             </plugin>
