@@ -32,6 +32,7 @@ docker run -p 8080:8886 -v /config:/software/config perosa/bottraffic
 ## Coming soon
 
 In the pipeline:
+- K8s support
 - Web UI to define rules and target services
 - Service Discovery
 - REST API to add/edit/remove rules
