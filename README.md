@@ -6,7 +6,7 @@ Smart routing for Chatbot webhooks #chatbot #webhook #crossplatform #abtesting #
 
 BotTraffic is a lightweight rule-based engine to route incoming webhooks traffic to backend services, allowing teams to perform **AB Testing**, **Blue-Green deployment**, **Canary Releasing**.
 
-Alongside routing the goal is to support 'shadowing' (send clone of a request to service ie auditing, analysis) and 'filtering' (filter incoming requests ie pre-processing).
+Alongside routing the goal is to support 'shadowing' (send clone of a request to a service ie auditing, analysis) and 'filtering' (filter incoming requests ie pre-processing).
 
 In a nutshell:
 - lightweight framework 
