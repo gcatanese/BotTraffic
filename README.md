@@ -2,6 +2,8 @@
 
 Smart routing for Chatbot webhooks #chatbot #webhook #crossplatform #abtesting #canary
 
+![Alt text](wiki/BT.png?raw=true "Title")
+
 ## Intro
 
 BotTraffic is a lightweight rule-based engine to route incoming webhooks traffic to backend services, allowing teams to perform **AB Testing**, **Blue-Green deployment**, **Canary Releasing**.
