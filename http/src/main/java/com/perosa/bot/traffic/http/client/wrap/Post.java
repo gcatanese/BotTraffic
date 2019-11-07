@@ -7,9 +7,8 @@ public class Post {
 
     private String url = "";
     private String path = "";
-    Map<String, String> headers = new HashMap<>();
+    private Map<String, String> headers = new HashMap<>();
     private String body = "";
-    Map<String, String[]> parameters = new HashMap<>();
 
     public Post(String url, String path) {
         this.url = url;
@@ -46,14 +45,6 @@ public class Post {
 
     public void setBody(String body) {
         this.body = body;
-    }
-
-    public Map<String, String[]> getParameters() {
-        return parameters;
-    }
-
-    public void setParameters(Map<String, String[]> parameters) {
-        this.parameters = parameters;
     }
 
     @Override

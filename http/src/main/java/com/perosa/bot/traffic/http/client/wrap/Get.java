@@ -7,8 +7,8 @@ public class Get {
 
     private String url;
     private String path;
-    Map<String, String> headers = new HashMap<>();
-    Map<String, String[]> parameters = new HashMap<>();
+    private Map<String, String> headers = new HashMap<>();
+    private Map<String, String[]> parameters = new HashMap<>();
 
     public Get(String url, String path) {
         this.url = url;

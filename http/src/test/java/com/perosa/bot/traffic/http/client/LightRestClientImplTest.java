@@ -6,6 +6,7 @@ import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -22,6 +23,11 @@ public class LightRestClientImplTest {
     @BeforeAll
     static void start() {
         buildAndStartServer(8899, "localhost");
+    }
+
+    @AfterAll
+    static void stop() {
+        server.stop();
     }
 
     @Test
