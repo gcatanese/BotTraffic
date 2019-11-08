@@ -16,7 +16,11 @@ public class Router {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Router.class);
 
-    private Forwarder forwarder = new JavaClientImpl();
+    private Forwarder forwarder;
+
+    public Router(Forwarder forwarder) {
+        this.forwarder = forwarder;
+    }
 
     public ForwarderResponse get(Get input) throws Exception {
 
@@ -39,7 +43,7 @@ public class Router {
 
         long start = System.currentTimeMillis();
 
-        ForwarderResponse forwarderResponse = forwarder.post(input);
+        ForwarderResponse forwarderResponse = getForwarder().post(input);
 
         long end = System.currentTimeMillis();
 
@@ -78,5 +82,7 @@ public class Router {
         return url;
     }
 
-
+    public Forwarder getForwarder() {
+        return forwarder;
+    }
 }

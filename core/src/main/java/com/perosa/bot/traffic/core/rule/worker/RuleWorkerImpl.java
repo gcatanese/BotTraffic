@@ -23,27 +23,27 @@ public class RuleWorkerImpl implements RuleWorker {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RuleWorkerImpl.class);
 
-    private BotProxyRequest request;
     private RuleAnalyzer ruleAnalyzer;
     private UrlHelper urlHelper;
 
     private Strategy strategy;
 
-    public RuleWorkerImpl(BotProxyRequest request) {
+    public RuleWorkerImpl() {
         this.strategy = new SingleServiceStrategy();
         this.urlHelper = new UrlHelper();
-        this.request = request;
-        this.ruleAnalyzer = new RuleAnalyzer(request);
+
     }
 
     @Override
-    public Consumable process() {
+    public Consumable process(BotProxyRequest request) {
+
+        this.ruleAnalyzer = new RuleAnalyzer(request);
 
         Consumable consumable = null;
 
-        validate();
+        validate(request);
 
-        List<Rule> rules = getPool(getRequestedPath());
+        List<Rule> rules = getPool(getRequestedPath(request));
 
         if (rules != null && !rules.isEmpty()) {
 
@@ -55,15 +55,15 @@ public class RuleWorkerImpl implements RuleWorker {
 
                 consumable = fetchFromRegistry(consumable.getId());
 
-                consumable = prepareConsumable(consumable, rule);
+                consumable = prepareConsumable(consumable, rule, request);
 
                 LOGGER.info("target->" + consumable.getUrl());
             }
         }
 
         if (consumable == null) {
-            LOGGER.warn("No matching rule for path " + getRequestedPath());
-            consumable = prepareConsumableWithRequestedUrl(getRequest());
+            LOGGER.warn("No matching rule for path " + getRequestedPath(request));
+            consumable = prepareConsumableWithRequestedUrl(request);
         }
 
         return consumable;
@@ -78,19 +78,19 @@ public class RuleWorkerImpl implements RuleWorker {
         return rules;
     }
 
-    Consumable prepareConsumable(Consumable consumable, Rule rule) {
+    Consumable prepareConsumable(Consumable consumable, Rule rule, BotProxyRequest request) {
 
         ConsumableService consumableService = (ConsumableService) consumable;
 
         if(consumable.getPort() == 80) {
             consumableService.setUrl("http://" + consumable.getHost()
-                    + getRequestedPath() + getRequestedQueryString());
+                    + getRequestedPath(request) + getRequestedQueryString(request));
         } else if (consumable.getPort() == 443) {
             consumableService.setUrl("https://" + consumable.getHost()
-                    + getRequestedPath() + getRequestedQueryString());
+                    + getRequestedPath(request) + getRequestedQueryString(request));
         } else {
             consumableService.setUrl("http://" + consumable.getHost() + ":" + consumable.getPort()
-                    + getRequestedPath() + getRequestedQueryString());
+                    + getRequestedPath(request) + getRequestedQueryString(request));
         }
 
         consumableService.setWorkflow(rule.getWorkflow());
@@ -107,9 +107,9 @@ public class RuleWorkerImpl implements RuleWorker {
         return consumableService;
     }
 
-    void validate() {
+    void validate(BotProxyRequest request) {
 
-        if (this.request.getUrl() == null) {
+        if (request.getUrl() == null) {
             throw new RuntimeException("Url is undefined");
         }
 
@@ -143,20 +143,12 @@ public class RuleWorkerImpl implements RuleWorker {
         return ret;
     }
 
-    private String getRequestedPath() {
-        return getUrlHelper().getPath(getRequest().getUrl());
+    private String getRequestedPath(BotProxyRequest request) {
+        return getUrlHelper().getPath(request.getUrl());
     }
 
-    private String getRequestedQueryString() {
-        return getUrlHelper().getQueryString(getRequest().getUrl());
-    }
-
-    public BotProxyRequest getRequest() {
-        return request;
-    }
-
-    public void setRequest(BotProxyRequest request) {
-        this.request = request;
+    private String getRequestedQueryString(BotProxyRequest request) {
+        return getUrlHelper().getQueryString(request.getUrl());
     }
 
     public RuleAnalyzer getRuleAnalyzer() {

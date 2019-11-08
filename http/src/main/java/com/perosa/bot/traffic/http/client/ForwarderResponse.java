@@ -35,7 +35,7 @@ public class ForwarderResponse {
     }
 
     public String getContentType() {
-        String contentType = "";
+        String contentType = null;
 
         if(getHeaders().get("Content-Type") != null && !getHeaders().get("Content-Type").isEmpty() && getHeaders().get("Content-Type").get(0) != null) {
             contentType = getHeaders().get("Content-Type").get(0);
@@ -44,7 +44,7 @@ public class ForwarderResponse {
     }
 
     public String getContentLength() {
-        String contentLength = "";
+        String contentLength = null;
 
         if(getHeaders().get("Content-Length") != null && !getHeaders().get("Content-Length").isEmpty() && getHeaders().get("Content-Length").get(0) != null) {
             contentLength = getHeaders().get("Content-Length").get(0);

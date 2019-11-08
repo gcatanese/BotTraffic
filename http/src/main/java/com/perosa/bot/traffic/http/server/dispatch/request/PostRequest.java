@@ -18,9 +18,16 @@ public class PostRequest extends ParentRequest implements Request {
     private static final Logger LOGGER = LoggerFactory.getLogger(PostRequest.class);
 
     private Forwarder forwarder;
+    private Router router;
 
     public PostRequest() {
         this.forwarder = Forwarder.getInstance();
+        this.router = new Router(getForwarder());
+    }
+
+    public PostRequest(Router router) {
+        this();
+        this.router = router;
     }
 
     public void handle(HttpServerExchange exchange) {
@@ -31,13 +38,13 @@ public class PostRequest extends ParentRequest implements Request {
 
             BotProxyRequest request = initBotProxyRequest(exchange);
 
-            Consumable consumable = new RuleWorkerImpl(request).process();
+            Consumable consumable = new RuleWorkerImpl().process(request);
 
             post = initPost(consumable, request);
 
             if (consumable.isRouting()) {
 
-                ForwarderResponse forwarderResponse = new Router().post(post);
+                ForwarderResponse forwarderResponse = getRouter().post(post);
 
                 String clientResponseAsString = forwarderResponse.getBody();
 
@@ -86,5 +93,9 @@ public class PostRequest extends ParentRequest implements Request {
 
     public Forwarder getForwarder() {
         return forwarder;
+    }
+
+    public Router getRouter() {
+        return router;
     }
 }
