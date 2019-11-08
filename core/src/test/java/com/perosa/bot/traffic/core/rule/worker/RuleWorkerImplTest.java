@@ -25,8 +25,8 @@ public class RuleWorkerImplTest {
     public void validate() {
 
         Assertions.assertThrows(RuntimeException.class, () -> {
-            BotProxyRequest botProxyRequest = new BotProxyRequest();
-            new RuleWorkerImpl(botProxyRequest).validate();
+            BotProxyRequest request = new BotProxyRequest();
+            new RuleWorkerImpl().validate(request);
         });
     }
 
@@ -35,8 +35,8 @@ public class RuleWorkerImplTest {
 
         BotProxyRequest request = new BotProxyRequest();
         request.setBody(getJsonBody());
-        RuleWorkerImpl mgr = new RuleWorkerImpl(request);
-
+        RuleWorkerImpl mgr = new RuleWorkerImpl();
+        mgr.setRuleAnalyzer(new RuleAnalyzer(request));
 
         List<Rule> rules = Arrays.asList(
                 new Rule("/p1", "/from/name", "Mr X", Operator.EQUAL, RuleType.BODY,
@@ -64,7 +64,8 @@ public class RuleWorkerImplTest {
 
         BotProxyRequest request = new BotProxyRequest();
         request.setBody(getJsonBody2());
-        RuleWorkerImpl mgr = new RuleWorkerImpl(request);
+        RuleWorkerImpl mgr = new RuleWorkerImpl();
+        mgr.setRuleAnalyzer(new RuleAnalyzer(request));
 
         List<Rule> rules = Arrays.asList(
                 new Rule("/p1", "/from/name", "Mr X", Operator.EQUAL, RuleType.BODY,
@@ -91,7 +92,7 @@ public class RuleWorkerImplTest {
 
         BotProxyRequest botProxyRequest = new BotProxyRequest();
 
-        List<Rule> rules = new RuleWorkerImpl(botProxyRequest).getPool("/webhook1");
+        List<Rule> rules = new RuleWorkerImpl().getPool("/webhook1");
 
         assertNotNull(rules);
         assertEquals(2, rules.size());
@@ -101,7 +102,7 @@ public class RuleWorkerImplTest {
     public void getConsumable() {
 
         BotProxyRequest botProxyRequest = new BotProxyRequest();
-        Consumable consumable = new RuleWorkerImpl(botProxyRequest).fetchFromRegistry("s00001");
+        Consumable consumable = new RuleWorkerImpl().fetchFromRegistry("s00001");
 
         assertNotNull(consumable);
         assertEquals("ds.perosa.com", consumable.getHost());
@@ -112,14 +113,14 @@ public class RuleWorkerImplTest {
     @Test
     public void prepareOutput() {
 
-        BotProxyRequest botProxyRequest = new BotProxyRequest();
-        botProxyRequest.setUrl("https://127.0.0.1/webhook/a/b?user=me");
-        Consumable consumable = new RuleWorkerImpl(botProxyRequest).fetchFromRegistry("s00001");
+        BotProxyRequest request = new BotProxyRequest();
+        request.setUrl("https://127.0.0.1/webhook/a/b?user=me");
+        Consumable consumable = new RuleWorkerImpl().fetchFromRegistry("s00001");
 
         Rule rule = new Rule("01");
         rule.setWorkflow(RuleWorkflow.FILTER);
 
-        consumable = new RuleWorkerImpl(botProxyRequest).prepareConsumable(consumable, rule);
+        consumable = new RuleWorkerImpl().prepareConsumable(consumable, rule, request);
 
         assertEquals("ds.perosa.com", consumable.getHost());
         assertEquals(8383, consumable.getPort());
@@ -130,14 +131,14 @@ public class RuleWorkerImplTest {
     @Test
     public void prepareOutputPort80() {
 
-        BotProxyRequest botProxyRequest = new BotProxyRequest();
-        botProxyRequest.setUrl("https://127.0.0.1/webhook/a/b?user=me");
-        Consumable consumable = new RuleWorkerImpl(botProxyRequest).fetchFromRegistry("s00002");
+        BotProxyRequest request = new BotProxyRequest();
+        request.setUrl("https://127.0.0.1/webhook/a/b?user=me");
+        Consumable consumable = new RuleWorkerImpl().fetchFromRegistry("s00002");
 
         Rule rule = new Rule("01");
         rule.setWorkflow(RuleWorkflow.SHADOW);
 
-        consumable = new RuleWorkerImpl(botProxyRequest).prepareConsumable(consumable, rule);
+        consumable = new RuleWorkerImpl().prepareConsumable(consumable, rule, request);
 
         assertEquals("ds.perosa.com", consumable.getHost());
         assertEquals(80, consumable.getPort());
@@ -148,14 +149,14 @@ public class RuleWorkerImplTest {
     @Test
     public void prepareOutputPort443() {
 
-        BotProxyRequest botProxyRequest = new BotProxyRequest();
-        botProxyRequest.setUrl("https://127.0.0.1/webhook/a/b?user=me");
-        Consumable consumable = new RuleWorkerImpl(botProxyRequest).fetchFromRegistry("s00003");
+        BotProxyRequest request = new BotProxyRequest();
+        request.setUrl("https://127.0.0.1/webhook/a/b?user=me");
+        Consumable consumable = new RuleWorkerImpl().fetchFromRegistry("s00003");
 
         Rule rule = new Rule("01");
         rule.setWorkflow(RuleWorkflow.ROUTE);
 
-        consumable = new RuleWorkerImpl(botProxyRequest).prepareConsumable(consumable, rule);
+        consumable = new RuleWorkerImpl().prepareConsumable(consumable, rule, request);
 
         assertEquals("ds.perosa.com", consumable.getHost());
         assertEquals(443, consumable.getPort());
@@ -166,10 +167,10 @@ public class RuleWorkerImplTest {
     @Test
     public void prepareConsumableWithRequestedUrl() {
 
-        BotProxyRequest botProxyRequest = new BotProxyRequest();
-        botProxyRequest.setUrl("http://127.0.0.1/webhook/a/b?user=me");
+        BotProxyRequest request = new BotProxyRequest();
+        request.setUrl("http://127.0.0.1/webhook/a/b?user=me");
 
-        Consumable consumable = new RuleWorkerImpl(botProxyRequest).prepareConsumableWithRequestedUrl(botProxyRequest);
+        Consumable consumable = new RuleWorkerImpl().prepareConsumableWithRequestedUrl(request);
 
         assertNotNull(consumable);
         assertEquals("http://127.0.0.1/webhook/a/b?user=me", consumable.getUrl());
