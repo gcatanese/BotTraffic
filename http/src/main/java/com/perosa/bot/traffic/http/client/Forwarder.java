@@ -9,4 +9,8 @@ public interface Forwarder {
 
     ForwarderResponse post(Post input) throws Exception;
 
+    static Forwarder getInstance() {
+        return new JavaClientImpl();
+    }
+
 }

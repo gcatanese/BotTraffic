@@ -3,6 +3,7 @@ package com.perosa.bot.traffic.http.server.dispatch.request;
 import com.perosa.bot.traffic.core.BotProxyRequest;
 import com.perosa.bot.traffic.core.rule.worker.RuleWorkerImpl;
 import com.perosa.bot.traffic.core.service.Consumable;
+import com.perosa.bot.traffic.http.client.Forwarder;
 import com.perosa.bot.traffic.http.server.dispatch.workflow.Router;
 import com.perosa.bot.traffic.http.client.ForwarderResponse;
 import com.perosa.bot.traffic.http.client.wrap.Get;
@@ -15,6 +16,12 @@ import org.slf4j.LoggerFactory;
 public class GetRequest extends ParentRequest implements Request {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ParentRequest.class);
+
+    private Forwarder forwarder;
+
+    public GetRequest() {
+        this.forwarder = Forwarder.getInstance();
+    }
 
     public void handle(HttpServerExchange exchange) {
 
@@ -38,7 +45,7 @@ public class GetRequest extends ParentRequest implements Request {
                 exchange.getResponseSender().send(clientResponseAsString);
 
             } else if (consumable.isShadowing()) {
-                new Shadower().get(get);
+                new Shadower(getForwarder()).get(get);
                 exchange.getResponseSender().send("Got it");
             }
 
@@ -77,5 +84,7 @@ public class GetRequest extends ParentRequest implements Request {
         return get;
     }
 
-
+    public Forwarder getForwarder() {
+        return forwarder;
+    }
 }

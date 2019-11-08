@@ -16,7 +16,11 @@ public class Shadower {
 
     ExecutorService executor = Executors.newFixedThreadPool(5);
 
-    private Forwarder forwarder = new JavaClientImpl();
+    private Forwarder forwarder;
+
+    public Shadower(Forwarder forwarder) {
+        this.forwarder = forwarder;
+    }
 
     public void get(Get input) throws Exception {
         push(callableGet(input));
@@ -33,7 +37,7 @@ public class Shadower {
     Callable<String> callableGet(Get input) {
 
         Callable<String> callable = () -> {
-            ForwarderResponse forwarderResponse = forwarder.get(input);
+            ForwarderResponse forwarderResponse = getForwarder().get(input);
             return "Pushed Get";
         };
 
@@ -43,11 +47,14 @@ public class Shadower {
     Callable<String> callablePost(Post input) {
 
         Callable<String> callable = () -> {
-            ForwarderResponse forwarderResponse = forwarder.post(input);
+            ForwarderResponse forwarderResponse = getForwarder().post(input);
             return "Pushed Post";
         };
 
         return callable;
     }
 
+    public Forwarder getForwarder() {
+        return forwarder;
+    }
 }
