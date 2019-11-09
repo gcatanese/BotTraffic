@@ -62,5 +62,11 @@ public class EnvConfiguration {
         return Integer.valueOf(interval);
     }
 
+    public boolean isFallbackRequestedUrl() {
+        String fallback = System.getenv("BT_FALLBACK_REQUESTED_URL");
+
+        return (fallback != null && fallback.equalsIgnoreCase("true"));
+    }
+
 
 }
