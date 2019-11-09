@@ -32,7 +32,6 @@ public class RuleWorkerImpl implements RuleWorker {
     public RuleWorkerImpl() {
         this.strategy = new SingleServiceStrategy();
         this.urlHelper = new UrlHelper();
-
     }
 
     @Override
