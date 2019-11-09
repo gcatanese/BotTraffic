@@ -1,6 +1,7 @@
 package com.perosa.bot.traffic.http.server.dispatch.request;
 
 import com.perosa.bot.traffic.core.BotProxyRequest;
+import com.perosa.bot.traffic.core.rule.worker.RuleWorker;
 import com.perosa.bot.traffic.core.rule.worker.RuleWorkerImpl;
 import com.perosa.bot.traffic.core.service.Consumable;
 import com.perosa.bot.traffic.http.client.Forwarder;
@@ -19,15 +20,14 @@ public class PostRequest extends ParentRequest implements Request {
 
     private Forwarder forwarder;
     private Router router;
+    private Shadower shadower;
+    private RuleWorker ruleWorker;
 
     public PostRequest() {
         this.forwarder = Forwarder.getInstance();
         this.router = new Router(getForwarder());
-    }
-
-    public PostRequest(Router router) {
-        this();
-        this.router = router;
+        this.shadower = new Shadower(getForwarder());
+        this.ruleWorker = new RuleWorkerImpl();
     }
 
     public void handle(HttpServerExchange exchange) {
@@ -38,7 +38,7 @@ public class PostRequest extends ParentRequest implements Request {
 
             BotProxyRequest request = initBotProxyRequest(exchange);
 
-            Consumable consumable = new RuleWorkerImpl().process(request);
+            Consumable consumable = getRuleWorker().process(request);
 
             post = initPost(consumable, request);
 
@@ -48,12 +48,20 @@ public class PostRequest extends ParentRequest implements Request {
 
                 String clientResponseAsString = forwarderResponse.getBody();
 
-                exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, forwarderResponse.getContentType());
-                exchange.getResponseSender().send(clientResponseAsString);
+                if(forwarderResponse.getContentType() != null) {
+                    exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, forwarderResponse.getContentType());
+                }
+
+                if(exchange.getResponseSender() != null) {
+                    exchange.getResponseSender().send(clientResponseAsString);
+                }
 
             } else if (consumable.isShadowing()) {
-                new Shadower(getForwarder()).post(post);
-                exchange.getResponseSender().send("Got it");
+                getShadower().post(post);
+
+                if(exchange.getResponseSender() != null) {
+                    exchange.getResponseSender().send("Got it");
+                }
             }
 
         } catch (Exception e) {
@@ -66,7 +74,7 @@ public class PostRequest extends ParentRequest implements Request {
 
     }
 
-    private BotProxyRequest initBotProxyRequest(HttpServerExchange exchange) {
+    BotProxyRequest initBotProxyRequest(HttpServerExchange exchange) {
 
         BotProxyRequest request = new BotProxyRequest();
 
@@ -78,7 +86,7 @@ public class PostRequest extends ParentRequest implements Request {
 
     }
 
-    private Post initPost(Consumable consumable, BotProxyRequest request) {
+    Post initPost(Consumable consumable, BotProxyRequest request) {
         Post post = new Post(getUrl(consumable.getUrl()), getPath(consumable.getUrl()));
 
         if (!request.getBody().isEmpty()) {
@@ -95,7 +103,31 @@ public class PostRequest extends ParentRequest implements Request {
         return forwarder;
     }
 
+    public void setForwarder(Forwarder forwarder) {
+        this.forwarder = forwarder;
+    }
+
     public Router getRouter() {
         return router;
+    }
+
+    public void setRouter(Router router) {
+        this.router = router;
+    }
+
+    public Shadower getShadower() {
+        return shadower;
+    }
+
+    public void setShadower(Shadower shadower) {
+        this.shadower = shadower;
+    }
+
+    public RuleWorker getRuleWorker() {
+        return ruleWorker;
+    }
+
+    public void setRuleWorker(RuleWorker ruleWorker) {
+        this.ruleWorker = ruleWorker;
     }
 }

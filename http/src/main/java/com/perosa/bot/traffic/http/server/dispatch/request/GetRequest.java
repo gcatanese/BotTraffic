@@ -1,14 +1,13 @@
 package com.perosa.bot.traffic.http.server.dispatch.request;
 
-import com.networknt.sanitizer.SanitizerHandler;
 import com.perosa.bot.traffic.core.BotProxyRequest;
 import com.perosa.bot.traffic.core.rule.worker.RuleWorker;
 import com.perosa.bot.traffic.core.rule.worker.RuleWorkerImpl;
 import com.perosa.bot.traffic.core.service.Consumable;
 import com.perosa.bot.traffic.http.client.Forwarder;
-import com.perosa.bot.traffic.http.server.dispatch.workflow.Router;
 import com.perosa.bot.traffic.http.client.ForwarderResponse;
 import com.perosa.bot.traffic.http.client.wrap.Get;
+import com.perosa.bot.traffic.http.server.dispatch.workflow.Router;
 import com.perosa.bot.traffic.http.server.dispatch.workflow.Shadower;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.util.Headers;
@@ -17,7 +16,7 @@ import org.slf4j.LoggerFactory;
 
 public class GetRequest extends ParentRequest implements Request {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ParentRequest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GetRequest.class);
 
     private Forwarder forwarder;
     private Router router;
@@ -29,17 +28,6 @@ public class GetRequest extends ParentRequest implements Request {
         this.router = new Router(getForwarder());
         this.shadower = new Shadower(getForwarder());
         this.ruleWorker = new RuleWorkerImpl();
-    }
-
-    public GetRequest(Router router, Shadower shadower) {
-        this();
-        this.router = router;
-        this.shadower = shadower;
-    }
-
-    public GetRequest(Router router, Shadower shadower, RuleWorker ruleWorker) {
-        this(router, shadower);
-        this.ruleWorker = ruleWorker;
     }
 
     public void handle(HttpServerExchange exchange) {
@@ -113,15 +101,31 @@ public class GetRequest extends ParentRequest implements Request {
         return forwarder;
     }
 
+    public void setForwarder(Forwarder forwarder) {
+        this.forwarder = forwarder;
+    }
+
     public Router getRouter() {
         return router;
+    }
+
+    public void setRouter(Router router) {
+        this.router = router;
     }
 
     public Shadower getShadower() {
         return shadower;
     }
 
+    public void setShadower(Shadower shadower) {
+        this.shadower = shadower;
+    }
+
     public RuleWorker getRuleWorker() {
         return ruleWorker;
+    }
+
+    public void setRuleWorker(RuleWorker ruleWorker) {
+        this.ruleWorker = ruleWorker;
     }
 }

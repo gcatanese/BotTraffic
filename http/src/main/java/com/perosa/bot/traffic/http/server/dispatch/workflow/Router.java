@@ -39,8 +39,6 @@ public class Router {
 
     public ForwarderResponse post(Post input) throws Exception {
 
-        ClientResponse clientResponse = null;
-
         long start = System.currentTimeMillis();
 
         ForwarderResponse forwarderResponse = getForwarder().post(input);

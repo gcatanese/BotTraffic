@@ -22,9 +22,11 @@ public class ParentRequest {
     String extractBody(HttpServerExchange exchange) {
         StringBuilder requestBody = new StringBuilder();
 
-        exchange.getRequestReceiver().receiveFullString((ex, data) -> {
-            requestBody.append(data);
-        });
+        if(exchange.getRequestReceiver() != null) {
+            exchange.getRequestReceiver().receiveFullString((ex, data) -> {
+                requestBody.append(data);
+            });
+        }
 
         return requestBody.toString();
     }
