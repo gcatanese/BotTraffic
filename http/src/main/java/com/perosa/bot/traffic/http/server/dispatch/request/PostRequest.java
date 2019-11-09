@@ -40,27 +40,30 @@ public class PostRequest extends ParentRequest implements Request {
 
             Consumable consumable = getRuleWorker().process(request);
 
-            post = initPost(consumable, request);
+            if(consumable != null) {
 
-            if (consumable.isRouting()) {
+                post = initPost(consumable, request);
 
-                ForwarderResponse forwarderResponse = getRouter().post(post);
+                if (consumable.isRouting()) {
 
-                String clientResponseAsString = forwarderResponse.getBody();
+                    ForwarderResponse forwarderResponse = getRouter().post(post);
 
-                if(forwarderResponse.getContentType() != null) {
-                    exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, forwarderResponse.getContentType());
-                }
+                    String clientResponseAsString = forwarderResponse.getBody();
 
-                if(exchange.getResponseSender() != null) {
-                    exchange.getResponseSender().send(clientResponseAsString);
-                }
+                    if (forwarderResponse.getContentType() != null) {
+                        exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, forwarderResponse.getContentType());
+                    }
 
-            } else if (consumable.isShadowing()) {
-                getShadower().post(post);
+                    if (exchange.getResponseSender() != null) {
+                        exchange.getResponseSender().send(clientResponseAsString);
+                    }
 
-                if(exchange.getResponseSender() != null) {
-                    exchange.getResponseSender().send("Got it");
+                } else if (consumable.isShadowing()) {
+                    getShadower().post(post);
+
+                    if (exchange.getResponseSender() != null) {
+                        exchange.getResponseSender().send("Got it");
+                    }
                 }
             }
 

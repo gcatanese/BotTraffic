@@ -1,6 +1,7 @@
 package com.perosa.bot.traffic.core.rule.worker;
 
 import com.perosa.bot.traffic.core.BotProxyRequest;
+import com.perosa.bot.traffic.core.common.EnvConfiguration;
 import com.perosa.bot.traffic.core.common.UrlHelper;
 import com.perosa.bot.traffic.core.rule.Rule;
 import com.perosa.bot.traffic.core.rule.RuleStatus;
@@ -63,7 +64,9 @@ public class RuleWorkerImpl implements RuleWorker {
 
         if (consumable == null) {
             LOGGER.warn("No matching rule for path " + getRequestedPath(request));
-            consumable = prepareConsumableWithRequestedUrl(request);
+            if(new EnvConfiguration().isFallbackRequestedUrl()) {
+                consumable = prepareConsumableWithRequestedUrl(request);
+            }
         }
 
         return consumable;
