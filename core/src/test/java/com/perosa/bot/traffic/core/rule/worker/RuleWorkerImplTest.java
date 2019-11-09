@@ -116,8 +116,6 @@ public class RuleWorkerImplTest {
     @Test
     public void getPool() {
 
-        BotProxyRequest botProxyRequest = new BotProxyRequest();
-
         List<Rule> rules = new RuleWorkerImpl().getPool("/webhook1");
 
         assertNotNull(rules);
@@ -127,7 +125,6 @@ public class RuleWorkerImplTest {
     @Test
     public void getConsumable() {
 
-        BotProxyRequest botProxyRequest = new BotProxyRequest();
         Consumable consumable = new RuleWorkerImpl().fetchFromRegistry("s00001");
 
         assertNotNull(consumable);
