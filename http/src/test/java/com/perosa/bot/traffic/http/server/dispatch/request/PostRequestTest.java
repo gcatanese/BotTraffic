@@ -10,6 +10,7 @@ import com.perosa.bot.traffic.core.service.ConsumableService;
 import com.perosa.bot.traffic.http.client.Forwarder;
 import com.perosa.bot.traffic.http.client.ForwarderResponse;
 import com.perosa.bot.traffic.http.client.wrap.Get;
+import com.perosa.bot.traffic.http.client.wrap.Post;
 import com.perosa.bot.traffic.http.server.dispatch.workflow.Router;
 import com.perosa.bot.traffic.http.server.dispatch.workflow.Shadower;
 import io.undertow.server.HttpServerExchange;
@@ -20,12 +21,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class GetRequestTest {
+class PostRequestTest {
 
     @Mock
     HttpServerExchange exchange;
@@ -46,21 +48,21 @@ class GetRequestTest {
     void initBotProxyRequest() {
 
         when(exchange.getRequestURL()).thenReturn("http://localhost");
-        when(exchange.getQueryString()).thenReturn("user=perosa&location=Amsterdam");
 
         HeaderMap headerMap = new HeaderMap();
         headerMap.add(new HttpString("host"), "localhost");
         headerMap.add(new HttpString("authorization"), "bldfsdf$%45");
         when(exchange.getRequestHeaders()).thenReturn(headerMap);
 
-        BotProxyRequest request = new GetRequest().initBotProxyRequest(exchange);
+        BotProxyRequest request = new PostRequest().initBotProxyRequest(exchange);
 
         assertNotNull(request);
-        assertEquals("http://localhost?user=perosa&location=Amsterdam", request.getUrl());
+        assertEquals("http://localhost", request.getUrl());
+        assertEquals("", request.getBody()); // undef body during unit test
     }
 
     @Test
-    void initGet() {
+    void initPost() {
 
         BotProxyRequest request = new BotProxyRequest();
         request.setBody("body");
@@ -68,18 +70,17 @@ class GetRequestTest {
         mgr.setRuleAnalyzer(new RuleAnalyzer(request));
 
 
-        Get get = new GetRequest().initGet(getRoutingConsumable(), request);
+        Post post = new PostRequest().initPost(getRoutingConsumable(), request);
 
-        assertNotNull(get);
-        assertEquals("http://localhost:9090", get.getUrl());
-        assertEquals("/path?param=value", get.getPath());
+        assertNotNull(post);
+        assertEquals("http://localhost:9090", post.getUrl());
+        assertEquals("/path", post.getPath());
     }
 
     @Test
     void handle() throws Exception {
 
         when(exchange.getRequestURL()).thenReturn("http://localhost/svc1");
-        when(exchange.getQueryString()).thenReturn("user=perosa&location=Amsterdam");
 
         HeaderMap headerMap = new HeaderMap();
         headerMap.add(new HttpString("host"), "localhost");
@@ -88,18 +89,18 @@ class GetRequestTest {
 
         when(ruleWorkerMock.process(isA(BotProxyRequest.class))).thenReturn(getRoutingConsumable());
 
-        when(routerMock.get(isA(Get.class))).thenReturn(new ForwarderResponse());
+        when(routerMock.post(isA(Post.class))).thenReturn(new ForwarderResponse());
 
-        GetRequest get = new GetRequest();
-        get.setRouter(routerMock);
-        get.setShadower(shadowerMock);
-        get.setForwarder(forwarderMock);
-        get.setRuleWorker(ruleWorkerMock);
+        PostRequest post = new PostRequest();
+        post.setRouter(routerMock);
+        post.setShadower(shadowerMock);
+        post.setForwarder(forwarderMock);
+        post.setRuleWorker(ruleWorkerMock);
 
-        get.handle(exchange);
+        post.handle(exchange);
 
-        verify(routerMock, times(1)).get(isA(Get.class));
-        verify(shadowerMock, times(0)).get(isA(Get.class));
+        verify(routerMock, times(1)).post(isA(Post.class));
+        verify(shadowerMock, times(0)).post(isA(Post.class));
         verify(ruleWorkerMock, times(1)).process(isA(BotProxyRequest.class));
 
     }
@@ -108,7 +109,6 @@ class GetRequestTest {
     void handleWithShadowing() throws Exception {
 
         when(exchange.getRequestURL()).thenReturn("http://localhost/svc1");
-        when(exchange.getQueryString()).thenReturn("user=perosa&location=Amsterdam");
 
         HeaderMap headerMap = new HeaderMap();
         headerMap.add(new HttpString("host"), "localhost");
@@ -117,23 +117,23 @@ class GetRequestTest {
 
         when(ruleWorkerMock.process(isA(BotProxyRequest.class))).thenReturn(getShadowingConsumable());
 
-        GetRequest get = new GetRequest();
-        get.setRouter(routerMock);
-        get.setShadower(shadowerMock);
-        get.setForwarder(forwarderMock);
-        get.setRuleWorker(ruleWorkerMock);
+        PostRequest post = new PostRequest();
+        post.setRouter(routerMock);
+        post.setShadower(shadowerMock);
+        post.setForwarder(forwarderMock);
+        post.setRuleWorker(ruleWorkerMock);
 
-        get.handle(exchange);
+        post.handle(exchange);
 
-        verify(routerMock, times(0)).get(isA(Get.class));
-        verify(shadowerMock, times(1)).get(isA(Get.class));
+        verify(routerMock, times(0)).post(isA(Post.class));
+        verify(shadowerMock, times(1)).post(isA(Post.class));
         verify(ruleWorkerMock, times(1)).process(isA(BotProxyRequest.class));
 
     }
 
     private Consumable getRoutingConsumable() {
         ConsumableService consumable = new ConsumableService("01", "localhost", 9090);
-        consumable.setUrl("http://localhost:9090/path?param=value");
+        consumable.setUrl("http://localhost:9090/path");
         consumable.setWorkflow(RuleWorkflow.ROUTE);
 
         return consumable;
@@ -141,7 +141,7 @@ class GetRequestTest {
 
     private Consumable getShadowingConsumable() {
         ConsumableService consumable = new ConsumableService("01", "localhost", 9090);
-        consumable.setUrl("http://localhost:9090/path?param=value");
+        consumable.setUrl("http://localhost:9090/path");
         consumable.setWorkflow(RuleWorkflow.SHADOW);
 
         return consumable;
