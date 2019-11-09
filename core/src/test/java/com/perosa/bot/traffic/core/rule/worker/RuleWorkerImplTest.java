@@ -86,6 +86,32 @@ public class RuleWorkerImplTest {
 
     }
 
+    @Test
+    public void findCatchAllRule() {
+
+        BotProxyRequest request = new BotProxyRequest();
+        request.setBody(getJsonBody());
+        RuleWorkerImpl mgr = new RuleWorkerImpl();
+        mgr.setRuleAnalyzer(new RuleAnalyzer(request));
+
+        List<Rule> rules = Arrays.asList(
+                new Rule("r01", "/p1", true,
+                        Arrays.asList(
+                                new ConsumableService("s1", "localhost", 8080))
+                ),
+                new Rule("r02","/p1", "/locale", "en-US", Operator.EQUAL_IGNORE_CASE, RuleType.BODY,
+                        Arrays.asList(
+                                new ConsumableService("s2", "localhost", 9090))
+                )
+        );
+
+        Rule rule = mgr.findWinningRule(rules);
+        assertNotNull(rule);
+        assertEquals("r01", rule.getId());
+        assertTrue(rule.getWorkflow().isRoute());
+        assertEquals("s1", rule.getTargets().get(0).getId());
+
+    }
 
     @Test
     public void getPool() {

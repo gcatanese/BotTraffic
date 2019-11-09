@@ -18,6 +18,7 @@ public class Rule {
     private RuleType type;
     private RuleStatus status = RuleStatus.ACTIVE;
     private RuleWorkflow workflow = RuleWorkflow.ROUTE;
+    private boolean catchAll = false;
 
     public Rule() {
         UUID uuid = UUID.randomUUID();
@@ -26,6 +27,13 @@ public class Rule {
 
     public Rule(String id) {
         this.id = id;
+    }
+
+    public Rule(String id, String path, boolean catchAll, List<ConsumableService> targets) {
+        this(id);
+        this.path = path;
+        this.catchAll = catchAll;
+        this.targets = targets;
     }
 
     public Rule(String path, String expression, String value, Operator operator, RuleType type, List<ConsumableService> targets) {
@@ -119,6 +127,14 @@ public class Rule {
 
     public void setWorkflow(RuleWorkflow workflow) {
         this.workflow = workflow;
+    }
+
+    public boolean isCatchAll() {
+        return catchAll;
+    }
+
+    public void setCatchAll(boolean catchAll) {
+        this.catchAll = catchAll;
     }
 
     public String asJson() {

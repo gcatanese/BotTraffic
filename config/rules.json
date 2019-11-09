@@ -10,9 +10,6 @@
     "targets": [
       {
         "id": "s00001"
-      },
-      {
-        "id": "s00002"
       }
     ]
   },
@@ -26,7 +23,18 @@
     "status": "ACTIVE",
     "targets": [
       {
-        "id": "s00001"
+        "id": "s00002"
+      }
+    ]
+  },
+  {
+    "id": "R0003",
+    "path": "/svc2",
+    "catchAll": true,
+    "status": "ACTIVE",
+    "targets": [
+      {
+        "id": "s00003"
       }
     ]
   }

@@ -78,6 +78,17 @@
         "id": "s00006"
       }
     ]
+  },
+  {
+    "id": "R0006",
+    "path": "/svcn",
+    "catchAll": true,
+    "status": "ACTIVE",
+    "targets": [
+      {
+        "id": "s00004"
+      }
+    ]
   }
 ]
 

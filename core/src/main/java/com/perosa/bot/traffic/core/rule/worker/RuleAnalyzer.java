@@ -26,12 +26,14 @@ public class RuleAnalyzer {
     String findValue(Rule rule) {
         String ret = "";
 
-        if (rule.getType().isBodyRule()) {
-            ret = findValueInBody(rule.getExpression());
-        } else if (rule.getType().isParameterRule()) {
-            ret = findValueInParameters(rule.getExpression());
-        } else if (rule.getType().isHeaderRule()) {
-            ret = findValueInHeaders(rule.getExpression());
+        if (rule.getType() != null && rule.getExpression() != null) {
+            if (rule.getType().isBodyRule()) {
+                ret = findValueInBody(rule.getExpression());
+            } else if (rule.getType().isParameterRule()) {
+                ret = findValueInParameters(rule.getExpression());
+            } else if (rule.getType().isHeaderRule()) {
+                ret = findValueInHeaders(rule.getExpression());
+            }
         }
 
         return ret;

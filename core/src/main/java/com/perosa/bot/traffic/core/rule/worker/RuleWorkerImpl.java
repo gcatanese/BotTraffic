@@ -135,7 +135,7 @@ public class RuleWorkerImpl implements RuleWorker {
 
         Optional<Rule> rule = rules.stream()
                 .filter(r -> r.getStatus().equals(RuleStatus.ACTIVE))
-                .filter(r -> r.getOperator().apply(getRuleAnalyzer().findValue(r), r.getValue()))
+                .filter(r -> r.isCatchAll() || r.getOperator().apply(getRuleAnalyzer().findValue(r), r.getValue()))
                 .findFirst();
 
         if (rule.isPresent()) {
