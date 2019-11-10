@@ -1,7 +1,7 @@
 package com.perosa;
 
 
-import com.perosa.bot.traffic.core.rule.registry.watch.RuleRegistryWatcher;
+import com.perosa.bot.traffic.core.rule.registry.storage.file.watch.RuleRegistryWatcher;
 import com.perosa.bot.traffic.core.service.registry.watch.ServiceRegistryWatcher;
 import com.perosa.bot.traffic.http.metrics.prometheus.MetricsHandler;
 import com.perosa.bot.traffic.http.server.dispatch.Dispatcher;

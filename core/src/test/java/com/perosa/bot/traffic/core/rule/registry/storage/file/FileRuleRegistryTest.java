@@ -1,4 +1,4 @@
-package com.perosa.bot.traffic.core.rule.registry;
+package com.perosa.bot.traffic.core.rule.registry.storage.file;
 
 import com.perosa.bot.traffic.core.rule.Operator;
 import com.perosa.bot.traffic.core.rule.Rule;
@@ -13,21 +13,28 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class RuleRegistryLoaderTest {
+public class FileRuleRegistryTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RuleRegistryLoaderTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileRuleRegistryTest.class);
 
     @Test
     void getJson() throws IOException {
 
-        String json = new RuleRegistryLoader().getJson("src/test/resources/rules.json");
+        String json = new FileRuleRegistry().getJson("src/test/resources/rules.json");
 
         LOGGER.info(json);
 
         assertNotNull(json);
 
+    }
+
+    @Test
+    void getLocation() {
+        assertNotNull(new FileRuleRegistry().getLocation());
     }
 
     @Test
@@ -69,7 +76,7 @@ public class RuleRegistryLoaderTest {
                 "]" +
                 "]";
 
-        List<Rule> rules = new RuleRegistryLoader().unmarshal(json);
+        List<Rule> rules = new FileRuleRegistry().unmarshal(json);
 
         assertNotNull(rules);
         assertEquals(2, rules.size());
@@ -79,7 +86,7 @@ public class RuleRegistryLoaderTest {
     @Test
     void load() throws IOException {
 
-        List<Rule> rules = new RuleRegistryLoader().load();
+        List<Rule> rules = new FileRuleRegistry().load();
 
         assertNotNull(rules);
         assertTrue(rules.size() > 0);
@@ -106,7 +113,7 @@ public class RuleRegistryLoaderTest {
                 )
         );
 
-        Map<String, List<Rule>> map = new RuleRegistryLoader().loadAsMap(rules);
+        Map<String, List<Rule>> map = new FileRuleRegistry().loadAsMap(rules);
 
         assertNotNull(rules);
         assertEquals(2, rules.size());

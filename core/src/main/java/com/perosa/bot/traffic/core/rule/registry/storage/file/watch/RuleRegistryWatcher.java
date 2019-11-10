@@ -1,4 +1,4 @@
-package com.perosa.bot.traffic.core.rule.registry.watch;
+package com.perosa.bot.traffic.core.rule.registry.storage.file.watch;
 
 import com.perosa.bot.traffic.core.common.EnvConfiguration;
 

@@ -1,7 +1,7 @@
 package com.perosa.bot.traffic.core.rule.registry;
 
-import com.perosa.bot.traffic.core.common.EnvConfiguration;
 import com.perosa.bot.traffic.core.rule.Rule;
+import com.perosa.bot.traffic.core.rule.registry.storage.RuleRegistryStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +16,7 @@ public class RuleRegistry {
 
     public List<Rule> getRules() {
         if(_rules == null) {
-            _rules = new RuleRegistryLoader().load();
+            _rules = RuleRegistryStorage.make().load();
         }
 
         return _rules;
@@ -29,10 +29,6 @@ public class RuleRegistry {
                 .findFirst();
 
         return rule.orElse(null);
-    }
-
-    public static String getLocation() {
-        return new EnvConfiguration().getHome() + "rules.json";
     }
 
     public void setRules(List<Rule> rules) {

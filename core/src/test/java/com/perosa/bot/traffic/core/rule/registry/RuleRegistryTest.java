@@ -69,11 +69,4 @@ public class RuleRegistryTest {
 
     }
 
-    @Test
-    void getLocation() {
-
-        assertNotNull(RuleRegistry.getLocation());
-
-    }
-
 }

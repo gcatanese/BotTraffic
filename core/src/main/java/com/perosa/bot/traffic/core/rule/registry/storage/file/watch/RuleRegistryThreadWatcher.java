@@ -1,8 +1,8 @@
-package com.perosa.bot.traffic.core.rule.registry.watch;
+package com.perosa.bot.traffic.core.rule.registry.storage.file.watch;
 
 import com.perosa.bot.traffic.core.common.EnvConfiguration;
 import com.perosa.bot.traffic.core.rule.registry.RuleRegistry;
-import com.perosa.bot.traffic.core.rule.registry.RuleRegistryLoader;
+import com.perosa.bot.traffic.core.rule.registry.storage.file.FileRuleRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +31,7 @@ public class RuleRegistryThreadWatcher implements RuleRegistryWatcher {
 
 
     void doAction() {
-        new RuleRegistry().setRules(new RuleRegistryLoader().load());
+        new RuleRegistry().setRules(new FileRuleRegistry().load());
 
     }
 }

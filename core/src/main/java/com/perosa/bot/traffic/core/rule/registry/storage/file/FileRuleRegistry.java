@@ -1,9 +1,11 @@
-package com.perosa.bot.traffic.core.rule.registry;
+package com.perosa.bot.traffic.core.rule.registry.storage.file;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.perosa.bot.traffic.core.common.EnvConfiguration;
 import com.perosa.bot.traffic.core.rule.Rule;
+import com.perosa.bot.traffic.core.rule.registry.storage.RuleRegistryStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,15 +17,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RuleRegistryLoader {
+public class FileRuleRegistry implements RuleRegistryStorage {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RuleRegistryLoader.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileRuleRegistry.class);
 
     public List<Rule> load() {
         List<Rule> rules = new ArrayList<>();
 
         try {
-            rules = unmarshal(getJson(RuleRegistry.getLocation()));
+            rules = unmarshal(getJson(getLocation()));
 
             LOGGER.info("Available rules: " + rules);
 
@@ -85,6 +87,10 @@ public class RuleRegistryLoader {
 
 
         return json;
+    }
+
+    String getLocation() {
+        return new EnvConfiguration().getHome() + "rules.json";
     }
 
 }
