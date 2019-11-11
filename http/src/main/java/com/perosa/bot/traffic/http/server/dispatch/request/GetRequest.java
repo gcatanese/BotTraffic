@@ -40,26 +40,30 @@ public class GetRequest extends ParentRequest implements Request {
 
             Consumable consumable = getRuleWorker().process(request);
 
-            get = initGet(consumable, request);
+            if(consumable != null) {
 
-            if (consumable.isRouting()) {
+                get = initGet(consumable, request);
 
-                ForwarderResponse forwarderResponse = getRouter().get(get);
+                if (consumable.isRouting()) {
 
-                if(forwarderResponse.getContentType() != null) {
-                    exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, forwarderResponse.getContentType());
+                    ForwarderResponse forwarderResponse = getRouter().get(get);
+
+                    if (forwarderResponse.getContentType() != null) {
+                        exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, forwarderResponse.getContentType());
+                    }
+
+                    if (exchange.getResponseSender() != null) {
+                        exchange.getResponseSender().send(forwarderResponse.getBody());
+                    }
+
+                } else if (consumable.isShadowing()) {
+                    getShadower().get(get);
+
+                    if (exchange.getResponseSender() != null) {
+                        exchange.getResponseSender().send("Got it");
+                    }
                 }
 
-                if(exchange.getResponseSender() != null) {
-                    exchange.getResponseSender().send(forwarderResponse.getBody());
-                }
-
-            } else if (consumable.isShadowing()) {
-                getShadower().get(get);
-
-                if(exchange.getResponseSender() != null) {
-                    exchange.getResponseSender().send("Got it");
-                }
             }
 
         } catch (Exception e) {
