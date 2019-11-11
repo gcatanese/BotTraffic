@@ -68,5 +68,38 @@ public class EnvConfiguration {
         return (fallback != null && fallback.equalsIgnoreCase("true"));
     }
 
+    public String getStorage() {
+        String storage = System.getenv("BT_STORAGE");
+
+        if (storage == null || storage.isEmpty()) {
+            storage = "file";
+        }
+
+        if (storage.equalsIgnoreCase("file") && storage.equalsIgnoreCase("redis")) {
+            LOGGER.error("Invalid BT_STORAGE attribute:" + storage);
+        }
+
+        return storage;
+    }
+
+    public String getRedisHost() {
+        String host = System.getenv("BT_REDIS_HOST");
+
+        if (host == null || host.isEmpty()) {
+            host = "localhost";
+        }
+
+        return host;
+    }
+
+    public int getRedisPort() {
+        String port = System.getenv("BT_REDIS_PORT");
+
+        if (port == null || port.isEmpty()) {
+            port = "6379";
+        }
+
+        return Integer.valueOf(port);
+    }
 
 }
