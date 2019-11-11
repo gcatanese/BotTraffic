@@ -16,7 +16,7 @@ public class RuleRegistry {
 
     public List<Rule> getRules() {
         if(_rules == null) {
-            _rules = RuleRegistryStorage.make().load();
+            _rules = getStorageImpl().load();
         }
 
         return _rules;
