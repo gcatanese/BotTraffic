@@ -25,6 +25,8 @@ public class RedisRuleRegistry implements RuleRegistryStorage {
     private Jedis jedis;
 
     public RedisRuleRegistry(Jedis jedis) {
+        LOGGER.debug("Connecting to redis [" + jedis.getClient().getHost() + ":" + jedis.getClient().getPort() + "]");
+
         this.jedis = jedis;
         new RedisRuleRegistryThreadWatcher(this).startWatch();
     }

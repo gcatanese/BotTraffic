@@ -4,5 +4,4 @@ public interface RedisRuleRegistryWatcher {
 
     void startWatch();
 
-
 }
