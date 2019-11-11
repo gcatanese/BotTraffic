@@ -9,6 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.concurrent.Future;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.*;
@@ -22,13 +24,12 @@ class ShadowerTest {
     @Test
     void get() throws Exception {
 
-        when(forwarderMock.get(isA(Get.class))).thenReturn(new ForwarderResponse());
-
         Shadower shadower = new Shadower(forwarderMock);
 
         Get input = new Get("http://localhost:9999", "/svc1");
 
-        shadower.get(input);
+        Future<String> future = shadower.get(input);
+        future.get();
 
         verify(forwarderMock, times(1)).get(isA(Get.class));
     }
@@ -36,13 +37,12 @@ class ShadowerTest {
     @Test
     void post() throws Exception {
 
-        when(forwarderMock.post(isA(Post.class))).thenReturn(new ForwarderResponse());
-
         Shadower shadower = new Shadower(forwarderMock);
 
         Post input = new Post("http://localhost:9999", "/svc1");
 
-        shadower.post(input);
+        Future<String> future = shadower.post(input);
+        future.get();
 
         verify(forwarderMock, times(1)).post(isA(Post.class));
     }

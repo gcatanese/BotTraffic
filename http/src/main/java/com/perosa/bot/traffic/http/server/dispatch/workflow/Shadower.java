@@ -2,7 +2,6 @@ package com.perosa.bot.traffic.http.server.dispatch.workflow;
 
 import com.perosa.bot.traffic.http.client.Forwarder;
 import com.perosa.bot.traffic.http.client.ForwarderResponse;
-import com.perosa.bot.traffic.http.client.JavaClientImpl;
 import com.perosa.bot.traffic.http.client.wrap.Get;
 import com.perosa.bot.traffic.http.client.wrap.Post;
 import org.slf4j.Logger;
@@ -22,16 +21,16 @@ public class Shadower {
         this.forwarder = forwarder;
     }
 
-    public void get(Get input) throws Exception {
-        push(callableGet(input));
+    public Future<String> get(Get input) throws Exception {
+        return push(callableGet(input));
     }
 
-    public void post(Post input) throws Exception {
-        push(callablePost(input));
+    public Future<String> post(Post input) throws Exception {
+        return push(callablePost(input));
     }
 
-    void push(Callable<String> task) {
-        Future<String> future = executor.submit(task);
+    Future<String> push(Callable<String> task) {
+        return executor.submit(task);
     }
 
     Callable<String> callableGet(Get input) {
