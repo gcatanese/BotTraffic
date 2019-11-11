@@ -24,7 +24,6 @@ public class BotTrafficApp {
         new ReverseProxy(new Dispatcher()).setUp();
         new MetricsHandler().setUp();
 
-        FileRuleRegistryWatcher.init();
         ServiceRegistryWatcher.init();
 
         Runtime.getRuntime().addShutdownHook(new TerminationManager());

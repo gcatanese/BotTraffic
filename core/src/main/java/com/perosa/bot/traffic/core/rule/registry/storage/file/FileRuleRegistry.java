@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perosa.bot.traffic.core.common.EnvConfiguration;
 import com.perosa.bot.traffic.core.rule.Rule;
 import com.perosa.bot.traffic.core.rule.registry.storage.RuleRegistryStorage;
+import com.perosa.bot.traffic.core.rule.registry.storage.file.watch.FileRuleRegistryWatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +21,10 @@ import java.util.Map;
 public class FileRuleRegistry implements RuleRegistryStorage {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileRuleRegistry.class);
+
+    public FileRuleRegistry() {
+        FileRuleRegistryWatcher.init();
+    }
 
     public List<Rule> load() {
         List<Rule> rules = new ArrayList<>();
