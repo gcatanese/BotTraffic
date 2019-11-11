@@ -10,9 +10,9 @@ import java.nio.file.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class RuleRegistryFileWatcher implements RuleRegistryWatcher {
+public class FileRuleRegistryFileWatcher implements FileRuleRegistryWatcher {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RuleRegistryFileWatcher.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileRuleRegistryFileWatcher.class);
 
     @Override
     public void startWatch() {

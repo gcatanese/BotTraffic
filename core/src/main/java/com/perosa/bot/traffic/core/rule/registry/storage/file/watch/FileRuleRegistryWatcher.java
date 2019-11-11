@@ -2,14 +2,14 @@ package com.perosa.bot.traffic.core.rule.registry.storage.file.watch;
 
 import com.perosa.bot.traffic.core.common.EnvConfiguration;
 
-public interface RuleRegistryWatcher {
+public interface FileRuleRegistryWatcher {
 
     static void init() {
 
         if(new EnvConfiguration().isThreadWatch()) {
-            new RuleRegistryThreadWatcher().startWatch();
+            new FileRuleRegistryThreadWatcher().startWatch();
         } else {
-            new RuleRegistryFileWatcher().startWatch();
+            new FileRuleRegistryFileWatcher().startWatch();
         }
     }
 

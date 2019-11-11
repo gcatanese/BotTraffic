@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class RuleRegistryThreadWatcher implements RuleRegistryWatcher {
+public class FileRuleRegistryThreadWatcher implements FileRuleRegistryWatcher {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RuleRegistryThreadWatcher.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileRuleRegistryThreadWatcher.class);
 
     @Override
     public void startWatch() {
