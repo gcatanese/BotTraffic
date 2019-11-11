@@ -35,4 +35,8 @@ public class RuleRegistry {
         _rules = rules;
     }
 
+    private RuleRegistryStorage getStorageImpl() {
+        return RuleRegistryStorage.make();
+    }
+
 }
