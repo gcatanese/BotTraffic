@@ -12,6 +12,8 @@ public interface RuleRegistryStorage {
 
     List<Rule> load();
 
+    void save(String json);
+
     static RuleRegistryStorage make() {
 
         String storage = new EnvConfiguration().getStorage();

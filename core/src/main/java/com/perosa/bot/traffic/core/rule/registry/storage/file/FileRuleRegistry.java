@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +29,22 @@ public class FileRuleRegistry implements RuleRegistryStorage {
         FileRuleRegistryWatcher.init();
     }
 
+    @Override
+    public void save(String json) {
+
+        try {
+            String filename = getLocation();
+
+            Path path = Paths.get(filename);
+            byte[] strToBytes = json.getBytes();
+
+            Files.write(path, strToBytes, StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public List<Rule> load() {
         List<Rule> rules = new ArrayList<>();
 
@@ -97,5 +116,6 @@ public class FileRuleRegistry implements RuleRegistryStorage {
     String getLocation() {
         return new EnvConfiguration().getHome() + "rules.json";
     }
+
 
 }

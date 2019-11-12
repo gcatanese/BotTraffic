@@ -29,6 +29,8 @@ public class RedisRuleRegistry implements RuleRegistryStorage {
         new RedisRuleRegistryThreadWatcher(this).startWatch();
     }
 
+
+
     public List<Rule> load() {
         List<Rule> rules = new ArrayList<>();
 
@@ -44,6 +46,12 @@ public class RedisRuleRegistry implements RuleRegistryStorage {
 
         return rules;
 
+    }
+
+    @Override
+    public void save(String json) {
+        String key = REDIS_KEY_NAMESPACE + ":rules";
+        sendToRedis(key, json);
     }
 
     List<Rule> unmarshal(String json) throws IOException {
