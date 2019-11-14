@@ -6,6 +6,8 @@ import com.perosa.bot.traffic.core.rule.registry.storage.file.FileRuleRegistry;
 import com.perosa.bot.traffic.core.rule.registry.storage.redis.RedisRuleRegistry;
 import redis.clients.jedis.Jedis;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 public interface RuleRegistryStorage {
@@ -16,14 +18,23 @@ public interface RuleRegistryStorage {
 
     static RuleRegistryStorage make() {
 
+        RuleRegistryStorage ruleRegistryStorage = null;
+
         String storage = new EnvConfiguration().getStorage();
-        String redisHost = new EnvConfiguration().getRedisHost();
-        int redisPort = new EnvConfiguration().getRedisPort();
 
         if (storage.equalsIgnoreCase("redis")) {
-            return new RedisRuleRegistry(new Jedis(redisHost, redisPort));
+
+            String redisUrl = new EnvConfiguration().getRedisUrl();
+
+            try {
+                ruleRegistryStorage = new RedisRuleRegistry(new Jedis(new URI(redisUrl)));
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            }
         } else {
-            return new FileRuleRegistry();
+            ruleRegistryStorage = new FileRuleRegistry();
         }
+
+        return ruleRegistryStorage;
     }
 }

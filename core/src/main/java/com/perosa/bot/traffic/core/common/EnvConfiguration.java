@@ -82,24 +82,18 @@ public class EnvConfiguration {
         return storage;
     }
 
-    public String getRedisHost() {
-        String host = System.getenv("BT_REDIS_HOST");
+    public String getRedisUrl() {
+        String host = System.getenv("BT_REDIS_URL");
+
+        if (host == null || host.isEmpty()) {
+            host = System.getenv("REDIS_URL");
+        }
 
         if (host == null || host.isEmpty()) {
             host = "localhost";
         }
 
         return host;
-    }
-
-    public int getRedisPort() {
-        String port = System.getenv("BT_REDIS_PORT");
-
-        if (port == null || port.isEmpty()) {
-            port = "6379";
-        }
-
-        return Integer.valueOf(port);
     }
 
 }
