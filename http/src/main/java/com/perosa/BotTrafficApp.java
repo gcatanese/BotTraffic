@@ -1,7 +1,5 @@
 package com.perosa;
 
-
-import com.perosa.bot.traffic.core.rule.registry.storage.file.watch.FileRuleRegistryWatcher;
 import com.perosa.bot.traffic.core.service.registry.watch.ServiceRegistryWatcher;
 import com.perosa.bot.traffic.http.metrics.prometheus.MetricsHandler;
 import com.perosa.bot.traffic.http.server.dispatch.Dispatcher;
@@ -29,6 +27,7 @@ public class BotTrafficApp {
         Runtime.getRuntime().addShutdownHook(new TerminationManager());
 
         LOGGER.info("BotTraffic is up!");
+        LOGGER.info("->" + System.getenv());
 
     }
 
