@@ -1,7 +1,6 @@
 package com.perosa.bot.traffic.core.rule.registry.storage.file.watch;
 
 import com.perosa.bot.traffic.core.common.EnvConfiguration;
-import com.perosa.bot.traffic.core.rule.registry.RuleRegistry;
 import com.perosa.bot.traffic.core.rule.registry.storage.file.FileRuleRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,8 +56,7 @@ public class FileRuleRegistryFileWatcher implements FileRuleRegistryWatcher {
     }
 
     void doAction() {
-        new RuleRegistry().setRules(new FileRuleRegistry().load());
-
+        new FileRuleRegistry().setRules(new FileRuleRegistry().load());
     }
 
     String getLocation() {

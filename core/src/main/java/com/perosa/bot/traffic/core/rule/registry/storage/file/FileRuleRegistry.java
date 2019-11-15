@@ -25,8 +25,27 @@ public class FileRuleRegistry implements RuleRegistryStorage {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileRuleRegistry.class);
 
+    private static List<Rule> rules = null;
+
     public FileRuleRegistry() {
         FileRuleRegistryWatcher.init();
+    }
+
+    @Override
+    public List<Rule> load() {
+
+        if (rules == null) {
+            try {
+                rules = unmarshal(getJson(getLocation()));
+
+                LOGGER.info("Available rules: " + rules);
+
+            } catch (IOException e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+        }
+
+        return rules;
     }
 
     @Override
@@ -44,23 +63,9 @@ public class FileRuleRegistry implements RuleRegistryStorage {
         }
     }
 
-    @Override
-    public List<Rule> load() {
-        List<Rule> rules = new ArrayList<>();
-
-        try {
-            rules = unmarshal(getJson(getLocation()));
-
-            LOGGER.info("Available rules: " + rules);
-
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage(), e);
-        }
-
-        return rules;
-
+    public void setRules(List<Rule> rules) {
+        FileRuleRegistry.rules = rules;
     }
-
 
     Map<String, List<Rule>> loadAsMap(List<Rule> rules) {
 

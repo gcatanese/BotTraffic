@@ -12,14 +12,8 @@ public class RuleRegistry {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RuleRegistry.class);
 
-    private static List<Rule> rules = null;
-
     public List<Rule> getRules() {
-        if(rules == null) {
-            rules = getStorageImpl().load();
-        }
-
-        return rules;
+        return getStorageImpl().load();
     }
 
     public Rule getRule(String id) {
@@ -29,10 +23,6 @@ public class RuleRegistry {
                 .findFirst();
 
         return rule.orElse(null);
-    }
-
-    public void setRules(List<Rule> rules) {
-        RuleRegistry.rules = rules;
     }
 
     private RuleRegistryStorage getStorageImpl() {
