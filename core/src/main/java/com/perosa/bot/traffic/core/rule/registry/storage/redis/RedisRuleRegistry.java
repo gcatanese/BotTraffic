@@ -3,18 +3,16 @@ package com.perosa.bot.traffic.core.rule.registry.storage.redis;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.perosa.bot.traffic.core.common.EnvConfiguration;
 import com.perosa.bot.traffic.core.rule.Rule;
 import com.perosa.bot.traffic.core.rule.registry.storage.RuleRegistryStorage;
-import com.perosa.bot.traffic.core.rule.registry.storage.redis.watch.RedisRuleRegistryThreadWatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 public class RedisRuleRegistry implements RuleRegistryStorage {
 
@@ -26,10 +24,7 @@ public class RedisRuleRegistry implements RuleRegistryStorage {
 
     public RedisRuleRegistry(Jedis jedis) {
         this.jedis = jedis;
-        new RedisRuleRegistryThreadWatcher(this).startWatch();
     }
-
-
 
     public List<Rule> load() {
         List<Rule> rules = new ArrayList<>();
