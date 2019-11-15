@@ -15,5 +15,4 @@ public interface FileRuleRegistryWatcher {
 
     void startWatch();
 
-
 }
