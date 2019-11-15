@@ -76,7 +76,7 @@ public class EnvConfiguration {
         }
 
         if (storage.equalsIgnoreCase("file") && storage.equalsIgnoreCase("redis")) {
-            LOGGER.error("Invalid BT_STORAGE attribute:" + storage);
+            LOGGER.error("Invalid BT_STORAGE:" + storage);
         }
 
         return storage;
