@@ -5,6 +5,7 @@ import com.perosa.bot.traffic.http.server.dispatch.Dispatcher;
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
+import io.undertow.util.Headers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,7 +36,12 @@ public class ReverseProxy {
                         .setHandler(new HttpHandler() {
                             @Override
                             public void handleRequest(HttpServerExchange exchange) throws Exception {
-                                dispatcher.dispatch(exchange);
+
+                                if(isTest(exchange)) {
+                                    sendTestReply(exchange);
+                                } else {
+                                    getDispatcher().dispatch(exchange);
+                                }
                             }
                         })
                         .build();
@@ -53,5 +59,23 @@ public class ReverseProxy {
         return new EnvConfiguration().getPort();
     }
 
+    boolean isTest(HttpServerExchange exchange) {
+        return exchange.getRequestPath() != null && exchange.getRequestPath().endsWith("/test");
+    }
 
+    void sendTestReply(HttpServerExchange exchange) {
+        LOGGER.info("/test");
+
+        exchange.setStatusCode(200);
+        exchange.getResponseHeaders().put(Headers.CONTENT_TYPE, "text/plain");
+        exchange.getResponseSender().send("Ok");
+    }
+
+    public Dispatcher getDispatcher() {
+        return dispatcher;
+    }
+
+    public void setDispatcher(Dispatcher dispatcher) {
+        this.dispatcher = dispatcher;
+    }
 }

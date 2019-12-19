@@ -1,5 +1,6 @@
 package com.perosa.bot.traffic.http.server;
 
+import com.networknt.client.Http2Client;
 import com.networknt.client.rest.LightRestClient;
 import com.perosa.bot.traffic.http.server.dispatch.Dispatcher;
 import io.undertow.client.ClientResponse;
@@ -45,6 +46,14 @@ public class ReverseProxyTest {
 
         ClientResponse clientResponse = lightRestClient.get("http://localhost:8886", "/svc1", ClientResponse.class, new HashMap<String, String>());
         assertEquals(200, clientResponse.getResponseCode());
+    }
+
+    @Test
+    void test() throws Exception {
+
+        ClientResponse clientResponse = lightRestClient.get("http://localhost:8886", "/test", ClientResponse.class, new HashMap<String, String>());
+        assertEquals(200, clientResponse.getResponseCode());
+        assertEquals("Ok", clientResponse.getAttachment(Http2Client.RESPONSE_BODY));
     }
 
     @Test
