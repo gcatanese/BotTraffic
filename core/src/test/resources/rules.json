@@ -7,7 +7,7 @@
     "value": "Mr X",
     "type": "BODY",
     "status": "ACTIVE",
-    "targets": [
+    "targetServices": [
       {
         "id": "s00001"
       },
@@ -25,7 +25,7 @@
     "type": "BODY",
     "status": "ACTIVE",
     "workflow": "ROUTE",
-    "targets": [
+    "targetServices": [
       {
         "id": "s00003"
       }
@@ -40,7 +40,7 @@
     "type": "PARAMETER",
     "status": "ACTIVE",
     "workflow": "ROUTE",
-    "targets": [
+    "targetServices": [
       {
         "id": "s00001"
       },
@@ -58,7 +58,7 @@
     "type": "PARAMETER",
     "status": "INACTIVE",
     "workflow": "ROUTE",
-    "targets": [
+    "targetServices": [
       {
         "id": "s00005"
       }
@@ -73,7 +73,7 @@
     "type": "HEADER",
     "status": "ACTIVE",
     "workflow": "SHADOW",
-    "targets": [
+    "targetServices": [
       {
         "id": "s00006"
       }
@@ -84,7 +84,7 @@
     "path": "/svcn",
     "catchAll": true,
     "status": "ACTIVE",
-    "targets": [
+    "targetServices": [
       {
         "id": "s00004"
       }

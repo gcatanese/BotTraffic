@@ -51,10 +51,10 @@ public class RuleWorkerImpl implements RuleWorker {
             Rule rule = findWinningRule(rules);
             LOGGER.debug("Winning rule " + rule);
 
-            if (rule != null && rule.getTargets() != null && !rule.getTargets().isEmpty()) {
+            if (rule != null && rule.getTargetServices() != null && !rule.getTargetServices().isEmpty()) {
                 // fetch destination service
 
-                consumable = getStrategy().getTarget(rule.getTargets());
+                consumable = getStrategy().getTarget(rule.getTargetServices());
 
                 consumable = fetchFromRegistry(consumable.getId());
 

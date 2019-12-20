@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,7 +56,7 @@ public class RuleWorkerImplTest {
         Rule rule = mgr.findWinningRule(rules);
         assertNotNull(rule);
         assertTrue(rule.getWorkflow().isRoute());
-        assertEquals("s1", rule.getTargets().get(0).getId());
+        assertEquals("s1", rule.getTargetServices().get(0).getId());
 
     }
 
@@ -111,7 +110,7 @@ public class RuleWorkerImplTest {
         assertNotNull(rule);
         assertEquals("r01", rule.getId());
         assertTrue(rule.getWorkflow().isRoute());
-        assertEquals("s1", rule.getTargets().get(0).getId());
+        assertEquals("s1", rule.getTargetServices().get(0).getId());
 
     }
 

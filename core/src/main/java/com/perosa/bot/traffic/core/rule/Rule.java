@@ -15,7 +15,7 @@ public class Rule {
     private String expression;
     private Operator operator;
     private String value;
-    private List<ConsumableService> targets;
+    private List<ConsumableService> targetServices;
     private List<TargetUrl> targetUrls;
     private RuleType type;
     private RuleStatus status = RuleStatus.ACTIVE;
@@ -31,14 +31,14 @@ public class Rule {
         this.id = id;
     }
 
-    public Rule(String id, String path, boolean catchAll, List<ConsumableService> targets) {
+    public Rule(String id, String path, boolean catchAll, List<ConsumableService> targetServices) {
         this(id);
         this.path = path;
         this.catchAll = catchAll;
-        this.targets = targets;
+        this.targetServices = targetServices;
     }
 
-    public Rule(String path, String expression, String value, Operator operator, RuleType type, List<ConsumableService> targets) {
+    public Rule(String path, String expression, String value, Operator operator, RuleType type, List<ConsumableService> targetServices) {
         this();
 
         this.path = path;
@@ -46,17 +46,17 @@ public class Rule {
         this.operator = operator;
         this.value = value;
         this.type = type;
-        this.targets = targets;
+        this.targetServices = targetServices;
     }
 
-    public Rule(String id, String path, String expression, String value, Operator operator, RuleType type, List<ConsumableService> targets) {
+    public Rule(String id, String path, String expression, String value, Operator operator, RuleType type, List<ConsumableService> targetServices) {
         this.id = id;
         this.path = path;
         this.expression = expression;
         this.operator = operator;
         this.value = value;
         this.type = type;
-        this.targets = targets;
+        this.targetServices = targetServices;
     }
 
     public String getId() {
@@ -91,12 +91,12 @@ public class Rule {
         this.value = value;
     }
 
-    public List<ConsumableService> getTargets() {
-        return targets;
+    public List<ConsumableService> getTargetServices() {
+        return targetServices;
     }
 
-    public void setTargets(List<ConsumableService> targets) {
-        this.targets = targets;
+    public void setTargetServices(List<ConsumableService> targetServices) {
+        this.targetServices = targetServices;
     }
 
     public RuleType getType() {
@@ -195,7 +195,7 @@ public class Rule {
                 ", type:" + type +
                 ", expression:" + expression +
                 ", value:" + value +
-                ", targets:" + targets +
+                ", targetServices:" + targetServices +
                 ", targetUrls:" + targetUrls +
                 "]";
     }

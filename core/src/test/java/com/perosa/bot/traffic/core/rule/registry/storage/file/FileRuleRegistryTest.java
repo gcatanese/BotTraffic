@@ -119,10 +119,10 @@ public class FileRuleRegistryTest {
         assertEquals(2, rules.size());
         // {0}
         assertEquals("/p1", rules.get(0).getPath());
-        assertEquals(2, rules.get(0).getTargets().size());
+        assertEquals(2, rules.get(0).getTargetServices().size());
         // {1}
         assertEquals("/p2", rules.get(1).getPath());
-        assertEquals(3, rules.get(1).getTargets().size());
+        assertEquals(3, rules.get(1).getTargetServices().size());
 
     }
 }

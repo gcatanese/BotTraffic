@@ -8,7 +8,7 @@
     "type": "BODY",
     "status": "ACTIVE",
     "workflow": "ROUTE",
-    "targets": [
+    "targetServices": [
       {
         "id": "s00001"
       },
@@ -26,7 +26,7 @@
     "type": "BODY",
     "status": "ACTIVE",
     "workflow": "ROUTE",
-    "targets": [
+    "targetServices": [
       {
         "id": "s00003"
       }
@@ -41,7 +41,7 @@
     "type": "BODY",
     "status": "ACTIVE",
     "workflow": "SHADOW",
-    "targets": [
+    "targetServices": [
       {
         "id": "s00001"
       },
@@ -59,7 +59,7 @@
     "type": "PARAMETER",
     "status": "INACTIVE",
     "workflow": "ROUTE",
-    "targets": [
+    "targetServices": [
       {
         "id": "s00005"
       }
