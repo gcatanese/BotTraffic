@@ -89,6 +89,18 @@
         "id": "s00004"
       }
     ]
+  },
+  {
+    "id": "R0007",
+    "path": "/avatarbot",
+    "catchAll": true,
+    "status": "ACTIVE",
+    "workflow": "SHADOW",
+    "targetUrls": [
+      {
+        "url": "https://metricsagent/post"
+      }
+    ]
   }
 ]
 

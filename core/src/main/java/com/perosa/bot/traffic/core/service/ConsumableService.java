@@ -31,6 +31,13 @@ public class ConsumableService implements Consumable {
         this.weight = weight;
     }
 
+    public ConsumableService(String id, String url) {
+        this.id = id;
+        this.url = url;
+    }
+
+
+
     public String getId() {
         return id;
     }

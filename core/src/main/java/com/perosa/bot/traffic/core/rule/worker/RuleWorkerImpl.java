@@ -8,6 +8,7 @@ import com.perosa.bot.traffic.core.rule.RuleStatus;
 import com.perosa.bot.traffic.core.rule.registry.RuleRegistry;
 import com.perosa.bot.traffic.core.service.Consumable;
 import com.perosa.bot.traffic.core.service.ConsumableService;
+import com.perosa.bot.traffic.core.service.TargetUrl;
 import com.perosa.bot.traffic.core.service.registry.ServiceInstance;
 import com.perosa.bot.traffic.core.service.registry.ServiceRegistry;
 import com.perosa.bot.traffic.core.service.registry.ServiceRegistryLoader;
@@ -48,14 +49,22 @@ public class RuleWorkerImpl implements RuleWorker {
         if (rules != null && !rules.isEmpty()) {
 
             Rule rule = findWinningRule(rules);
+            LOGGER.debug("Winning rule " + rule);
 
-            if (rule != null && rule.getTargets() != null) {
+            if (rule != null && rule.getTargets() != null && !rule.getTargets().isEmpty()) {
+                // fetch destination service
 
                 consumable = getStrategy().getTarget(rule.getTargets());
 
                 consumable = fetchFromRegistry(consumable.getId());
 
                 consumable = prepareConsumable(consumable, rule, request);
+
+                LOGGER.info("target->" + consumable.getUrl());
+            } else if (rule != null && rule.getTargetUrls() != null && !rule.getTargetUrls().isEmpty()) {
+                // fetch destination url
+
+                consumable = prepareConsumable(rule.getTargetUrls().get(0), rule);
 
                 LOGGER.info("target->" + consumable.getUrl());
             }
@@ -94,6 +103,15 @@ public class RuleWorkerImpl implements RuleWorker {
             consumableService.setUrl("http://" + consumable.getHost() + ":" + consumable.getPort()
                     + getRequestedPath(request) + getRequestedQueryString(request));
         }
+
+        consumableService.setWorkflow(rule.getWorkflow());
+
+        return consumableService;
+    }
+
+    Consumable prepareConsumable(TargetUrl targetUrl, Rule rule) {
+
+        ConsumableService consumableService = new ConsumableService("na", targetUrl.getUrl());
 
         consumableService.setWorkflow(rule.getWorkflow());
 

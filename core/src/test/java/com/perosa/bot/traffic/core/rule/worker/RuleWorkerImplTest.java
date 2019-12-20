@@ -7,11 +7,13 @@ import com.perosa.bot.traffic.core.rule.RuleType;
 import com.perosa.bot.traffic.core.rule.RuleWorkflow;
 import com.perosa.bot.traffic.core.service.Consumable;
 import com.perosa.bot.traffic.core.service.ConsumableService;
+import com.perosa.bot.traffic.core.service.TargetUrl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -99,7 +101,7 @@ public class RuleWorkerImplTest {
                         Arrays.asList(
                                 new ConsumableService("s1", "localhost", 8080))
                 ),
-                new Rule("r02","/p1", "/locale", "en-US", Operator.EQUAL_IGNORE_CASE, RuleType.BODY,
+                new Rule("r02", "/p1", "/locale", "en-US", Operator.EQUAL_IGNORE_CASE, RuleType.BODY,
                         Arrays.asList(
                                 new ConsumableService("s2", "localhost", 9090))
                 )
@@ -186,6 +188,22 @@ public class RuleWorkerImplTest {
         assertEquals("https://ds.perosa.com/webhook/a/b?user=me", consumable.getUrl());
         assertTrue(consumable.isRouting());
     }
+
+
+    @Test
+    public void prepareConsumableWithTargeUrl() {
+
+        Rule rule = new Rule("01");
+        rule.setWorkflow(RuleWorkflow.SHADOW);
+
+        TargetUrl targetUrl = new TargetUrl("https://analytics.perosa.com/post");
+
+        Consumable consumable = new RuleWorkerImpl().prepareConsumable(targetUrl, rule);
+
+        assertEquals("https://analytics.perosa.com/post", consumable.getUrl());
+        assertTrue(consumable.isShadowing());
+    }
+
 
     @Test
     public void prepareConsumableWithRequestedUrl() {

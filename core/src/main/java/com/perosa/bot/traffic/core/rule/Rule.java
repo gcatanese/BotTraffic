@@ -3,6 +3,7 @@ package com.perosa.bot.traffic.core.rule;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.perosa.bot.traffic.core.service.ConsumableService;
+import com.perosa.bot.traffic.core.service.TargetUrl;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +16,7 @@ public class Rule {
     private Operator operator;
     private String value;
     private List<ConsumableService> targets;
+    private List<TargetUrl> targetUrls;
     private RuleType type;
     private RuleStatus status = RuleStatus.ACTIVE;
     private RuleWorkflow workflow = RuleWorkflow.ROUTE;
@@ -137,6 +139,14 @@ public class Rule {
         this.catchAll = catchAll;
     }
 
+    public List<TargetUrl> getTargetUrls() {
+        return targetUrls;
+    }
+
+    public void setTargetUrls(List<TargetUrl> targetUrls) {
+        this.targetUrls = targetUrls;
+    }
+
     public String asJson() {
 
         String ret = "";
@@ -186,6 +196,7 @@ public class Rule {
                 ", expression:" + expression +
                 ", value:" + value +
                 ", targets:" + targets +
+                ", targetUrls:" + targetUrls +
                 "]";
     }
 
