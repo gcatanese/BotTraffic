@@ -4,7 +4,7 @@ Smart routing for Chatbot webhooks #chatbot #webhook #crossplatform #abtesting #
 
 ## Examples
 
-_Apply Analytics to every incoming request_ 
+### _Apply Analytics to every incoming request_ 
 
 Each webhook request is processed by your backend while one copy of the request is sent (**shadowing**) to the
 metrics agent (which might integrate a Chatbot Analytics service)
@@ -32,7 +32,7 @@ rules.json
 ]
 ```
 
-_Canary Releasing your new WebHook version_ 
+### _Canary Releasing your new WebHook version_  
 
 A new version of the webhook is deployed alongside the stable production service. Redirect (**routing**) some
 of the incoming requests to the new version and test live.
