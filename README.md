@@ -17,6 +17,9 @@ In a nutshell:
 - extendable event management (with built-in Prometheus events)
 - GET and POST support
 
+See [Examples](wiki/examples.md?raw=true "Examples") to understand more.
+
+
 ## Deploy 
 
 ```
