@@ -47,7 +47,7 @@
         <dependency>
             <groupId>com.networknt</groupId>
             <artifactId>prometheus</artifactId>
-            <version>2.0.30</version>
+            <version>2.0.31</version>
         </dependency>
 
         <!-- prometheus -->
