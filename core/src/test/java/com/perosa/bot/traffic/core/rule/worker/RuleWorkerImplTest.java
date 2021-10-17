@@ -45,7 +45,7 @@ public class RuleWorkerImplTest {
                                 new ConsumableService("s1", "localhost", 8080),
                                 new ConsumableService("s2", "localhost", 8081))
                 ),
-                new Rule("/p2", "/type", "message", Operator.NOT_EQUAL, RuleType.BODY,
+                new Rule("/p1", "/type", "message", Operator.NOT_EQUAL, RuleType.BODY,
                         Arrays.asList(
                                 new ConsumableService("s3", "localhost", 9090),
                                 new ConsumableService("s4", "localhost", 9091),
@@ -74,7 +74,7 @@ public class RuleWorkerImplTest {
                                 new ConsumableService("s1", "localhost", 8080),
                                 new ConsumableService("s2", "localhost", 8081))
                 ),
-                new Rule("/p2", "/type", "message", Operator.NOT_EQUAL, RuleType.BODY,
+                new Rule("/p1", "/type", "message", Operator.NOT_EQUAL, RuleType.BODY,
                         Arrays.asList(
                                 new ConsumableService("s3", "localhost", 9090),
                                 new ConsumableService("s4", "localhost", 9091),
@@ -115,9 +115,9 @@ public class RuleWorkerImplTest {
     }
 
     @Test
-    public void getPool() {
+    public void getRulesOf() {
 
-        List<Rule> rules = new RuleWorkerImpl().getPool("/webhook1");
+        List<Rule> rules = new RuleWorkerImpl().getRulesOf("/webhook1");
 
         assertNotNull(rules);
         assertEquals(2, rules.size());
