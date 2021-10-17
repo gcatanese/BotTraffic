@@ -5,15 +5,27 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class RuleRegistryTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RuleRegistryTest.class);
 
-    RuleRegistry ruleRegistry = new RuleRegistry();
+    RuleRegistry ruleRegistry = new RuleRegistry("src/test/resources/rules.json");
+
+    @Test
+    void getRules() {
+
+        List<Rule> rules = ruleRegistry.getRules();
+
+        assertNotNull(rules);
+        assertFalse(rules.isEmpty());
+    }
 
     @Test
     void getRule() {
