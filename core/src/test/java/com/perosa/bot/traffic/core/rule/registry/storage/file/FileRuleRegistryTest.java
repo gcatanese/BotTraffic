@@ -24,7 +24,7 @@ public class FileRuleRegistryTest {
     @Test
     void getJson() throws IOException {
 
-        String json = new FileRuleRegistry().getJson("src/test/resources/rules.json");
+        String json = new FileRuleRegistry("src/test/resources/rules.json").getJson();
 
         LOGGER.info(json);
 
@@ -34,7 +34,7 @@ public class FileRuleRegistryTest {
 
     @Test
     void getLocation() {
-        assertNotNull(new FileRuleRegistry().getLocation());
+        assertNotNull(new FileRuleRegistry("src/test/resources/rules.json").getLocation());
     }
 
     @Test
@@ -50,7 +50,7 @@ public class FileRuleRegistryTest {
                 "    \"value\": \"Mr X\",\n" +
                 "    \"type\": \"BODY\",\n" +
                 "    \"status\": \"ACTIVE\",\n" +
-                "    \"targets\": [\n" +
+                "    \"targetServices\": [\n" +
                 "      {\n" +
                 "        \"id\": \"s00001\"\n" +
                 "      },\n" +
@@ -67,7 +67,7 @@ public class FileRuleRegistryTest {
                 "    \"value\": \"Mr Y\",\n" +
                 "    \"type\": \"BODY\",\n" +
                 "    \"status\": \"ACTIVE\",\n" +
-                "    \"targets\": [\n" +
+                "    \"targetServices\": [\n" +
                 "      {\n" +
                 "        \"id\": \"s00003\"\n" +
                 "      }\n" +
@@ -76,7 +76,9 @@ public class FileRuleRegistryTest {
                 "]" +
                 "]";
 
-        List<Rule> rules = new FileRuleRegistry().unmarshal(json);
+        List<Rule> rules = new FileRuleRegistry("src/test/resources/rules.json").unmarshal(json);
+
+        LOGGER.info(rules.toString());
 
         assertNotNull(rules);
         assertEquals(2, rules.size());
@@ -86,7 +88,7 @@ public class FileRuleRegistryTest {
     @Test
     void load() throws IOException {
 
-        List<Rule> rules = new FileRuleRegistry().load();
+        List<Rule> rules = new FileRuleRegistry("src/test/resources/rules.json").load();
 
         assertNotNull(rules);
         assertTrue(rules.size() > 0);
@@ -113,7 +115,7 @@ public class FileRuleRegistryTest {
                 )
         );
 
-        Map<String, List<Rule>> map = new FileRuleRegistry().loadAsMap(rules);
+        Map<String, List<Rule>> map = new FileRuleRegistry("src/test/resources/rules.json").loadAsMap(rules);
 
         assertNotNull(rules);
         assertEquals(2, rules.size());
