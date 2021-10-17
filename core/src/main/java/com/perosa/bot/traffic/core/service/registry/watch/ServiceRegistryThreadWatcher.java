@@ -13,6 +13,11 @@ public class ServiceRegistryThreadWatcher implements ServiceRegistryWatcher {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ServiceRegistryThreadWatcher.class);
 
+    public ServiceRegistryThreadWatcher() {
+
+        LOGGER.debug("ServiceRegistryThreadWatcher.watch ");
+
+    }
     @Override
     public void startWatch() {
 

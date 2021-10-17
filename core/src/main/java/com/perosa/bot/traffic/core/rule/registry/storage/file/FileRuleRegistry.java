@@ -42,8 +42,6 @@ public class FileRuleRegistry implements RuleRegistryStorage {
             try {
                 rules = unmarshal(getJson());
 
-                LOGGER.info("Available rules: " + rules);
-
             } catch (IOException e) {
                 LOGGER.error(e.getMessage(), e);
             }

@@ -32,10 +32,10 @@ public class ServiceRegistryFileWatcher implements ServiceRegistryWatcher {
 
     void watch(String filename) throws Exception {
 
-        LOGGER.debug("ServiceRegistryFileWatcher.watch " + filename);
-
         Path file = Paths.get(filename);
         Path folder = file.getParent();
+
+        LOGGER.debug("ServiceRegistryFileWatcher.watch " + folder.toAbsolutePath());
 
         WatchService watchService = FileSystems.getDefault().newWatchService();
 
@@ -46,6 +46,7 @@ public class ServiceRegistryFileWatcher implements ServiceRegistryWatcher {
         WatchKey key;
         while ((key = watchService.take()) != null) {
             for (WatchEvent<?> event : key.pollEvents()) {
+                LOGGER.debug(event.kind() + "--> " + event.context() + ".");
                 if (event.context().toString().equalsIgnoreCase(file.getFileName().toString())) {
                     doAction();
                 }
