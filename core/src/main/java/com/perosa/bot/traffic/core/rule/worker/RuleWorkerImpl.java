@@ -28,12 +28,15 @@ public class RuleWorkerImpl implements RuleWorker {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RuleWorkerImpl.class);
 
+    private RuleRegistry ruleRegistry;
     private RuleAnalyzer ruleAnalyzer;
     private UrlHelper urlHelper;
 
     private Strategy strategy;
 
     public RuleWorkerImpl() {
+        // assign default implementations
+        this.ruleRegistry = new RuleRegistry();
         this.strategy = new SingleServiceStrategy();
         this.urlHelper = new UrlHelper();
     }
@@ -58,7 +61,6 @@ public class RuleWorkerImpl implements RuleWorker {
 
             if (rule != null && rule.getTargetServices() != null && !rule.getTargetServices().isEmpty()) {
                 // fetch destination service
-
                 consumable = getStrategy().getTarget(rule.getTargetServices());
 
                 consumable = fetchFromRegistry(consumable.getId());
@@ -90,7 +92,7 @@ public class RuleWorkerImpl implements RuleWorker {
     // rules for given path
     List<Rule> getRulesOf(String path) {
 
-        List<Rule> rules = new RuleRegistry().getRules().stream()
+        List<Rule> rules = this.ruleRegistry.getRules().stream()
                 .filter(r -> path.startsWith(r.getPath()))
                 .collect(Collectors.toList());
 
