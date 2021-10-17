@@ -18,9 +18,11 @@ public interface RuleRegistryStorage {
 
     static RuleRegistryStorage make() {
 
+        EnvConfiguration config = new EnvConfiguration();
+
         RuleRegistryStorage ruleRegistryStorage = null;
 
-        String storage = new EnvConfiguration().getStorage();
+        String storage = config.getStorage();
 
         if (storage.equalsIgnoreCase("redis")) {
 
@@ -32,7 +34,7 @@ public interface RuleRegistryStorage {
                 e.printStackTrace();
             }
         } else {
-            ruleRegistryStorage = new FileRuleRegistry();
+            ruleRegistryStorage = new FileRuleRegistry(config.getHome() + "rules.json");
         }
 
         return ruleRegistryStorage;
