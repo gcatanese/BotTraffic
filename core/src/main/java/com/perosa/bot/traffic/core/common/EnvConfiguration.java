@@ -11,6 +11,10 @@ public class EnvConfiguration {
         String home = System.getenv("BT_HOME");
 
         if (home == null || home.isEmpty()) {
+            home = System.getProperty("BT_HOME");
+        }
+
+        if (home == null || home.isEmpty()) {
             home = "config/";
         }
 
