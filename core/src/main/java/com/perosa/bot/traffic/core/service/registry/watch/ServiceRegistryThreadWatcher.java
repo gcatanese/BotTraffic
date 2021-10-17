@@ -27,6 +27,8 @@ public class ServiceRegistryThreadWatcher implements ServiceRegistryWatcher {
 
         timer.schedule(task, delay, period);
 
+        LOGGER.debug("ServiceRegistryThreadWatcher start");
+
     }
 
     void doAction() {

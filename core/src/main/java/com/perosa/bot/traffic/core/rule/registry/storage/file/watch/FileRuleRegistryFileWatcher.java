@@ -32,7 +32,7 @@ public class FileRuleRegistryFileWatcher implements FileRuleRegistryWatcher {
 
     void watch(String filename) throws Exception {
 
-        LOGGER.debug("Watching " + filename);
+        LOGGER.debug("FileRuleRegistryFileWatcher.watch " + filename);
 
         Path file = Paths.get(filename);
         Path folder = file.getParent();

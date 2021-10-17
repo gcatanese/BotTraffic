@@ -32,7 +32,7 @@ public class ServiceRegistryFileWatcher implements ServiceRegistryWatcher {
 
     void watch(String filename) throws Exception {
 
-        LOGGER.debug("Watching " + filename);
+        LOGGER.debug("ServiceRegistryFileWatcher.watch " + filename);
 
         Path file = Paths.get(filename);
         Path folder = file.getParent();
