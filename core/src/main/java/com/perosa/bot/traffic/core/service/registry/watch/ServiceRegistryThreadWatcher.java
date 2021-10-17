@@ -21,7 +21,7 @@ public class ServiceRegistryThreadWatcher implements ServiceRegistryWatcher {
                 doAction();
             }
         };
-        Timer timer = new Timer("ServiceRegistryWatch");
+        Timer timer = new Timer("ServiceRegistryThreadWatcher");
         long delay = 1000L;
         long period = new EnvConfiguration().getThreadWatchInterval();
 
