@@ -16,6 +16,7 @@ public class FileRuleRegistryThreadWatcher implements FileRuleRegistryWatcher {
 
     public FileRuleRegistryThreadWatcher(String location) {
         this.location = location;
+        LOGGER.debug("FileRuleRegistryThreadWatcher.watch " + location);
     }
 
     @Override
@@ -34,11 +35,9 @@ public class FileRuleRegistryThreadWatcher implements FileRuleRegistryWatcher {
 
     }
 
-
     void doAction() {
-        FileRuleRegistry fileRuleRegistry = new FileRuleRegistry("src/test/resources/rules.json");
+        FileRuleRegistry fileRuleRegistry = new FileRuleRegistry(location);
         fileRuleRegistry.setRules(fileRuleRegistry.load());
-
     }
 }
 

@@ -1,6 +1,5 @@
 package com.perosa.bot.traffic.core.rule.registry.storage.file.watch;
 
-import com.perosa.bot.traffic.core.common.EnvConfiguration;
 import com.perosa.bot.traffic.core.rule.registry.storage.file.FileRuleRegistry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,16 +12,20 @@ public class FileRuleRegistryFileWatcher implements FileRuleRegistryWatcher {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileRuleRegistryFileWatcher.class);
 
+    private String location;
+
+    public FileRuleRegistryFileWatcher(String location) {
+        this.location = location;
+    }
+
     @Override
     public void startWatch() {
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(() -> {
 
-            String filename = getLocation();
-
             try {
-                watch(filename);
+                watch(this.location);
             } catch (Exception e) {
                 LOGGER.info(e.getMessage(), e);
             }
@@ -32,10 +35,10 @@ public class FileRuleRegistryFileWatcher implements FileRuleRegistryWatcher {
 
     void watch(String filename) throws Exception {
 
-        LOGGER.debug("FileRuleRegistryFileWatcher.watch " + filename);
-
         Path file = Paths.get(filename);
         Path folder = file.getParent();
+
+        LOGGER.debug("FileRuleRegistryFileWatcher.watch " + folder.toAbsolutePath());
 
         WatchService watchService = FileSystems.getDefault().newWatchService();
 
@@ -46,6 +49,7 @@ public class FileRuleRegistryFileWatcher implements FileRuleRegistryWatcher {
         WatchKey key;
         while ((key = watchService.take()) != null) {
             for (WatchEvent<?> event : key.pollEvents()) {
+                LOGGER.debug(event.kind() + "--> " + event.context() + ".");
                 if (event.context().toString().equalsIgnoreCase(file.getFileName().toString())) {
                     doAction();
                 }
@@ -56,13 +60,10 @@ public class FileRuleRegistryFileWatcher implements FileRuleRegistryWatcher {
     }
 
     void doAction() {
-        FileRuleRegistry fileRuleRegistry = new FileRuleRegistry("src/test/resources/rules.json");
+        FileRuleRegistry fileRuleRegistry = new FileRuleRegistry(location);
         fileRuleRegistry.setRules(fileRuleRegistry.load());
     }
 
-    String getLocation() {
-        return new EnvConfiguration().getHome() + "rules.json";
-    }
 }
 
 

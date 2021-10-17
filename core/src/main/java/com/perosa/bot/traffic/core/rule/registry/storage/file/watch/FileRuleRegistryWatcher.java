@@ -9,7 +9,7 @@ public interface FileRuleRegistryWatcher {
         if(new EnvConfiguration().isThreadWatch()) {
             new FileRuleRegistryThreadWatcher(location).startWatch();
         } else {
-            new FileRuleRegistryFileWatcher().startWatch();
+            new FileRuleRegistryFileWatcher(location).startWatch();
         }
     }
 
