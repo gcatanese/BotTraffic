@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Implements the rule engine
+ */
 public class RuleWorkerImpl implements RuleWorker {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RuleWorkerImpl.class);
@@ -44,7 +47,9 @@ public class RuleWorkerImpl implements RuleWorker {
 
         validate(request);
 
-        List<Rule> rules = getPool(getRequestedPath(request));
+        List<Rule> rules = getRulesOf(getRequestedPath(request));
+
+        LOGGER.debug(rules.toString());
 
         if (rules != null && !rules.isEmpty()) {
 
@@ -67,6 +72,8 @@ public class RuleWorkerImpl implements RuleWorker {
                 consumable = prepareConsumable(rule.getTargetUrls().get(0), rule);
 
                 LOGGER.info("target->" + consumable.getUrl());
+            } else {
+                LOGGER.warn("No target found");
             }
         }
 
@@ -80,7 +87,8 @@ public class RuleWorkerImpl implements RuleWorker {
         return consumable;
     }
 
-    List<Rule> getPool(String path) {
+    // rules for given path
+    List<Rule> getRulesOf(String path) {
 
         List<Rule> rules = new RuleRegistry().getRules().stream()
                 .filter(r -> path.startsWith(r.getPath()))
