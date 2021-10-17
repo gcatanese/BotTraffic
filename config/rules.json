@@ -7,7 +7,7 @@
     "value": "perosa",
     "type": "BODY",
     "status": "ACTIVE",
-    "targets": [
+    "targetServices": [
       {
         "id": "s00001"
       }
@@ -21,7 +21,7 @@
     "value": "facebook",
     "type": "HEADER",
     "status": "ACTIVE",
-    "targets": [
+    "targetServices": [
       {
         "id": "s00002"
       }
@@ -32,7 +32,7 @@
     "path": "/svc2",
     "catchAll": true,
     "status": "ACTIVE",
-    "targets": [
+    "targetServices": [
       {
         "id": "s00003"
       }
