@@ -12,6 +12,12 @@ public class FileRuleRegistryThreadWatcher implements FileRuleRegistryWatcher {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileRuleRegistryThreadWatcher.class);
 
+    private String location;
+
+    public FileRuleRegistryThreadWatcher(String location) {
+        this.location = location;
+    }
+
     @Override
     public void startWatch() {
 
@@ -20,7 +26,7 @@ public class FileRuleRegistryThreadWatcher implements FileRuleRegistryWatcher {
                 doAction();
             }
         };
-        Timer timer = new Timer("RuleRegistryWatch");
+        Timer timer = new Timer("FileRuleRegistryThreadWatcher");
         long delay = 1000L;
         long period = new EnvConfiguration().getThreadWatchInterval();
 
@@ -30,7 +36,8 @@ public class FileRuleRegistryThreadWatcher implements FileRuleRegistryWatcher {
 
 
     void doAction() {
-        new FileRuleRegistry().setRules(new FileRuleRegistry().load());
+        FileRuleRegistry fileRuleRegistry = new FileRuleRegistry("src/test/resources/rules.json");
+        fileRuleRegistry.setRules(fileRuleRegistry.load());
 
     }
 }

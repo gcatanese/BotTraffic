@@ -4,10 +4,10 @@ import com.perosa.bot.traffic.core.common.EnvConfiguration;
 
 public interface FileRuleRegistryWatcher {
 
-    static void init() {
+    static void init(String location) {
 
         if(new EnvConfiguration().isThreadWatch()) {
-            new FileRuleRegistryThreadWatcher().startWatch();
+            new FileRuleRegistryThreadWatcher(location).startWatch();
         } else {
             new FileRuleRegistryFileWatcher().startWatch();
         }

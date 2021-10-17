@@ -25,18 +25,22 @@ public class FileRuleRegistry implements RuleRegistryStorage {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileRuleRegistry.class);
 
+    private String location;
+
     private static List<Rule> rules = null;
 
-    public FileRuleRegistry() {
-        FileRuleRegistryWatcher.init();
+    public FileRuleRegistry(String location) {
+        this.location = location;
+        FileRuleRegistryWatcher.init(location);
     }
 
     @Override
     public List<Rule> load() {
+        LOGGER.info("FileRuleRegistry load " + this.location);
 
         if (rules == null) {
             try {
-                rules = unmarshal(getJson(getLocation()));
+                rules = unmarshal(getJson());
 
                 LOGGER.info("Available rules: " + rules);
 
@@ -94,7 +98,7 @@ public class FileRuleRegistry implements RuleRegistryStorage {
         ObjectMapper objectMapper = new ObjectMapper();
 
         rules = objectMapper
-                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
                 .findAndRegisterModules()
                 .readValue(json, new TypeReference<List<Rule>>() {
                 });
@@ -102,18 +106,17 @@ public class FileRuleRegistry implements RuleRegistryStorage {
         return rules;
     }
 
-    String getJson(String filepath) throws IOException {
+    String getJson() throws IOException {
         String json = "";
 
-        File file = new File(filepath);
+        File file = new File(this.location);
 
         if (!file.exists()) {
-            throw new RuntimeException("File not found: " + filepath);
+            throw new RuntimeException("File not found: " + this.location);
         } else {
             byte[] b = Files.readAllBytes(file.toPath());
             json = new String(b);
         }
-
 
         return json;
     }
