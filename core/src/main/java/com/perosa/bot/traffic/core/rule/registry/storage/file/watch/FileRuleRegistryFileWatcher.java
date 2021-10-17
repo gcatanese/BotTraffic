@@ -56,7 +56,8 @@ public class FileRuleRegistryFileWatcher implements FileRuleRegistryWatcher {
     }
 
     void doAction() {
-        new FileRuleRegistry().setRules(new FileRuleRegistry().load());
+        FileRuleRegistry fileRuleRegistry = new FileRuleRegistry("src/test/resources/rules.json");
+        fileRuleRegistry.setRules(fileRuleRegistry.load());
     }
 
     String getLocation() {
