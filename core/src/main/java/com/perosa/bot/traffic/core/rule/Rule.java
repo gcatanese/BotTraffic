@@ -193,6 +193,7 @@ public class Rule {
                 "id:" + id +
                 ", path:" + path +
                 ", type:" + type +
+                ", operator:" + operator +
                 ", expression:" + expression +
                 ", value:" + value +
                 ", targetServices:" + targetServices +
