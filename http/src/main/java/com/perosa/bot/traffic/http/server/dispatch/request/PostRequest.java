@@ -27,6 +27,7 @@ public class PostRequest extends ParentRequest implements Request {
         this.forwarder = Forwarder.getInstance();
         this.router = new Router(getForwarder());
         this.shadower = new Shadower(getForwarder());
+        // rule engine
         this.ruleWorker = new RuleWorkerImpl();
     }
 
