@@ -1,0 +1,2 @@
+
+java -DBT_HOME=/Users/beppecatanese/Data/source/github/perosa/config/BotTraffic/ -jar http/target/bot-traffic-http.jar
