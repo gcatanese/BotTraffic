@@ -12,13 +12,13 @@ public class RuleAnalyzerTest {
     @Test
     public void findValueInBody() {
 
-        String elementPath = "/from/name";
+        String elementPath = "/country";
 
         BotProxyRequest request = new BotProxyRequest();
         request.setBody(getJsonBody());
 
         RuleAnalyzer ruleAnalyzer = new RuleAnalyzer(request);
-        assertEquals("Mr X", ruleAnalyzer.findValueInBody(elementPath));
+        assertEquals("Italy", ruleAnalyzer.findValueInBody(elementPath));
 
     }
 
@@ -68,6 +68,7 @@ public class RuleAnalyzerTest {
                 "    \"id\": \"default-user\",\n" +
                 "    \"name\": \"Mr X\"\n" +
                 "  },\n" +
+                "  \"country\": \"Italy\",\n" +
                 "  \"locale\": \"en-US\",\n" +
                 "  \"textFormat\": \"plain\",\n" +
                 "  \"timestamp\": \"2017-10-30T15:42:01.323Z\",\n" +
