@@ -21,7 +21,8 @@ See [Examples](wiki/examples.md "Examples") to understand more.
 
 
 ## Deploy 
-
+Copy files in `config` folder and modify them accordingly (add rules and services).   
+Run the Docker image (ARM architecture)
 ```
 docker login
 docker pull perosa/bottraffic
@@ -34,7 +35,7 @@ docker run -p 8080:8886 -v /config:/software/config perosa/bottraffic
 * Customize config/rules.json to define routing rules
 
 
-## Coming soon
+## Evolution and features
 
 In the pipeline:
 - K8s support
