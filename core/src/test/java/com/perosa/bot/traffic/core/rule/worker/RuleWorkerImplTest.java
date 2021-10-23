@@ -220,6 +220,7 @@ public class RuleWorkerImplTest {
         return "{\n" +
                 "  \"type\": \"message\",\n" +
                 "  \"text\": \"ecl18c int trunk\",\n" +
+                // from : { id: "default-user", name: "Mr X"}
                 "  \"from\": {\n" +
                 "    \"id\": \"default-user\",\n" +
                 "    \"name\": \"Mr X\"\n" +
