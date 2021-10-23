@@ -1,4 +1,5 @@
-FROM adoptopenjdk/openjdk11:latest
+#FROM adoptopenjdk/openjdk11:latest
+FROM bellsoft/liberica-openjdk-alpine-musl:11
 
 RUN mkdir -p /software/botTraffic
 RUN mkdir -p /software/botTraffic/config
