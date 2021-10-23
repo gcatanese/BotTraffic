@@ -44,7 +44,7 @@ public class RuleWorkerImpl implements RuleWorker {
     @Override
     public Consumable process(BotProxyRequest request) {
 
-        this.ruleAnalyzer = new RuleAnalyzer(request);
+        this.ruleAnalyzer = new RuleAnalyzerImpl(request);
 
         Consumable consumable = null;
 

@@ -37,7 +37,7 @@ public class RuleWorkerImplTest {
         BotProxyRequest request = new BotProxyRequest();
         request.setBody(getJsonBody());
         RuleWorkerImpl mgr = new RuleWorkerImpl();
-        mgr.setRuleAnalyzer(new RuleAnalyzer(request));
+        mgr.setRuleAnalyzer(new RuleAnalyzerImpl(request));
 
         List<Rule> rules = Arrays.asList(
                 new Rule("/p1", "/from/name", "Mr X", Operator.EQUAL, RuleType.BODY,
@@ -66,7 +66,7 @@ public class RuleWorkerImplTest {
         BotProxyRequest request = new BotProxyRequest();
         request.setBody(getJsonBody2());
         RuleWorkerImpl mgr = new RuleWorkerImpl();
-        mgr.setRuleAnalyzer(new RuleAnalyzer(request));
+        mgr.setRuleAnalyzer(new RuleAnalyzerImpl(request));
 
         List<Rule> rules = Arrays.asList(
                 new Rule("/p1", "/from/name", "Mr X", Operator.EQUAL, RuleType.BODY,
@@ -93,7 +93,7 @@ public class RuleWorkerImplTest {
         BotProxyRequest request = new BotProxyRequest();
         request.setBody(getJsonBody());
         RuleWorkerImpl mgr = new RuleWorkerImpl();
-        mgr.setRuleAnalyzer(new RuleAnalyzer(request));
+        mgr.setRuleAnalyzer(new RuleAnalyzerImpl(request));
 
         List<Rule> rules = Arrays.asList(
                 new Rule("r01", "/p1", true,

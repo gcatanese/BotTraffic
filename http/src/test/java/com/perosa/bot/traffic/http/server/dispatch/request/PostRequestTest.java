@@ -2,14 +2,13 @@ package com.perosa.bot.traffic.http.server.dispatch.request;
 
 import com.perosa.bot.traffic.core.BotProxyRequest;
 import com.perosa.bot.traffic.core.rule.RuleWorkflow;
-import com.perosa.bot.traffic.core.rule.worker.RuleAnalyzer;
+import com.perosa.bot.traffic.core.rule.worker.RuleAnalyzerImpl;
 import com.perosa.bot.traffic.core.rule.worker.RuleWorker;
 import com.perosa.bot.traffic.core.rule.worker.RuleWorkerImpl;
 import com.perosa.bot.traffic.core.service.Consumable;
 import com.perosa.bot.traffic.core.service.ConsumableService;
 import com.perosa.bot.traffic.http.client.Forwarder;
 import com.perosa.bot.traffic.http.client.ForwarderResponse;
-import com.perosa.bot.traffic.http.client.wrap.Get;
 import com.perosa.bot.traffic.http.client.wrap.Post;
 import com.perosa.bot.traffic.http.server.dispatch.workflow.Router;
 import com.perosa.bot.traffic.http.server.dispatch.workflow.Shadower;
@@ -67,7 +66,7 @@ class PostRequestTest {
         BotProxyRequest request = new BotProxyRequest();
         request.setBody("body");
         RuleWorkerImpl mgr = new RuleWorkerImpl();
-        mgr.setRuleAnalyzer(new RuleAnalyzer(request));
+        mgr.setRuleAnalyzer(new RuleAnalyzerImpl(request));
 
 
         Post post = new PostRequest().initPost(getRoutingConsumable(), request);

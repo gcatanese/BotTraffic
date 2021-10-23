@@ -2,7 +2,7 @@ package com.perosa.bot.traffic.http.server.dispatch.request;
 
 import com.perosa.bot.traffic.core.BotProxyRequest;
 import com.perosa.bot.traffic.core.rule.RuleWorkflow;
-import com.perosa.bot.traffic.core.rule.worker.RuleAnalyzer;
+import com.perosa.bot.traffic.core.rule.worker.RuleAnalyzerImpl;
 import com.perosa.bot.traffic.core.rule.worker.RuleWorker;
 import com.perosa.bot.traffic.core.rule.worker.RuleWorkerImpl;
 import com.perosa.bot.traffic.core.service.Consumable;
@@ -65,7 +65,7 @@ class GetRequestTest {
         BotProxyRequest request = new BotProxyRequest();
         request.setBody("body");
         RuleWorkerImpl mgr = new RuleWorkerImpl();
-        mgr.setRuleAnalyzer(new RuleAnalyzer(request));
+        mgr.setRuleAnalyzer(new RuleAnalyzerImpl(request));
 
 
         Get get = new GetRequest().initGet(getRoutingConsumable(), request);

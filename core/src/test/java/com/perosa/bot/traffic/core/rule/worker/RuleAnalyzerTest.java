@@ -17,7 +17,7 @@ public class RuleAnalyzerTest {
         BotProxyRequest request = new BotProxyRequest();
         request.setBody(getJsonBody());
 
-        RuleAnalyzer ruleAnalyzer = new RuleAnalyzer(request);
+        RuleAnalyzerImpl ruleAnalyzer = new RuleAnalyzerImpl(request);
         assertEquals("Italy", ruleAnalyzer.findValueInBody(elementPath));
 
     }
@@ -30,7 +30,7 @@ public class RuleAnalyzerTest {
         BotProxyRequest request = new BotProxyRequest();
         request.setHeaders(Collections.singletonMap("username1", "password1"));
 
-        RuleAnalyzer ruleAnalyzer = new RuleAnalyzer(request);
+        RuleAnalyzerImpl ruleAnalyzer = new RuleAnalyzerImpl(request);
         assertEquals("password1", ruleAnalyzer.findValueInHeaders(elementPath));
 
     }
@@ -42,7 +42,7 @@ public class RuleAnalyzerTest {
 
         BotProxyRequest request = new BotProxyRequest();
 
-        RuleAnalyzer ruleAnalyzer = new RuleAnalyzer(request);
+        RuleAnalyzerImpl ruleAnalyzer = new RuleAnalyzerImpl(request);
         assertEquals("", ruleAnalyzer.findValueInHeaders(elementPath));
 
     }
@@ -55,7 +55,7 @@ public class RuleAnalyzerTest {
         BotProxyRequest request = new BotProxyRequest();
         request.setParameters(Collections.singletonMap("list", new String[]{"val1", "val2"}));
 
-        RuleAnalyzer ruleAnalyzer = new RuleAnalyzer(request);
+        RuleAnalyzerImpl ruleAnalyzer = new RuleAnalyzerImpl(request);
         assertEquals("val1", ruleAnalyzer.findValueInParameters(elementPath));
 
     }
