@@ -9,21 +9,21 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-public class RuleAnalyzer {
+public class RuleAnalyzer implements IRuleAnalyzer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RuleAnalyzer.class);
 
     private BotProxyRequest request;
 
     public RuleAnalyzer() {
-
     }
 
     public RuleAnalyzer(BotProxyRequest request) {
         this.request = request;
     }
 
-    String findValue(Rule rule) {
+    @Override
+    public String findValue(Rule rule) {
         String ret = "";
 
         if (rule.getType() != null && rule.getExpression() != null) {
@@ -40,7 +40,8 @@ public class RuleAnalyzer {
 
     }
 
-    String findValueInBody(String elementPath) {
+    @Override
+    public String findValueInBody(String elementPath) {
         String ret = "";
 
         if (this.request.getBody() != null) {
@@ -63,7 +64,8 @@ public class RuleAnalyzer {
         return ret;
     }
 
-    String findValueInParameters(String parameter) {
+    @Override
+    public String findValueInParameters(String parameter) {
         String ret = "";
 
         if (this.request.getParameters() != null) {
@@ -78,7 +80,8 @@ public class RuleAnalyzer {
     }
 
 
-    String findValueInHeaders(String parameter) {
+    @Override
+    public String findValueInHeaders(String parameter) {
         String ret = "";
 
         if (this.request.getHeaders() != null) {
