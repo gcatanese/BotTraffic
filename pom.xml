@@ -20,17 +20,14 @@
 
         <junit.jupiter.version>5.8.1</junit.jupiter.version>
         <mockito.version>4.0.0</mockito.version>
-
   </properties>
-	
-	
+
     <modules>
         <module>core</module>
         <module>http</module>
     </modules>
 
     <dependencies>
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -42,7 +39,6 @@
             <artifactId>jedis</artifactId>
             <version>3.7.0</version>
         </dependency>
-
 
         <!-- Testing -->
         <dependency>
@@ -69,11 +65,10 @@
             <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
         <finalName>botTraffic</finalName>
     </build>
-    
+
 </project>
