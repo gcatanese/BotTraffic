@@ -70,7 +70,6 @@ public class RuleWorkerImpl implements RuleWorker {
                 LOGGER.info("target->" + consumable.getUrl());
             } else if (rule != null && rule.getTargetUrls() != null && !rule.getTargetUrls().isEmpty()) {
                 // fetch destination url
-
                 consumable = prepareConsumable(rule.getTargetUrls().get(0), rule);
 
                 LOGGER.info("target->" + consumable.getUrl());
