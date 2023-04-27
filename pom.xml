@@ -18,8 +18,8 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
 
+        <mockito.version>5.2.0</mockito.version>
         <junit.jupiter.version>5.9.3</junit.jupiter.version>
-        <mockito.version>4.11.0</mockito.version>
   </properties>
 
     <modules>
